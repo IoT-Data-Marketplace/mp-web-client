@@ -1,8 +1,20 @@
 import React from 'react';
-import './App.css';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { ThemeProvider } from '@material-ui/styles';
+import Routes from './Routes';
+import theme from './theme/Theme';
+
+const browserHistory = createBrowserHistory();
 
 function App() {
-  return <div className="App">IoT Data Marketplace</div>;
+  return (
+    <ThemeProvider theme={theme}>
+      <Router history={browserHistory}>
+        <Routes />
+      </Router>
+    </ThemeProvider>
+  );
 }
 
 export default App;

@@ -25,6 +25,9 @@
   ],
   "ignorePatterns": ["src/serviceWorker.ts"],
   "rules": {
+    "no-underscore-dangle": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/no-extraneous-dependencies": "warn",
     "import/extensions": [
       "error",
       "ignorePackages",
