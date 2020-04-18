@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Main from '../../layouts/Main/Main';
@@ -12,16 +11,7 @@ interface Props {
 const RouteWithLayout = (props: Props) => {
   const { layout, component, ...rest } = props;
 
-  return (
-    <Route
-      {...rest}
-      render={(matchProps) => (
-        <Main>
-          {component}
-        </Main>
-      )}
-    />
-  );
+  return <Route {...rest} render={(matchProps) => <Main>{component}</Main>} />;
 };
 
 export default RouteWithLayout;

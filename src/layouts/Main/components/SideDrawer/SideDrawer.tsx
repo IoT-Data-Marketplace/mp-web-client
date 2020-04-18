@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     drawerPaper: {
       width: drawerWidth,
       backgroundColor: theme.palette.primary.main,
+      color: 'white',
     },
   })
 );
@@ -59,6 +60,9 @@ const _SideDrawer = (props: Props) => {
 
   const sideList = () => (
     <div
+      style={{
+        paddingTop: ui.isDrawerOpen ? '64px' : '0'
+      }}
       className={classes.list}
       role="presentation"
       onClick={onToggleDrawer(false)}
@@ -82,13 +86,12 @@ const _SideDrawer = (props: Props) => {
     <>
       <Drawer
         className={classes.drawer}
-        variant="permanent"
+        variant="persistent"
         classes={{
           paper: classes.drawerPaper,
         }}
         open={ui.isDrawerOpen}
         onClose={onToggleDrawer(false)}
-        // onOpen={onToggleDrawer(true)}
       >
         {sideList()}
       </Drawer>

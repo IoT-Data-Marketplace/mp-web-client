@@ -10,7 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideDrawer from '../SideDrawer/SideDrawer';
-import { toggleDrawer } from '../../../../state/actions';
+import { toggleDrawer, Ui } from '../../../../state/actions';
 import { StoreState } from '../../../../state/reducers';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   children?: React.ReactElement;
   toggleDrawer: typeof toggleDrawer;
+  ui: Ui;
 }
 
 function HideOnScroll(props: Props) {
@@ -53,9 +54,10 @@ function HideOnScroll(props: Props) {
 
 const _Header = (props: Props) => {
   const classes = useStyles();
+  const { ui } = props;
 
   const onDrawerButtonClicked = (): void => {
-    props.toggleDrawer(true);
+    props.toggleDrawer(!ui.isDrawerOpen);
   };
 
   return (

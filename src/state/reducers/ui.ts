@@ -1,7 +1,7 @@
 import { Action, ActionTypes, Ui } from '../actions';
 
 const initialState = {
-  isDrawerOpen: true,
+  isDrawerOpen: false,
 };
 
 const uiReducer = (state: Ui = initialState, action: Action) => {
