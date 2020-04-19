@@ -1,7 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Header from './components';
+import Header from '../shared/Header';
+import HeaderContent from './components/HeaderContent';
+import SideDrawer from '../shared/SideDrawer';
+import SideDrawerContent from './components/SideDrawerContent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +29,8 @@ const BuyDashboardLayout = (props: Props) => {
 
   return (
     <>
-      <Header />
+      <Header headerContent={<HeaderContent />} />
+      <SideDrawer content={<SideDrawerContent/>} />
       <main className={clsx(classes.content)}>{children}</main>
     </>
   );

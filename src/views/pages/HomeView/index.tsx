@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Page from '../../../components/Page';
 import Top from './Top';
 import Features from './Features';
-import SaleBuy from './SaleBuy';
+import SellBuy from './SellBuy';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,7 +19,7 @@ function HomeView() {
       <>
         <Top />
         <Features />
-        <SaleBuy />
+        <SellBuy />
       </>
     </Page>
   );

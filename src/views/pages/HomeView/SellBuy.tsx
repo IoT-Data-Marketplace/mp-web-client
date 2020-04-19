@@ -26,7 +26,7 @@ interface Props {
   rest?: any;
 }
 
-function SaleBuy(props: Props) {
+function SellBuy(props: Props) {
   const classes = useStyles();
   const { className, rest } = props;
   return (
@@ -36,7 +36,7 @@ function SaleBuy(props: Props) {
           Ready to start trading?
         </Typography>
         <Typography variant="h1" align="center" color="secondary">
-          Chose whether you want to buy or sale data streams.
+          Chose whether you want to buy or sell data streams.
         </Typography>
         <Box mt={6} display="flex" justifyContent="center" alignItems="center">
           <Grid container spacing={3}>
@@ -63,9 +63,9 @@ function SaleBuy(props: Props) {
                   alignItems: 'center',
                 }}
               >
-                <RouterLink to="/app/sale/dashboard">
+                <RouterLink to="/app/sell/dashboard">
                   <Button size="large" color="secondary" variant="contained">
-                    Sale
+                    Sell
                   </Button>
                 </RouterLink>
               </Box>
@@ -77,4 +77,4 @@ function SaleBuy(props: Props) {
   );
 }
 
-export default SaleBuy;
+export default SellBuy;

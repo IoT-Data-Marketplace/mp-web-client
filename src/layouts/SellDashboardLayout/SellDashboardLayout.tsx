@@ -1,7 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Header from './components';
+import Header from '../shared/Header';
+import HeaderContent from './components/HeaderContent';
+import SideDrawer from '../shared/SideDrawer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,17 +21,18 @@ interface Props {
   children?: React.ReactNode;
 }
 
-const SaleDashboardLayout = (props: Props) => {
+const SellDashboardLayout = (props: Props) => {
   const { children } = props;
 
   const classes = useStyles();
 
   return (
     <>
-      <Header />
+      <Header headerContent={<HeaderContent />} />
+      <SideDrawer content={<div>sell data side drawer content</div>} />
       <main className={clsx(classes.content)}>{children}</main>
     </>
   );
 };
 
-export { SaleDashboardLayout as default };
+export { SellDashboardLayout as default };

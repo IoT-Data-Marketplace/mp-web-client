@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, Fragment } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import Main from './layouts/Main/MainLayout';
-import SaleDashboardLayout from './layouts/SaleDashboardLayout/SaleDashboardLayout';
+import SellDashboardLayout from './layouts/SellDashboardLayout/SellDashboardLayout';
 import BuyDashboardLayout from './layouts/BuyDashboardLayout/BuyDashboardLayout';
 import LoadingScreen from './components/LoadingScreen';
 import HomeView from './views/pages/HomeView';
@@ -37,13 +37,13 @@ const routesConfig = [
     path: '/app',
     routes: [
       {
-        path: '/app/sale',
-        layout: SaleDashboardLayout,
+        path: '/app/sell',
+        layout: SellDashboardLayout,
         routes: [
           {
             exact: true,
-            path: '/app/sale/dashboard',
-            component: () => <div>sale dashboard</div>,
+            path: '/app/sell/dashboard',
+            component: () => <div>sell dashboard</div>,
           },
           {
             component: () => <Redirect to="/404" />,
