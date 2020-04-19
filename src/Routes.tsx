@@ -1,7 +1,10 @@
 import React, { lazy, Suspense, Fragment } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
-import Main from './layouts/Main/Main';
+import Main from './layouts/Main/MainLayout';
+import SaleDashboardLayout from './layouts/SaleDashboardLayout/SaleDashboardLayout';
+import BuyDashboardLayout from './layouts/BuyDashboardLayout/BuyDashboardLayout';
 import LoadingScreen from './components/LoadingScreen';
+import HomeView from './views/pages/HomeView';
 
 interface Rt {
   exact?: boolean;
@@ -27,8 +30,44 @@ const routesConfig = [
   {
     exact: true,
     path: '/home',
-    component: () => <div>Hi there from home</div>,
+    component: () => <HomeView />,
     layout: Main,
+  },
+  {
+    path: '/app',
+    routes: [
+      {
+        path: '/app/sale',
+        layout: SaleDashboardLayout,
+        routes: [
+          {
+            exact: true,
+            path: '/app/sale/dashboard',
+            component: () => <div>sale dashboard</div>,
+          },
+          {
+            component: () => <Redirect to="/404" />,
+          },
+        ],
+      },
+      {
+        path: '/app/buy',
+        layout: BuyDashboardLayout,
+        routes: [
+          {
+            exact: true,
+            path: '/app/buy/dashboard',
+            component: () => <div>buy dashboard</div>,
+          },
+          {
+            component: () => <Redirect to="/404" />,
+          },
+        ],
+      },
+      {
+        component: () => <Redirect to="/404" />,
+      },
+    ],
   },
   {
     exact: false,
