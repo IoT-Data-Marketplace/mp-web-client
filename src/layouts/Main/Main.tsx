@@ -4,7 +4,7 @@ import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 
 import { connect } from 'react-redux';
 import Header from './components';
-import { StoreState } from '../../state/reducers';
+import { StoreState } from '../../interfaces';
 import { toggleDrawer, Ui } from '../../state/actions';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,7 +55,6 @@ const _Main = (props: Props) => {
   return (
     <>
       <Header />
-
       <main
         style={{
           paddingLeft: ui.isDrawerOpen ? '286px' : '30px',

@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import SideDrawer from '../SideDrawer/SideDrawer';
 import { toggleDrawer, Ui } from '../../../../state/actions';
-import { StoreState } from '../../../../state/reducers';
+import { StoreState } from '../../../../interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

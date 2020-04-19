@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import LanguageIcon from '@material-ui/icons/Language';
 import { connect } from 'react-redux';
 import { toggleDrawer, Ui } from '../../../../state/actions';
-import { StoreState } from '../../../../state/reducers';
+import { StoreState } from '../../../../interfaces';
 
 const drawerWidth = 256;
 
@@ -61,7 +61,7 @@ const _SideDrawer = (props: Props) => {
   const sideList = () => (
     <div
       style={{
-        paddingTop: ui.isDrawerOpen ? '64px' : '0'
+        paddingTop: ui.isDrawerOpen ? '64px' : '0',
       }}
       className={classes.list}
       role="presentation"

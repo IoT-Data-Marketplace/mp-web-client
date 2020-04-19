@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import { Ui } from '../actions';
 import uiReducer from './ui';
+import accountReducer from './account';
+import { StoreState } from '../../interfaces';
 
-export interface StoreState {
-  ui: Ui;
-}
-
-export const reducers = combineReducers<StoreState>({
+const reducers = combineReducers<StoreState>({
   ui: uiReducer,
+  account: accountReducer,
 });
+
+export { reducers as default };

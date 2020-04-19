@@ -27,6 +27,8 @@
   "rules": {
     "no-underscore-dangle": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "import/no-extraneous-dependencies": "warn",
     "import/extensions": [
       "error",
