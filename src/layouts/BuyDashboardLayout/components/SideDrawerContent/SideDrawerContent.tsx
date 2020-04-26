@@ -94,7 +94,9 @@ const navBarConfig = [
 function renderNavItems(config: NavBarConfig[]) {
   return config.map((itemGroup, index) => (
     <>
-      <Typography variant="h5">{itemGroup.subheader}</Typography>
+      <Typography key={index} variant="h5">
+        {itemGroup.subheader}
+      </Typography>
       <List disablePadding>
         {itemGroup.items.map((item, index2) => (
           <ListItem button>

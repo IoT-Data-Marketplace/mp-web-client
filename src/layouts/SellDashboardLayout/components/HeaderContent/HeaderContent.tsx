@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toggleDrawer } from '../../../../state/actions';
 import { StoreState } from '../../../../interfaces';
+import { getProducerByContractAddress } from '../../../../state/actions/producer';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +30,7 @@ const HeaderContent = () => {
 
   const onDrawerButtonClicked = (): void => {
     dispatch(toggleDrawer(!isDrawerOpen));
+    dispatch(getProducerByContractAddress('some random address'));
   };
 
   return (

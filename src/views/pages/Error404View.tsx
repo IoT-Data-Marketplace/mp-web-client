@@ -8,25 +8,23 @@ import {
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Page from '../../components/Page';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      backgroundColor: theme.palette.primary.dark,
-      minHeight: '100%',
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(3),
-      paddingTop: 80,
-      paddingBottom: 80,
-    },
-    image: {
-      maxWidth: '100%',
-      width: 560,
-      maxHeight: 300,
-      height: 'auto',
-    },
-  })
-);
+const useStyles = makeStyles((theme: any) => ({
+  root: {
+    backgroundColor: theme.palette.background.dark,
+    minHeight: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    padding: theme.spacing(3),
+    paddingTop: 80,
+    paddingBottom: 80,
+  },
+  image: {
+    maxWidth: '100%',
+    width: 560,
+    maxHeight: 300,
+    height: 'auto',
+  },
+}));
 
 function Error404View() {
   const classes = useStyles();
