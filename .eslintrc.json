@@ -26,7 +26,10 @@
   "ignorePatterns": ["src/serviceWorker.ts"],
   "rules": {
     "no-underscore-dangle": "off",
+    "eslint-disable-next-line": "off",
+    "jsx-a11y/anchor-is-valid": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/jsx-one-expression-per-line": "off",
     "react/no-array-index-key": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "import/no-extraneous-dependencies": "warn",

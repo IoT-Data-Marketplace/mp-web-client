@@ -5,6 +5,8 @@ import SellDashboardLayout from './layouts/SellDashboardLayout/SellDashboardLayo
 import BuyDashboardLayout from './layouts/BuyDashboardLayout/BuyDashboardLayout';
 import LoadingScreen from './components/LoadingScreen';
 import HomeView from './views/pages/HomeView';
+import AuthGuard from './components/AuthGuard';
+import GuestGuard from "./components/GuestGuard";
 
 interface Rt {
   exact?: boolean;
@@ -29,12 +31,25 @@ const routesConfig = [
   },
   {
     exact: true,
+    guard: GuestGuard,
+    path: '/login',
+    component: lazy(() => import('./views/auth/LoginView')),
+  },
+  {
+    exact: true,
+    guard: GuestGuard,
+    path: '/register',
+    component: lazy(() => import('./views/auth/RegisterView')),
+  },
+  {
+    exact: true,
     path: '/home',
     component: () => <HomeView />,
     layout: Main,
   },
   {
     path: '/app',
+    guard: AuthGuard,
     routes: [
       {
         path: '/app/sell',

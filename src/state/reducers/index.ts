@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
-import uiReducer from './ui';
 import accountReducer from './account';
+import uiReducer from './ui';
+import dataMarketplaceReducer from './dataMarketplace';
 import { StoreState } from '../../interfaces';
+import defaultValuesReducer from './defaultValues';
 
 const reducers = combineReducers<StoreState>({
-  ui: uiReducer,
+  defaultValues: defaultValuesReducer,
   account: accountReducer,
+  ui: uiReducer,
+  dataMarketplace: dataMarketplaceReducer,
 });
 
 export { reducers as default };

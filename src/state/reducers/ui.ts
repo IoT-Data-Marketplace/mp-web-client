@@ -1,4 +1,7 @@
-import { Action, ActionTypes, Ui } from '../actions';
+import { Action, ActionTypes } from '../actions';
+
+import { Ui } from '../interfaces';
+
 
 const initialState = {
   isDrawerOpen: false,

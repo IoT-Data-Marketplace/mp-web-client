@@ -3,9 +3,6 @@ import { request } from 'graphql-request';
 import { ActionTypes } from './types';
 import { getProducerByContractAddressGQLQuery } from './gqlQueries';
 
-export interface Producer {
-  producerContractAddress: string;
-}
 export interface GetProducerByContractAddressAction {
   type: ActionTypes.getProducerByContractAddress;
   producerContractAddress: string;

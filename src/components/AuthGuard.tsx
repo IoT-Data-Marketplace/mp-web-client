@@ -7,15 +7,15 @@ interface Props {
   children?: React.ReactElement;
 }
 
-const GuestGuard = (props: Props) => {
+const AuthGuard = (props: Props) => {
   const { children } = props;
   const account = useSelector((state: StoreState) => state.account);
 
-  if (account.isLoggedIn) {
-    return <Redirect to="/app/account" />;
+  if (!account.isLoggedIn) {
+    return <Redirect to="/login" />;
   }
 
   return children;
 };
 
-export default GuestGuard;
+export default AuthGuard;
