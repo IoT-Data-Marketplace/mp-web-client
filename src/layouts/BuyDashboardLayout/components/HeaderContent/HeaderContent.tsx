@@ -7,7 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {getDataMarketplaceByContractAddress, toggleDrawer} from '../../../../state/actions';
-import { StoreState } from '../../../../interfaces';
+import { StoreState } from '../../../../state/interfaces/storeState';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

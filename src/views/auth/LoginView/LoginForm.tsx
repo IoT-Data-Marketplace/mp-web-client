@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Box, Button, TextField, makeStyles } from '@material-ui/core';
-import { StoreState } from '../../../interfaces';
+import { StoreState } from '../../../state/interfaces/storeState';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -19,26 +19,29 @@ interface Props {
 function LoginForm(props: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { accountRoles } = useSelector(
-    (state: StoreState) => state.defaultValues
-  );
   const { className, rest, onSubmitSuccess } = props;
 
   return (
     <Formik
-      initialValues={{
-        accountRole: '',
-      }}
+      initialValues={{}}
       validationSchema={Yup.object().shape({
         email: Yup.string()
           .email('Must be a valid email')
           .max(255)
           .required('Email is required'),
         password: Yup.string().max(255).required('Password is required'),
-        accountRole: Yup.string().required('Please select your Role'),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        console.log('submitting the form...');
+        // try {
+        //   await dispatch(login(values.email, values.password));
+        //   onSubmitSuccess();
+        // } catch (error) {
+        //   const message = (error.response && error.response.data.message) || 'Something went wrong';
+        //
+        //   setStatus({ success: false });
+        //   setErrors({ submit: message });
+        //   setSubmitting(false);
+        // }
       }}
     >
       {({
@@ -55,27 +58,6 @@ function LoginForm(props: Props) {
           onSubmit={handleSubmit}
           {...rest}
         >
-          <TextField
-            error={Boolean(touched.accountRole && errors.accountRole)}
-            helperText={touched.accountRole && errors.accountRole}
-            fullWidth
-            autoFocus
-            margin="normal"
-            label="Select Role"
-            name="accountRole"
-            onChange={handleChange}
-            select
-            SelectProps={{ native: true }}
-            value={values.accountRole}
-            variant="outlined"
-          >
-            {accountRoles.map((role) => (
-              <option key={role} value={role}>
-                {role}
-              </option>
-            ))}
-          </TextField>
-
           <Box mt={2}>
             <Button
               color="secondary"

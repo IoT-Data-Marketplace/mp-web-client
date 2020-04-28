@@ -1,4 +1,4 @@
-import { Account, Ui, DataMarketplace, DefaultValues} from '../state/interfaces';
+import { Account, Ui, DataMarketplace, DefaultValues} from './index';
 
 export interface StoreState {
   defaultValues: DefaultValues;

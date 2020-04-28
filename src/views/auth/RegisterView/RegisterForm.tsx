@@ -13,7 +13,8 @@ import {
   Link,
   makeStyles,
 } from '@material-ui/core';
-import { StoreState } from '../../../interfaces';
+import { StoreState } from '../../../state/interfaces/storeState';
+import { signUp } from '../../../state/actions/auth';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -29,28 +30,29 @@ function RegisterForm(props: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { className, rest, onSubmitSuccess } = props;
-  const { accountRoles } = useSelector(
-    (state: StoreState) => state.defaultValues
-  );
 
   return (
     <Formik
       initialValues={{
-        accountName: '',
-        accountURL: '',
-        accountEmail: '',
-        accountRole: '',
+        accountName: 'Danijel',
+        accountURL: 'http://www.danijel.com',
+        accountEmail: 'danijel.fon@gmail.com',
         policy: false,
       }}
       validationSchema={Yup.object().shape({
         accountName: Yup.string().max(255).required('Name is required'),
         accountURL: Yup.string().url('Must be a valid URL').max(255),
         accountEmail: Yup.string().email('Must be a valid Email').max(255),
-        accountRole: Yup.string().required('Please select your Role'),
         policy: Yup.boolean().oneOf([true], 'This field must be checked'),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        console.log('registering ...');
+        dispatch(
+          signUp({
+            accountName: values.accountName,
+            accountURL: values.accountURL,
+            accountEmail: values.accountEmail,
+          })
+        );
       }}
     >
       {({
@@ -106,28 +108,6 @@ function RegisterForm(props: Props) {
             value={values.accountEmail}
             variant="outlined"
           />
-
-          <TextField
-            error={Boolean(touched.accountRole && errors.accountRole)}
-            helperText={touched.accountRole && errors.accountRole}
-            fullWidth
-            autoFocus
-            // onBlur={handleBlur}
-            margin="normal"
-            label="Role"
-            name="accountRole"
-            onChange={handleChange}
-            select
-            SelectProps={{ native: true }}
-            value={values.accountRole}
-            variant="outlined"
-          >
-            {accountRoles.map((role) => (
-              <option key={role} value={role}>
-                {role}
-              </option>
-            ))}
-          </TextField>
 
           <Box alignItems="center" display="flex" mt={2} ml={-1}>
             <Checkbox

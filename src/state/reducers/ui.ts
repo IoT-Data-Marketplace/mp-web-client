@@ -2,9 +2,9 @@ import { Action, ActionTypes } from '../actions';
 
 import { Ui } from '../interfaces';
 
-
 const initialState = {
   isDrawerOpen: false,
+  isLoading: false,
 };
 
 const uiReducer = (state: Ui = initialState, action: Action) => {
@@ -13,6 +13,11 @@ const uiReducer = (state: Ui = initialState, action: Action) => {
       return {
         ...state,
         isDrawerOpen: action.isDrawerOpen,
+      };
+    case ActionTypes.toggleIsLoading:
+      return {
+        ...state,
+        isLoading: action.isLoading,
       };
     default:
       return state;

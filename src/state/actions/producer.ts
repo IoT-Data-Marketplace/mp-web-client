@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { request } from 'graphql-request';
 import { ActionTypes } from './types';
-import { getProducerByContractAddressGQLQuery } from './gqlQueries';
+import { getProducerByContractAddressGQLQuery } from './graphQlQueris/gqlQueries';
 
 export interface GetProducerByContractAddressAction {
   type: ActionTypes.getProducerByContractAddress;
