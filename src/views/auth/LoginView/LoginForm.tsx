@@ -1,10 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { Box, Button, TextField, makeStyles } from '@material-ui/core';
-import { StoreState } from '../../../state/interfaces/storeState';
+import { Box, Button, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -18,8 +16,7 @@ interface Props {
 
 function LoginForm(props: Props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { className, rest, onSubmitSuccess } = props;
+  const { className, rest } = props;
 
   return (
     <Formik

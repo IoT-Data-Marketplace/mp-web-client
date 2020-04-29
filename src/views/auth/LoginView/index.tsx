@@ -127,7 +127,7 @@ function LoginView() {
           </CardContent>
           <CardMedia
             className={classes.media}
-            image="/static/home/IoTSolutions.svg"
+            image="/static/images/IoTSolutions.svg"
             title="Cover"
           />
         </Card>

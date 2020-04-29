@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, Fragment } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import Main from './layouts/Main/MainLayout';
-import BuyDashboardLayout from './layouts/DashboardLayout/DashboardLayout';
+import DashboardLayout from './layouts/DashboardLayout/DashboardLayout';
 import LoadingScreen from './components/LoadingScreen';
 import HomeView from './views/pages/HomeView';
 import AuthGuard from './components/AuthGuard';
@@ -49,12 +49,17 @@ const routesConfig = [
   {
     path: '/app',
     guard: AuthGuard,
-    layout: BuyDashboardLayout,
+    layout: DashboardLayout,
     routes: [
       {
         exact: true,
-        path: '/app/dashboard',
-        component: () => <div>buy dashboard</div>,
+        path: '/app',
+        component: () => <Redirect to="/app/overview" />,
+      },
+      {
+        exact: true,
+        path: '/app/overview',
+        component: lazy(() => import('./views/OverviewView')),
       },
       {
         component: () => <Redirect to="/404" />,

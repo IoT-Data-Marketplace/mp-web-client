@@ -2,25 +2,63 @@ import { Dispatch } from 'redux';
 import IoTDataMarketplace from '../../blockchain/ioTDataMarketplace';
 import DataStreamEntity from '../../blockchain/dataStreamEntity';
 import { ActionTypes } from './types';
-import { SignInFormData, SignUpFormData } from '../interfaces/formData';
+import { SignUpFormData } from '../interfaces/formData';
 import web3 from '../../blockchain/web3';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
+import { populateDataStreamEntity } from '../helpers/populateDataStreamEntity';
+import {
+  setDataStreamEntity,
+  SetDataStreamEntityAction,
+} from './dataStreamEntity';
+
+export interface ToggleIsLoggedInAction {
+  type: ActionTypes.toggleIsLoggedIn;
+  isLoggedIn: boolean;
+}
+
+export const toggleIsLoggedIn = (
+  isLoggedIn: boolean
+): ToggleIsLoggedInAction => {
+  return {
+    type: ActionTypes.toggleIsLoggedIn,
+    isLoggedIn,
+  };
+};
 
 export interface SignInAction {
   type: ActionTypes.signIn;
-  signInFormData: SignInFormData;
 }
 
-export const signIn = (signInFormData: SignInFormData) => {
+export const signIn = () => {
   return async (dispatch: Dispatch) => {
     try {
-      const dataMarketplaceResult = await IoTDataMarketplace()
-        .methods.describeIoTDataMarketplace()
+      dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
+      const accounts = await web3.eth.getAccounts();
+
+      const dataStreamEntityContractAddress = await IoTDataMarketplace()
+        .methods.getDataStreamEntityContractAddressForOwnerAddress(accounts[0])
+        .call();
+      dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
+
+      const dataStreamEntityResult = await DataStreamEntity(
+        dataStreamEntityContractAddress
+      )
+        .methods.describeDataStreamEntity()
         .call();
 
-      console.log('marketplace result: ', dataMarketplaceResult);
+      const populatedDataStreamEntity = populateDataStreamEntity(
+        dataStreamEntityResult,
+        dataStreamEntityContractAddress
+      );
+
+      dispatch<SetDataStreamEntityAction>(
+        setDataStreamEntity(populatedDataStreamEntity)
+      );
     } catch (e) {
-      console.error('Error while describing the Data Marketplace, Error: ', e);
+      dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));
+      throw e;
+    } finally {
+      dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
     }
   };
 };
@@ -47,14 +85,27 @@ export const signUp = (signUpFormData: SignUpFormData) => {
       const dataStreamEntityContractAddress = await IoTDataMarketplace()
         .methods.getDataStreamEntityContractAddressForOwnerAddress(accounts[0])
         .call();
+      dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
 
-      console.log(
-        'dataStreamEntityContractAddress: ',
+      const dataStreamEntityResult = await DataStreamEntity(
+        dataStreamEntityContractAddress
+      )
+        .methods.describeDataStreamEntity()
+        .call();
+
+      const populatedDataStreamEntity = populateDataStreamEntity(
+        dataStreamEntityResult,
         dataStreamEntityContractAddress
       );
+
+      dispatch<SetDataStreamEntityAction>(
+        setDataStreamEntity(populatedDataStreamEntity)
+      );
     } catch (e) {
-      dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
+      dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));
       throw e;
+    } finally {
+      dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
     }
   };
 };

@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {getDataMarketplaceByContractAddress, toggleDrawer} from '../../../../state/actions';
+import { toggleDrawer } from '../../../../state/actions';
 import { StoreState } from '../../../../state/interfaces/storeState';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +29,6 @@ const HeaderContent = () => {
 
   const onDrawerButtonClicked = (): void => {
     dispatch(toggleDrawer(!isDrawerOpen));
-    dispatch(getDataMarketplaceByContractAddress());
   };
 
   return (

@@ -2,10 +2,10 @@ import React from 'react';
 import {
   Container,
   Typography,
-  useTheme,
   useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Page from '../../components/Page';
 
 const useStyles = makeStyles((theme: any) => ({

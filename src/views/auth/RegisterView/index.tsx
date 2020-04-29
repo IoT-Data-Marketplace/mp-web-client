@@ -38,7 +38,7 @@ function RegisterView() {
   const history = useHistory();
 
   const handleSubmitSuccess = () => {
-    history.push('/app/login');
+    history.push('/app');
   };
 
   return (

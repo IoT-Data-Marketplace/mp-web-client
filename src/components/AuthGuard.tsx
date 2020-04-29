@@ -9,7 +9,7 @@ interface Props {
 
 const AuthGuard = (props: Props) => {
   const { children } = props;
-  const account = useSelector((state: StoreState) => state.account);
+  const account = useSelector((state: StoreState) => state.auth);
 
   if (!account.isLoggedIn) {
     return <Redirect to="/login" />;

@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { Helmet } from 'react-helmet';
 
 interface Props {
   children?: React.ReactElement;
@@ -11,7 +12,9 @@ const Page = forwardRef((props: Props) => {
 
   return (
     <div className={className}>
-      <title>{title}</title>
+      <Helmet>
+        <title>{title}</title>
+      </Helmet>
       {children}
     </div>
   );

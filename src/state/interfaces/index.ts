@@ -1,4 +1,5 @@
 export * from './dataMarketplace';
 export * from './ui';
-export * from './account';
+export * from './auth';
 export * from './defaultValues';
+export * from './dataStreamEntity';

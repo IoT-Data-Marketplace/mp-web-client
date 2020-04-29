@@ -1,8 +1,15 @@
-import { Account, Ui, DataMarketplace, DefaultValues} from './index';
+import {
+  Auth,
+  Ui,
+  DataMarketplace,
+  DefaultValues,
+  DataStreamEntity,
+} from './index';
 
 export interface StoreState {
   defaultValues: DefaultValues;
-  account: Account;
+  auth: Auth;
   ui: Ui;
   dataMarketplace: DataMarketplace;
+  dataStreamEntity: DataStreamEntity;
 }

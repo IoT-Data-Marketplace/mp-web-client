@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -8,12 +8,11 @@ import {
   Button,
   Checkbox,
   FormHelperText,
-  TextField,
-  Typography,
   Link,
   makeStyles,
+  TextField,
+  Typography,
 } from '@material-ui/core';
-import { StoreState } from '../../../state/interfaces/storeState';
 import { signUp } from '../../../state/actions/auth';
 
 const useStyles = makeStyles(() => ({
@@ -46,13 +45,20 @@ function RegisterForm(props: Props) {
         policy: Yup.boolean().oneOf([true], 'This field must be checked'),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        dispatch(
-          signUp({
-            accountName: values.accountName,
-            accountURL: values.accountURL,
-            accountEmail: values.accountEmail,
-          })
-        );
+        try {
+          await dispatch(
+            signUp({
+              accountName: values.accountName,
+              accountURL: values.accountURL,
+              accountEmail: values.accountEmail,
+            })
+          );
+          onSubmitSuccess();
+        } catch (error) {
+          // setStatus({ success: false });
+          // setErrors({ submit: error.message });
+          // setSubmitting(false);
+        }
       }}
     >
       {({

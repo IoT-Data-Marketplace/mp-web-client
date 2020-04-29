@@ -48,7 +48,7 @@ function SellBuy(props: Props) {
                   alignItems: 'center',
                 }}
               >
-                <RouterLink to="/app/buy/dashboard">
+                <RouterLink to="/app">
                   <Button size="large" color="secondary" variant="contained">
                     buy
                   </Button>
@@ -63,7 +63,7 @@ function SellBuy(props: Props) {
                   alignItems: 'center',
                 }}
               >
-                <RouterLink to="/app/sell/dashboard">
+                <RouterLink to="/app">
                   <Button size="large" color="secondary" variant="contained">
                     Sell
                   </Button>

@@ -9,10 +9,10 @@ interface Props {
 
 const GuestGuard = (props: Props) => {
   const { children } = props;
-  const account = useSelector((state: StoreState) => state.account);
+  const account = useSelector((state: StoreState) => state.auth);
 
   if (account.isLoggedIn) {
-    return <Redirect to="/app/dashboard" />;
+    return <Redirect to="/app" />;
   }
 
   return children;

@@ -1,56 +1,16 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useLocation, matchPath } from 'react-router';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUserOutlined';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
+import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocationIcon from '@material-ui/icons/LocationCity';
 import DeviceIcon from '@material-ui/icons/DeviceHub';
-import {
-  Box,
-  Link,
-  Typography,
-  ListSubheader,
-  List,
-  SvgIconTypeMap,
-} from '@material-ui/core';
+import { Box, Link, List, Typography } from '@material-ui/core';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Divider from '@material-ui/core/Divider';
-import {
-  Briefcase as BriefcaseIcon,
-  Calendar as CalendarIcon,
-  ShoppingCart as ShoppingCartIcon,
-  Folder as FolderIcon,
-  BarChart as BarChartIcon,
-  Lock as LockIcon,
-  UserPlus as UserPlusIcon,
-  Shield as ShieldIcon,
-  AlertCircle as AlertCircleIcon,
-  Trello as TrelloIcon,
-  User as UserIcon,
-  Layout as LayoutIcon,
-  Edit as EditIcon,
-  DollarSign as DollarSignIcon,
-  Mail as MailIcon,
-  MessageCircle as MessageCircleIcon,
-  PieChart as PieChartIcon,
-  Share2 as ShareIcon,
-  Users as UsersIcon,
-} from 'react-feather';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-      // color: 'inherit',
-      textDecoration: 'none',
-    },
-  })
-);
+import { Users as UsersIcon } from 'react-feather';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../../../state/interfaces/storeState';
 
 interface NavBarItem {
   title: string;
@@ -70,12 +30,12 @@ const navBarConfig = [
       {
         title: 'By Location',
         icon: LocationIcon,
-        href: '/app/buy/search/location',
+        href: '/app/search/location',
       },
       {
         title: 'By Sensor Type',
         icon: DeviceIcon,
-        href: '/app/buy/management/streams',
+        href: '/app/management/streams',
       },
     ],
   },
@@ -85,7 +45,7 @@ const navBarConfig = [
       {
         title: 'Streams',
         icon: UsersIcon,
-        href: '/app/buy/management/streams',
+        href: '/app/management/streams',
       },
     ],
   },
@@ -110,8 +70,7 @@ function renderNavItems(config: NavBarConfig[]) {
 }
 
 const SideDrawerContent = () => {
-  const classes = useStyles();
-  const location = useLocation();
+  const { name } = useSelector((state: StoreState) => state.dataStreamEntity);
   return (
     <Box height="100%" display="flex" flexDirection="column">
       <PerfectScrollbar options={{ suppressScrollX: true }}>
@@ -129,11 +88,8 @@ const SideDrawerContent = () => {
               color="textPrimary"
               underline="none"
             >
-              Username
+              {name}
             </Link>
-            <Typography variant="body2" color="textSecondary">
-              user bio
-            </Typography>
           </Box>
         </Box>
         <Divider />

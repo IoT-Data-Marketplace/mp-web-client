@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { Box, Container, Grid, Typography } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {  makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -92,7 +92,7 @@ function Top(props: Props) {
           <Grid item xs={12} md={7}>
             <Box position="relative">
               <div className={classes.image}>
-                <img alt="Presentation" src="/static/home/IoTSolutions.svg" />
+                <img alt="Presentation" src="/static/images/IoTSolutions.svg" />
               </div>
             </Box>
           </Grid>

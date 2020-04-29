@@ -1,6 +1,9 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
+import { useMediaQuery, useTheme } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../../../state/interfaces/storeState';
 
 const drawerWidth = 256;
 
@@ -24,6 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SideDrawer = (props: Props) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const mobileDevice = useMediaQuery(theme.breakpoints.down('sm'));
+  const { isDrawerOpen } = useSelector((state: StoreState) => state.ui);
+
+  const open = mobileDevice ? isDrawerOpen : true;
 
   const { content } = props;
 
@@ -35,7 +43,7 @@ const SideDrawer = (props: Props) => {
           root: classes.drawer,
           paper: classes.drawerPaper,
         }}
-        open
+        open={open}
       >
         {content}
       </Drawer>

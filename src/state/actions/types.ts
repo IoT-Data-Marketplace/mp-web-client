@@ -1,7 +1,8 @@
-import { ToggleDrawerAction, ToggleIsLoadingAction} from './ui';
+import { ToggleDrawerAction, ToggleIsLoadingAction } from './ui';
 import { GetProducerByContractAddressAction } from './producer';
 import { DescribeDataMarketplaceAction } from './dataMarketplace';
-import { SignInAction, SignUpAction } from './auth';
+import { SignInAction, SignUpAction, ToggleIsLoggedInAction } from './auth';
+import { SetDataStreamEntityAction } from './dataStreamEntity';
 
 export enum ActionTypes {
   toggleDrawer,
@@ -10,6 +11,8 @@ export enum ActionTypes {
   signIn,
   signUp,
   toggleIsLoading,
+  toggleIsLoggedIn,
+  setDataStreamEntity,
 }
 
 export type Action =
@@ -18,4 +21,6 @@ export type Action =
   | DescribeDataMarketplaceAction
   | SignInAction
   | SignUpAction
-  | ToggleIsLoadingAction;
+  | ToggleIsLoadingAction
+  | SetDataStreamEntityAction
+  | ToggleIsLoggedInAction;
