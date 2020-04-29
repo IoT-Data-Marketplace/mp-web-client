@@ -6,6 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import createStyles from '@material-ui/styles/createStyles';
 import Routes from './Routes';
 import theme from './theme/Theme';
+import LoadingBackdrop from './components/LoadingBackdrop';
 
 const browserHistory = createBrowserHistory();
 
@@ -42,6 +43,7 @@ function App() {
       <Router history={browserHistory}>
         <Routes />
       </Router>
+      <LoadingBackdrop />
     </ThemeProvider>
   );
 }

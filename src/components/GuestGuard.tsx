@@ -12,7 +12,7 @@ const GuestGuard = (props: Props) => {
   const account = useSelector((state: StoreState) => state.account);
 
   if (account.isLoggedIn) {
-    return <Redirect to="/app/account" />;
+    return <Redirect to="/app/dashboard" />;
   }
 
   return children;

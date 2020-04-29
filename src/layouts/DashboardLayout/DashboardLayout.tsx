@@ -4,6 +4,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Header from '../shared/Header';
 import HeaderContent from './components/HeaderContent';
 import SideDrawer from '../shared/SideDrawer';
+import SideDrawerContent from './components/SideDrawerContent';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +22,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-const SellDashboardLayout = (props: Props) => {
+const DashboardLayout = (props: Props) => {
   const { children } = props;
 
   const classes = useStyles();
@@ -29,10 +30,10 @@ const SellDashboardLayout = (props: Props) => {
   return (
     <>
       <Header headerContent={<HeaderContent />} />
-      <SideDrawer content={<div>sell data side drawer content</div>} />
+      <SideDrawer content={<SideDrawerContent />} />
       <main className={clsx(classes.content)}>{children}</main>
     </>
   );
 };
 
-export { SellDashboardLayout as default };
+export { DashboardLayout as default };
