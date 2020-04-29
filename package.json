@@ -23,6 +23,7 @@
     "eslint-plugin-react": "^7.19.0",
     "formik": "^2.1.4",
     "graphql-request": "^1.8.2",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-feather": "^2.0.4",
