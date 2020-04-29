@@ -1,4 +1,4 @@
-import { DataStreamEntity } from '../interfaces/dataStreamEntity';
+import { DataStreamEntity } from '../interfaces';
 
 export const populateDataStreamEntity = (
   dataStreamEntityResult: any,
@@ -11,5 +11,6 @@ export const populateDataStreamEntity = (
     name: dataStreamEntityResult[2],
     url: dataStreamEntityResult[3],
     email: dataStreamEntityResult[4],
+    sensors: dataStreamEntityResult[5],
   };
 };

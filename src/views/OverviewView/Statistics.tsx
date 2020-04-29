@@ -1,6 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { Box, Card, Grid, makeStyles, Typography } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '../../state/interfaces/storeState';
+import { fetchDataStreamEntityContractBalance } from '../../state/actions';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -32,21 +35,21 @@ interface Props {
 }
 
 function Statistics(props: Props) {
+  const { dataStreamEntityContractBalance } = useSelector((state: StoreState) => state.dataStreamEntity);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { className, rest } = props;
+
+  dispatch(fetchDataStreamEntityContractBalance());
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <Grid alignItems="center" container justify="space-between">
         <Grid className={classes.item} item md={3} sm={6} xs={12}>
           <Typography variant="h2" color="textPrimary">
-            payout
+            {`${dataStreamEntityContractBalance} `}ETH
           </Typography>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-            color="textSecondary"
-          >
+          <Typography className={classes.overline} variant="overline" color="textSecondary">
             Earned from selling data streams
           </Typography>
         </Grid>
@@ -54,11 +57,7 @@ function Statistics(props: Props) {
           <Typography variant="h2" color="textPrimary">
             projects
           </Typography>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-            color="textSecondary"
-          >
+          <Typography className={classes.overline} variant="overline" color="textSecondary">
             Total products
           </Typography>
         </Grid>
@@ -66,11 +65,7 @@ function Statistics(props: Props) {
           <Typography variant="h2" color="textPrimary">
             visitors
           </Typography>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-            color="textSecondary"
-          >
+          <Typography className={classes.overline} variant="overline" color="textSecondary">
             Today&apos;s Visitors
           </Typography>
         </Grid>
@@ -80,11 +75,7 @@ function Statistics(props: Props) {
               watching
             </Typography>
           </Box>
-          <Typography
-            className={classes.overline}
-            variant="overline"
-            color="textSecondary"
-          >
+          <Typography className={classes.overline} variant="overline" color="textSecondary">
             Watching now
           </Typography>
         </Grid>

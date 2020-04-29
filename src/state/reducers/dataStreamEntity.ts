@@ -4,16 +4,15 @@ import { DataStreamEntity } from '../interfaces';
 const initialState = {
   iotDataMarketplaceContractAddress: '',
   dataStreamEntityContractAddress: '',
+  dataStreamEntityContractBalance: '0',
   dataStreamEntityOwnerAddress: '',
   name: '',
   url: '',
   email: '',
+  sensors: [],
 };
 
-const dataStreamEntityReducer = (
-  state: DataStreamEntity = initialState,
-  action: Action
-): DataStreamEntity => {
+const dataStreamEntityReducer = (state: DataStreamEntity = initialState, action: Action): DataStreamEntity => {
   switch (action.type) {
     case ActionTypes.setDataStreamEntity:
       return {
@@ -24,6 +23,11 @@ const dataStreamEntityReducer = (
         name: action.dataStreamEntity.name,
         url: action.dataStreamEntity.url,
         email: action.dataStreamEntity.email,
+      };
+    case ActionTypes.setDataStreamEntityContractBalance:
+      return {
+        ...state,
+        dataStreamEntityContractBalance: action.dataStreamEntityContractBalance,
       };
     default:
       return state;

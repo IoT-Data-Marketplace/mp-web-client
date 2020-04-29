@@ -6,19 +6,14 @@ import { SignInFormData, SignUpFormData } from '../interfaces/formData';
 import web3 from '../../blockchain/web3';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import { populateDataStreamEntity } from '../helpers/populateDataStreamEntity';
-import {
-  setDataStreamEntity,
-  SetDataStreamEntityAction,
-} from './dataStreamEntity';
+import { setDataStreamEntity, SetDataStreamEntityAction } from './dataStreamEntity';
 
 export interface ToggleIsLoggedInAction {
   type: ActionTypes.toggleIsLoggedIn;
   isLoggedIn: boolean;
 }
 
-export const toggleIsLoggedIn = (
-  isLoggedIn: boolean
-): ToggleIsLoggedInAction => {
+export const toggleIsLoggedIn = (isLoggedIn: boolean): ToggleIsLoggedInAction => {
   return {
     type: ActionTypes.toggleIsLoggedIn,
     isLoggedIn,
@@ -36,30 +31,19 @@ export const signIn = (signInFormData: SignInFormData) => {
       const accounts = await web3.eth.getAccounts();
       const { dataStreamEntityContractAddress } = signInFormData;
 
-      const authenticated = await DataStreamEntity(
-        dataStreamEntityContractAddress
-      )
+      const authenticated = await DataStreamEntity(dataStreamEntityContractAddress)
         .methods.isAuthenticated()
         .call({ from: accounts[0] });
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(authenticated));
 
       if (authenticated) {
-        const dataStreamEntityResult = await DataStreamEntity(
-          dataStreamEntityContractAddress
-        )
+        const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
           .methods.describeDataStreamEntity()
           .call();
 
-        const populatedDataStreamEntity = populateDataStreamEntity(
-          dataStreamEntityResult,
-          dataStreamEntityContractAddress
-        );
+        const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
 
-        console.log('dataStreamEntityResult: ', dataStreamEntityResult);
-
-        dispatch<SetDataStreamEntityAction>(
-          setDataStreamEntity(populatedDataStreamEntity)
-        );
+        dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
       }
     } catch (e) {
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));
@@ -82,11 +66,7 @@ export const signUp = (signUpFormData: SignUpFormData) => {
       const accounts = await web3.eth.getAccounts();
 
       await IoTDataMarketplace()
-        .methods.registerDataStreamEntity(
-          signUpFormData.accountName,
-          signUpFormData.accountURL,
-          signUpFormData.accountEmail
-        )
+        .methods.registerDataStreamEntity(signUpFormData.accountName, signUpFormData.accountURL, signUpFormData.accountEmail)
         .send({ from: accounts[0] });
 
       const dataStreamEntityContractAddress = await IoTDataMarketplace()
@@ -94,20 +74,13 @@ export const signUp = (signUpFormData: SignUpFormData) => {
         .call();
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
 
-      const dataStreamEntityResult = await DataStreamEntity(
-        dataStreamEntityContractAddress
-      )
+      const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
         .methods.describeDataStreamEntity()
         .call();
 
-      const populatedDataStreamEntity = populateDataStreamEntity(
-        dataStreamEntityResult,
-        dataStreamEntityContractAddress
-      );
+      const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
 
-      dispatch<SetDataStreamEntityAction>(
-        setDataStreamEntity(populatedDataStreamEntity)
-      );
+      dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
     } catch (e) {
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));
       throw e;

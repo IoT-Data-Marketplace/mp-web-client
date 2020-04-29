@@ -27,17 +27,13 @@ function LoginForm(props: Props) {
         dataStreamEntityContractAddress: 'test',
       }}
       validationSchema={Yup.object().shape({
-        dataStreamEntityContractAddress: Yup.string().matches(
-          /0x+[A-F,a-f,0-9]{40}/,
-          { excludeEmptyString: true }
-        ),
+        dataStreamEntityContractAddress: Yup.string().matches(/0x+[A-F,a-f,0-9]{40}/, { excludeEmptyString: true }),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
           await dispatch(
             signIn({
-              dataStreamEntityContractAddress:
-                values.dataStreamEntityContractAddress,
+              dataStreamEntityContractAddress: values.dataStreamEntityContractAddress,
             })
           );
           onSubmitSuccess();
@@ -48,31 +44,12 @@ function LoginForm(props: Props) {
         }
       }}
     >
-      {({
-        errors,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        touched,
-        values,
-      }) => (
-        <form
-          noValidate
-          className={clsx(classes.root, className)}
-          onSubmit={handleSubmit}
-          {...rest}
-        >
+      {({ errors, handleChange, handleBlur, handleSubmit, isSubmitting, touched, values }) => (
+        <form noValidate className={clsx(classes.root, className)} onSubmit={handleSubmit} {...rest}>
           <TextField
-            error={Boolean(
-              touched.dataStreamEntityContractAddress &&
-                errors.dataStreamEntityContractAddress
-            )}
+            error={Boolean(touched.dataStreamEntityContractAddress && errors.dataStreamEntityContractAddress)}
             fullWidth
-            helperText={
-              touched.dataStreamEntityContractAddress &&
-              errors.dataStreamEntityContractAddress
-            }
+            helperText={touched.dataStreamEntityContractAddress && errors.dataStreamEntityContractAddress}
             label="Data Stream Entity Contract Address"
             margin="normal"
             name="dataStreamEntityContractAddress"
@@ -83,14 +60,7 @@ function LoginForm(props: Props) {
             variant="outlined"
           />
           <Box mt={2}>
-            <Button
-              color="secondary"
-              disabled={isSubmitting}
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-            >
+            <Button color="secondary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
               Log In
             </Button>
           </Box>
