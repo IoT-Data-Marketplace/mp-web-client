@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { Box, Card, Grid, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,7 +40,9 @@ function Statistics(props: Props) {
   const classes = useStyles();
   const { className, rest } = props;
 
-  dispatch(fetchDataStreamEntityContractBalance());
+  useEffect(() => {
+    dispatch(fetchDataStreamEntityContractBalance());
+  }, [dispatch]);
 
   return (
     <Card className={clsx(classes.root, className)} {...rest}>

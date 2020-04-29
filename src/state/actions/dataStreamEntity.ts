@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
-import { useSelector } from 'react-redux';
 import { ActionTypes } from './types';
 import { DataStreamEntity } from '../interfaces';
 import web3 from '../../blockchain/web3';
 import { StoreState } from '../interfaces/storeState';
-import {toggleIsLoading, ToggleIsLoadingAction} from "./ui";
+import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
+import { store } from '../../index';
 
 export interface SetDataStreamEntityAction {
   type: ActionTypes.setDataStreamEntity;
@@ -40,12 +40,12 @@ export const fetchDataStreamEntityContractBalance = () => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
-      const { dataStreamEntityContractAddress } = useSelector((state: StoreState) => state.dataStreamEntity);
+      const { dataStreamEntityContractAddress } = store.getState().dataStreamEntity;
       const balance = await web3.eth.getBalance(dataStreamEntityContractAddress);
       const balanceInEther = web3.utils.fromWei(String(balance), 'ether');
       dispatch<SetDataStreamEntityContractBalanceAction>(setDataStreamEntityContractBalance(balanceInEther));
     } catch (e) {
-      console.log('Error while cheching the balance. \n', e);
+      console.error('Error while cheching the balance. \n', e);
     } finally {
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
     }
