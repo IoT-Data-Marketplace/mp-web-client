@@ -1,8 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { Box, Button, makeStyles } from '@material-ui/core';
+import { Box, Button, makeStyles, TextField } from '@material-ui/core';
+import { signIn } from '../../../state/actions';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -16,34 +18,40 @@ interface Props {
 
 function LoginForm(props: Props) {
   const classes = useStyles();
-  const { className, rest } = props;
+  const dispatch = useDispatch();
+  const { className, rest, onSubmitSuccess } = props;
 
   return (
     <Formik
-      initialValues={{}}
+      initialValues={{
+        dataStreamEntityContractAddress: 'test',
+      }}
       validationSchema={Yup.object().shape({
-        email: Yup.string()
-          .email('Must be a valid email')
-          .max(255)
-          .required('Email is required'),
-        password: Yup.string().max(255).required('Password is required'),
+        dataStreamEntityContractAddress: Yup.string().matches(
+          /0x+[A-F,a-f,0-9]{40}/,
+          { excludeEmptyString: true }
+        ),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-        // try {
-        //   await dispatch(login(values.email, values.password));
-        //   onSubmitSuccess();
-        // } catch (error) {
-        //   const message = (error.response && error.response.data.message) || 'Something went wrong';
-        //
-        //   setStatus({ success: false });
-        //   setErrors({ submit: message });
-        //   setSubmitting(false);
-        // }
+        try {
+          await dispatch(
+            signIn({
+              dataStreamEntityContractAddress:
+                values.dataStreamEntityContractAddress,
+            })
+          );
+          onSubmitSuccess();
+        } catch (error) {
+          // setStatus({ success: false });
+          // setErrors({ submit: error.message });
+          // setSubmitting(false);
+        }
       }}
     >
       {({
         errors,
         handleChange,
+        handleBlur,
         handleSubmit,
         isSubmitting,
         touched,
@@ -55,6 +63,25 @@ function LoginForm(props: Props) {
           onSubmit={handleSubmit}
           {...rest}
         >
+          <TextField
+            error={Boolean(
+              touched.dataStreamEntityContractAddress &&
+                errors.dataStreamEntityContractAddress
+            )}
+            fullWidth
+            helperText={
+              touched.dataStreamEntityContractAddress &&
+              errors.dataStreamEntityContractAddress
+            }
+            label="Data Stream Entity Contract Address"
+            margin="normal"
+            name="dataStreamEntityContractAddress"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            type="string"
+            value={values.dataStreamEntityContractAddress}
+            variant="outlined"
+          />
           <Box mt={2}>
             <Button
               color="secondary"

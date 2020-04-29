@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import IoTDataMarketplace from '../../blockchain/ioTDataMarketplace';
 import DataStreamEntity from '../../blockchain/dataStreamEntity';
 import { ActionTypes } from './types';
-import { SignUpFormData } from '../interfaces/formData';
+import { SignInFormData, SignUpFormData } from '../interfaces/formData';
 import web3 from '../../blockchain/web3';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import { populateDataStreamEntity } from '../helpers/populateDataStreamEntity';
@@ -29,31 +29,38 @@ export interface SignInAction {
   type: ActionTypes.signIn;
 }
 
-export const signIn = () => {
+export const signIn = (signInFormData: SignInFormData) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
       const accounts = await web3.eth.getAccounts();
+      const { dataStreamEntityContractAddress } = signInFormData;
 
-      const dataStreamEntityContractAddress = await IoTDataMarketplace()
-        .methods.getDataStreamEntityContractAddressForOwnerAddress(accounts[0])
-        .call();
-      dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
-
-      const dataStreamEntityResult = await DataStreamEntity(
+      const authenticated = await DataStreamEntity(
         dataStreamEntityContractAddress
       )
-        .methods.describeDataStreamEntity()
-        .call();
+        .methods.isAuthenticated()
+        .call({ from: accounts[0] });
+      dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(authenticated));
 
-      const populatedDataStreamEntity = populateDataStreamEntity(
-        dataStreamEntityResult,
-        dataStreamEntityContractAddress
-      );
+      if (authenticated) {
+        const dataStreamEntityResult = await DataStreamEntity(
+          dataStreamEntityContractAddress
+        )
+          .methods.describeDataStreamEntity()
+          .call();
 
-      dispatch<SetDataStreamEntityAction>(
-        setDataStreamEntity(populatedDataStreamEntity)
-      );
+        const populatedDataStreamEntity = populateDataStreamEntity(
+          dataStreamEntityResult,
+          dataStreamEntityContractAddress
+        );
+
+        console.log('dataStreamEntityResult: ', dataStreamEntityResult);
+
+        dispatch<SetDataStreamEntityAction>(
+          setDataStreamEntity(populatedDataStreamEntity)
+        );
+      }
     } catch (e) {
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));
       throw e;

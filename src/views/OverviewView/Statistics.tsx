@@ -47,7 +47,7 @@ function Statistics(props: Props) {
             variant="overline"
             color="textSecondary"
           >
-            Next payout
+            Earned from selling data streams
           </Typography>
         </Grid>
         <Grid className={classes.item} item md={3} sm={6} xs={12}>

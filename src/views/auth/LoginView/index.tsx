@@ -105,8 +105,9 @@ function LoginView() {
             <Box mt={2}>
               <Alert severity="info">
                 <div>
-                  Make sure you are using the right Ethereum Account with your
-                  Metamask Browser Extension
+                  Make sure that your Metamask Browser Extension is turned on
+                  and your account is the owner of the Data Stream Entity
+                  Contract Address
                 </div>
               </Alert>
             </Box>
