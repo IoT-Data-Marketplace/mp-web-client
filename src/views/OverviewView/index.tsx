@@ -22,20 +22,7 @@ function OverviewView() {
       <Container maxWidth="lg">
         <Header />
         <Box mt={3}>
-          <div>box1</div>
           <Statistics />
-        </Box>
-        <Box mt={6}>
-          <div>box2</div>
-          {/* <Notifications /> */}
-        </Box>
-        <Box mt={6}>
-          <div>box3</div>
-          {/* <Projects /> */}
-        </Box>
-        <Box mt={6}>
-          <div>box4</div>
-          {/* <Todos /> */}
         </Box>
       </Container>
     </Page>

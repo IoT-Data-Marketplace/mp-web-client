@@ -27,6 +27,7 @@ const useStyles = makeStyles(() =>
       body: {
         height: '100%',
         width: '100%',
+        backgroundColor: '#1c2025', // todo figure out how to put in in the global theme
       },
       '#root': {
         height: '100%',

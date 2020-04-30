@@ -1,15 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import clsx from 'clsx';
-import {
-  Box,
-  Button,
-  Grid,
-  Hidden,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
-import BarChartIcon from '@material-ui/icons/BarChart';
+import { Grid, Hidden, makeStyles, Typography } from '@material-ui/core';
 import { StoreState } from '../../state/interfaces/storeState';
 
 const useStyles = makeStyles((theme) => ({
@@ -47,23 +39,12 @@ function Header(props: Props) {
             Hello, {name}
           </Typography>
           <Typography variant="subtitle1" color="textPrimary">
-            Welcome to the IoT Data Marketplace, here you can buy or sell IoT
-            generated data.
+            Welcome to the IoT Data Marketplace, here you can buy or sell IoT generated data.
           </Typography>
-          <Box mt={2}>
-            <Button className={classes.action} variant="contained">
-              <BarChartIcon className={classes.actionIcon} />
-              View summary
-            </Button>
-          </Box>
         </Grid>
         <Hidden smDown>
           <Grid item md={6}>
-            <img
-              alt="Cover"
-              className={classes.image}
-              src="/static/images/IoTSolutions.svg"
-            />
+            <img alt="Cover" className={classes.image} src="/static/images/IoTSolutions.svg" />
           </Grid>
         </Hidden>
       </Grid>

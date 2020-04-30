@@ -4,8 +4,14 @@ import { SignInAction, SignUpAction, ToggleIsLoggedInAction } from './auth';
 import {
   FetchDataStreamEntityContractBalanceAction,
   SetDataStreamEntityAction,
-  SetDataStreamEntityContractBalanceAction
+  SetDataStreamEntityContractBalanceAction,
 } from './dataStreamEntity';
+import {
+  RegisterSensorAction,
+  ResetRegisterSensorStateAction,
+  SetSensorGeolocationAction,
+  SetSensorTypeAction
+} from './registerSensor';
 
 export enum ActionTypes {
   toggleDrawer,
@@ -17,6 +23,10 @@ export enum ActionTypes {
   setDataStreamEntity,
   fetchDataStreamEntityContractBalance,
   setDataStreamEntityContractBalance,
+  setSensorType,
+  setSensorGeolocation,
+  registerSensor,
+  resetRegisterSensorState,
 }
 
 export type Action =
@@ -28,4 +38,8 @@ export type Action =
   | SetDataStreamEntityAction
   | ToggleIsLoggedInAction
   | FetchDataStreamEntityContractBalanceAction
-  | SetDataStreamEntityContractBalanceAction;
+  | SetDataStreamEntityContractBalanceAction
+  | SetSensorTypeAction
+  | SetSensorGeolocationAction
+  | RegisterSensorAction
+  | ResetRegisterSensorStateAction;

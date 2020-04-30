@@ -5,6 +5,7 @@ import dataMarketplaceReducer from './dataMarketplace';
 import { StoreState } from '../interfaces/storeState';
 import defaultValuesReducer from './defaultValues';
 import dataStreamEntityReducer from './dataStreamEntity';
+import registerSensorReducer from './registerSensor';
 
 const reducers = combineReducers<StoreState>({
   defaultValues: defaultValuesReducer,
@@ -12,6 +13,7 @@ const reducers = combineReducers<StoreState>({
   ui: uiReducer,
   dataMarketplace: dataMarketplaceReducer,
   dataStreamEntity: dataStreamEntityReducer,
+  registerSensor: registerSensorReducer,
 });
 
 export { reducers as default };

@@ -5,7 +5,8 @@ import DashboardLayout from './layouts/DashboardLayout/DashboardLayout';
 import LoadingScreen from './components/LoadingScreen';
 import HomeView from './views/pages/HomeView';
 import AuthGuard from './components/AuthGuard';
-import GuestGuard from "./components/GuestGuard";
+import GuestGuard from './components/GuestGuard';
+import { ROUTES } from './constants';
 
 interface Rt {
   exact?: boolean;
@@ -19,57 +20,62 @@ interface Rt {
 const routesConfig = [
   {
     exact: true,
-    path: '/',
-    component: () => <Redirect to="/home" />,
+    path: ROUTES.ROOT,
+    component: () => <Redirect to={ROUTES.HOME} />,
   },
   {
     exact: true,
-    path: '/404',
+    path: ROUTES.NOT_FOUND,
     layout: Main,
     component: lazy(() => import('./views/pages/Error404View')),
   },
   {
     exact: true,
     guard: GuestGuard,
-    path: '/login',
+    path: ROUTES.LOGIN,
     component: lazy(() => import('./views/auth/LoginView')),
   },
   {
     exact: true,
     guard: GuestGuard,
-    path: '/register',
+    path: ROUTES.REGISTER,
     component: lazy(() => import('./views/auth/RegisterView')),
   },
   {
     exact: true,
-    path: '/home',
+    path: ROUTES.HOME,
     component: () => <HomeView />,
     layout: Main,
   },
   {
-    path: '/app',
+    path: ROUTES.APP,
     guard: AuthGuard,
     layout: DashboardLayout,
     routes: [
       {
         exact: true,
-        path: '/app',
-        component: () => <Redirect to="/app/overview" />,
+        path: ROUTES.APP,
+        component: () => <Redirect to={ROUTES.APP_OVERVIEW} />,
       },
       {
         exact: true,
-        path: '/app/overview',
+        path: ROUTES.APP_OVERVIEW,
         component: lazy(() => import('./views/OverviewView')),
       },
       {
-        component: () => <Redirect to="/404" />,
+        exact: true,
+        path: ROUTES.REGISTER_SENSOR,
+        component: lazy(() => import('./views/app/sensors/RegisterSensorView')),
+      },
+      {
+        component: () => <Redirect to={ROUTES.NOT_FOUND} />,
       },
     ],
   },
   {
     exact: false,
     path: '*',
-    component: () => <Redirect to="/404" />,
+    component: () => <Redirect to={ROUTES.NOT_FOUND} />,
     layout: Main,
   },
 ];
@@ -90,13 +96,7 @@ const renderRoutes = (routes: Rt[]) =>
               exact={route.exact}
               render={(props) => (
                 <Guard>
-                  <Layout>
-                    {route.routes ? (
-                      renderRoutes(route.routes)
-                    ) : (
-                      <Component {...props} />
-                    )}
-                  </Layout>
+                  <Layout>{route.routes ? renderRoutes(route.routes) : <Component {...props} />}</Layout>
                 </Guard>
               )}
             />

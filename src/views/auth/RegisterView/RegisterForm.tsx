@@ -3,16 +3,7 @@ import { useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormHelperText,
-  Link,
-  makeStyles,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+import { Box, Button, Checkbox, FormHelperText, Link, makeStyles, TextField, Typography } from '@material-ui/core';
 import { signUp } from '../../../state/actions/auth';
 
 const useStyles = makeStyles(() => ({
@@ -61,20 +52,8 @@ function RegisterForm(props: Props) {
         }
       }}
     >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        isSubmitting,
-        touched,
-        values,
-      }) => (
-        <form
-          className={clsx(classes.root, className)}
-          onSubmit={handleSubmit}
-          {...rest}
-        >
+      {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+        <form className={clsx(classes.root, className)} onSubmit={handleSubmit} {...rest}>
           <TextField
             error={Boolean(touched.accountName && errors.accountName)}
             fullWidth
@@ -116,11 +95,7 @@ function RegisterForm(props: Props) {
           />
 
           <Box alignItems="center" display="flex" mt={2} ml={-1}>
-            <Checkbox
-              checked={values.policy}
-              name="policy"
-              onChange={handleChange}
-            />
+            <Checkbox checked={values.policy} name="policy" onChange={handleChange} />
             <Typography variant="body2" color="textSecondary">
               I have read the{' '}
               <Link component="a" href="#" color="secondary">
@@ -128,18 +103,9 @@ function RegisterForm(props: Props) {
               </Link>
             </Typography>
           </Box>
-          {Boolean(touched.policy && errors.policy) && (
-            <FormHelperText error>{errors.policy}</FormHelperText>
-          )}
+          {Boolean(touched.policy && errors.policy) && <FormHelperText error>{errors.policy}</FormHelperText>}
           <Box mt={2}>
-            <Button
-              color="secondary"
-              disabled={isSubmitting}
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-            >
+            <Button color="secondary" disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained">
               Create account
             </Button>
           </Box>
