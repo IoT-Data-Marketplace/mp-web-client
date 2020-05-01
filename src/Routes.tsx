@@ -68,6 +68,11 @@ const routesConfig = [
         component: lazy(() => import('./views/app/sensors/RegisterSensorView')),
       },
       {
+        exact: true,
+        path: ROUTES.VIEW_SENSOR_FOR_ADDRESS,
+        component: lazy(() => import('./views/app/sensors/SensorDetailsView')),
+      },
+      {
         component: () => <Redirect to={ROUTES.NOT_FOUND} />,
       },
     ],

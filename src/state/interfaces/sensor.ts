@@ -10,6 +10,13 @@ export interface Geolocation {
 }
 
 export interface RegisterSensor {
+  generatedContractAddress: string;
+  sensorType: SensorType;
+  geolocation: Geolocation;
+}
+
+export interface IoTSensor {
+  sensorContractAddress: string;
   sensorType: SensorType;
   geolocation: Geolocation;
 }

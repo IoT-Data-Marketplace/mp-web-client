@@ -1,4 +1,4 @@
-export interface DataStreamEntity {
+export interface IDataStreamEntity {
   iotDataMarketplaceContractAddress: string;
   dataStreamEntityContractAddress: string;
   dataStreamEntityContractBalance?: string;

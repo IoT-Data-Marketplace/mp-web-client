@@ -26,11 +26,13 @@ import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { User as UserIcon, Star as StarIcon, Briefcase as BriefcaseIcon, File as FileIcon } from 'react-feather';
+import { useSelector } from 'react-redux';
 import Page from '../../../../components/Page';
 import { ROUTES } from '../../../../constants';
 import SensorType from './SensorType';
 import SensorGeolocation from './SensorGeolocation';
 import SensorReviewRegister from './SensorReviewRegister';
+import { StoreState } from '../../../../state/interfaces/storeState';
 
 const steps = [
   {
@@ -106,6 +108,7 @@ function ProjectCreateView() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState(false);
+  const { generatedContractAddress } = useSelector((state: StoreState) => state.registerSensor);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -120,7 +123,7 @@ function ProjectCreateView() {
   };
 
   return (
-    <Page className={classes.root} title="Project Create">
+    <Page title="Project Create">
       <Container maxWidth="lg">
         <Box mb={3}>
           <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
@@ -180,7 +183,12 @@ function ProjectCreateView() {
                   </Typography>
                 </Box>
                 <Box mt={2} display="flex" justifyContent="center">
-                  <Button variant="contained" color="secondary" component={RouterLink} to="/app/projects/1">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    component={RouterLink}
+                    to={`${ROUTES.SENSOR}/${generatedContractAddress}`}
+                  >
                     See Sensor Details
                   </Button>
                 </Box>

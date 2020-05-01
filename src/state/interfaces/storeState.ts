@@ -3,7 +3,7 @@ import {
   Ui,
   DataMarketplace,
   DefaultValues,
-  DataStreamEntity,
+  IDataStreamEntity,
   RegisterSensor
 } from './index';
 
@@ -12,6 +12,6 @@ export interface StoreState {
   auth: Auth;
   ui: Ui;
   dataMarketplace: DataMarketplace;
-  dataStreamEntity: DataStreamEntity;
+  dataStreamEntity: IDataStreamEntity;
   registerSensor: RegisterSensor;
 }

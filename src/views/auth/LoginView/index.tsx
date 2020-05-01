@@ -22,15 +22,6 @@ import Page from '../../../components/Page';
 import LoginForm from './LoginForm';
 
 const useStyles = makeStyles((theme: any) => ({
-  root: {
-    backgroundColor: theme.palette.background.dark,
-    display: 'flex',
-    height: '100%',
-    minHeight: '100%',
-    flexDirection: 'column',
-    paddingBottom: 80,
-    paddingTop: 80,
-  },
   backButton: {
     marginLeft: theme.spacing(2),
   },
@@ -81,7 +72,7 @@ function LoginView() {
   };
 
   return (
-    <Page className={classes.root} title="Login">
+    <Page title="Login">
       <Container maxWidth="md">
         <Box mb={8} display="flex" alignItems="center">
           <RouterLink to="/">
@@ -105,9 +96,8 @@ function LoginView() {
             <Box mt={2}>
               <Alert severity="info">
                 <div>
-                  Make sure that your Metamask Browser Extension is turned on
-                  and your account is the owner of the Data Stream Entity
-                  Contract Address
+                  Make sure that your Metamask Browser Extension is turned on and your account is the owner of the Data Stream
+                  Entity Contract Address
                 </div>
               </Alert>
             </Box>
@@ -117,20 +107,11 @@ function LoginView() {
             <Box my={2}>
               <Divider />
             </Box>
-            <Link
-              component={RouterLink}
-              to="/register"
-              variant="body2"
-              color="textSecondary"
-            >
+            <Link component={RouterLink} to="/register" variant="body2" color="textSecondary">
               Create new account
             </Link>
           </CardContent>
-          <CardMedia
-            className={classes.media}
-            image="/static/images/IoTSolutions.svg"
-            title="Cover"
-          />
+          <CardMedia className={classes.media} image="/static/images/IoTSolutions.svg" title="Cover" />
         </Card>
       </Container>
     </Page>

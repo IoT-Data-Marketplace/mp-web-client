@@ -17,12 +17,11 @@ const useStyles = makeStyles((theme: any) => ({
 interface Props {
   children?: React.ReactElement;
   title: string;
-  className: string;
 }
 
 const Page = forwardRef((props: Props) => {
   const classes = useStyles();
-  const { children, title, className } = props;
+  const { children, title } = props;
 
   return (
     <div className={classes.root}>

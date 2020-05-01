@@ -1,17 +1,18 @@
 import { Dispatch } from 'redux';
 import { ActionTypes } from './types';
-import { DataStreamEntity } from '../interfaces';
+import { IDataStreamEntity } from '../interfaces';
 import web3 from '../../blockchain/web3';
-import { StoreState } from '../interfaces/storeState';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import { store } from '../../index';
+import { populateDataStreamEntity } from '../helpers/populateDataStreamEntity';
+import DataStreamEntity from '../../blockchain/dataStreamEntity';
 
 export interface SetDataStreamEntityAction {
   type: ActionTypes.setDataStreamEntity;
-  dataStreamEntity: DataStreamEntity;
+  dataStreamEntity: IDataStreamEntity;
 }
 
-export const setDataStreamEntity = (dataStreamEntity: DataStreamEntity): SetDataStreamEntityAction => {
+export const setDataStreamEntity = (dataStreamEntity: IDataStreamEntity): SetDataStreamEntityAction => {
   return {
     type: ActionTypes.setDataStreamEntity,
     dataStreamEntity,
@@ -44,6 +45,29 @@ export const fetchDataStreamEntityContractBalance = () => {
       const balance = await web3.eth.getBalance(dataStreamEntityContractAddress);
       const balanceInEther = web3.utils.fromWei(String(balance), 'ether');
       dispatch<SetDataStreamEntityContractBalanceAction>(setDataStreamEntityContractBalance(balanceInEther));
+    } catch (e) {
+      console.error('Error while cheching the balance. \n', e);
+    } finally {
+      dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
+    }
+  };
+};
+
+export interface FetchDataStreamEntityAction {
+  type: ActionTypes.fetchDataStreamEntity;
+  dataStreamEntityContractAddress: string;
+}
+
+export const fetchDataStreamEntity = (dataStreamEntityContractAddress: string) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
+        .methods.describeDataStreamEntity()
+        .call();
+
+      const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
+
+      dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
     } catch (e) {
       console.error('Error while cheching the balance. \n', e);
     } finally {

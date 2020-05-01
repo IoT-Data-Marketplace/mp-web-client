@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import { ActionTypes } from './types';
 import { SensorType, Geolocation, RegisterSensor } from '../interfaces';
-import IoTDataMarketplace from '../../blockchain/ioTDataMarketplace';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import web3 from '../../blockchain/web3';
 import DataStreamEntity from '../../blockchain/dataStreamEntity';
@@ -40,6 +39,18 @@ export const resetRegisterSensorState = (): ResetRegisterSensorStateAction => {
   };
 };
 
+export interface SetGeneratedSensorContractAddressAction {
+  type: ActionTypes.setGeneratedSensorContractAddress;
+  generatedContractAddress: string;
+}
+
+export const setGeneratedSensorContractAddress = (generatedContractAddress: string): SetGeneratedSensorContractAddressAction => {
+  return {
+    type: ActionTypes.setGeneratedSensorContractAddress,
+    generatedContractAddress,
+  };
+};
+
 export interface RegisterSensorAction {
   type: ActionTypes.registerSensor;
   sensor: RegisterSensor;
@@ -52,13 +63,18 @@ export const registerSensor = (sensor: RegisterSensor, dataStreamEntityContractA
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
       const accounts = await web3.eth.getAccounts();
 
-      const registerSensorResult = await DataStreamEntity(dataStreamEntityContractAddress)
-        .methods.registerNewSensor(sensor.sensorType, sensor.geolocation.latitude, sensor.geolocation.longitude)
-        .send({ from: accounts[0] });
+      const methodToCall = DataStreamEntity(dataStreamEntityContractAddress).methods.registerNewSensor(
+        sensor.sensorType,
+        sensor.geolocation.latitude,
+        sensor.geolocation.longitude
+      );
 
-      dispatch<ResetRegisterSensorStateAction>(resetRegisterSensorState());
+      const newSensorContractAddress = await methodToCall.call({ from: accounts[0] });
+      await methodToCall.send({ from: accounts[0] });
 
-      console.log('registerSensorResult: ', registerSensorResult);
+      dispatch<SetGeneratedSensorContractAddressAction>(setGeneratedSensorContractAddress(newSensorContractAddress));
+
+      console.log('newSensorContractAddress: ', newSensorContractAddress);
     } catch (e) {
       console.error('Error while registering the sensor, Error: ', e);
     } finally {

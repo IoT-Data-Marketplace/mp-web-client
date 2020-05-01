@@ -2,6 +2,7 @@ import { ToggleDrawerAction, ToggleIsLoadingAction } from './ui';
 import { DescribeDataMarketplaceAction } from './dataMarketplace';
 import { SignInAction, SignUpAction, ToggleIsLoggedInAction } from './auth';
 import {
+  FetchDataStreamEntityAction,
   FetchDataStreamEntityContractBalanceAction,
   SetDataStreamEntityAction,
   SetDataStreamEntityContractBalanceAction,
@@ -9,8 +10,9 @@ import {
 import {
   RegisterSensorAction,
   ResetRegisterSensorStateAction,
+  SetGeneratedSensorContractAddressAction,
   SetSensorGeolocationAction,
-  SetSensorTypeAction
+  SetSensorTypeAction,
 } from './registerSensor';
 
 export enum ActionTypes {
@@ -27,6 +29,8 @@ export enum ActionTypes {
   setSensorGeolocation,
   registerSensor,
   resetRegisterSensorState,
+  setGeneratedSensorContractAddress,
+  fetchDataStreamEntity,
 }
 
 export type Action =
@@ -42,4 +46,6 @@ export type Action =
   | SetSensorTypeAction
   | SetSensorGeolocationAction
   | RegisterSensorAction
-  | ResetRegisterSensorStateAction;
+  | ResetRegisterSensorStateAction
+  | SetGeneratedSensorContractAddressAction
+  | FetchDataStreamEntityAction;

@@ -6,7 +6,12 @@ import { SignInFormData, SignUpFormData } from '../interfaces/formData';
 import web3 from '../../blockchain/web3';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import { populateDataStreamEntity } from '../helpers/populateDataStreamEntity';
-import { setDataStreamEntity, SetDataStreamEntityAction } from './dataStreamEntity';
+import {
+  fetchDataStreamEntity,
+  FetchDataStreamEntityAction,
+  setDataStreamEntity,
+  SetDataStreamEntityAction,
+} from './dataStreamEntity';
 
 export interface ToggleIsLoggedInAction {
   type: ActionTypes.toggleIsLoggedIn;

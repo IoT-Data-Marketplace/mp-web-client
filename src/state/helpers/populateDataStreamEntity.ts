@@ -1,9 +1,9 @@
-import { DataStreamEntity } from '../interfaces';
+import { IDataStreamEntity } from '../interfaces';
 
 export const populateDataStreamEntity = (
   dataStreamEntityResult: any,
   dataStreamEntityContractAddress: string
-): DataStreamEntity => {
+): IDataStreamEntity => {
   return {
     dataStreamEntityContractAddress,
     iotDataMarketplaceContractAddress: dataStreamEntityResult[0],

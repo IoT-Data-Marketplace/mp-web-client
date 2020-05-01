@@ -10,6 +10,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import Divider from '@material-ui/core/Divider';
 import { Users as UsersIcon } from 'react-feather';
 import { useSelector } from 'react-redux';
+import uuid from 'react-uuid';
 import { StoreState } from '../../../../state/interfaces/storeState';
 import { ROUTES } from '../../../../constants';
 
@@ -58,19 +59,25 @@ const navBarConfig = [
         icon: UsersIcon,
         href: ROUTES.REGISTER_SENSOR,
       },
+      {
+        title: 'View Sensor',
+        icon: UsersIcon,
+        href: ROUTES.REGISTER_SENSOR,
+      },
     ],
   },
 ];
 
 function renderNavItems(config: NavBarConfig[], subheaderClassName, navItemClassName) {
-  return config.map((itemGroup, index) => (
-    <>
-      <Typography className={subheaderClassName} key={index} variant="h5">
+  return config.map((itemGroup) => (
+    <div key={uuid()}>
+      <Typography className={subheaderClassName} key={uuid()} variant="h5">
         {itemGroup.subheader}
       </Typography>
-      <List disablePadding>
-        {itemGroup.items.map((item, index2) => (
+      <List disablePadding key={uuid()}>
+        {itemGroup.items.map((item) => (
           <Link
+            key={uuid()}
             className={navItemClassName}
             component={RouterLink}
             to={item.href}
@@ -84,7 +91,7 @@ function renderNavItems(config: NavBarConfig[], subheaderClassName, navItemClass
           </Link>
         ))}
       </List>
-    </>
+    </div>
   ));
 }
 

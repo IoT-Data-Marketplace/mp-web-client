@@ -1,5 +1,5 @@
 import { Action, ActionTypes } from '../actions';
-import { DataStreamEntity } from '../interfaces';
+import { IDataStreamEntity } from '../interfaces';
 
 const initialState = {
   iotDataMarketplaceContractAddress: '',
@@ -12,7 +12,7 @@ const initialState = {
   sensors: [],
 };
 
-const dataStreamEntityReducer = (state: DataStreamEntity = initialState, action: Action): DataStreamEntity => {
+const dataStreamEntityReducer = (state: IDataStreamEntity = initialState, action: Action): IDataStreamEntity => {
   switch (action.type) {
     case ActionTypes.setDataStreamEntity:
       return {
