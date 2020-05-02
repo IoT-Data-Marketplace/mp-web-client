@@ -35,7 +35,7 @@ interface Props {
 }
 
 function Statistics(props: Props) {
-  const { dataStreamEntityContractBalance, sensors } = useSelector((state: StoreState) => state.dataStreamEntity);
+  const { dataStreamEntityContractBalance, sensorContractAddresses } = useSelector((state: StoreState) => state.dataStreamEntity);
   const dispatch = useDispatch();
   const classes = useStyles();
   const { className, rest } = props;
@@ -57,7 +57,7 @@ function Statistics(props: Props) {
         </Grid>
         <Grid className={classes.item} item md={3} sm={6} xs={12}>
           <Typography variant="h2" color="textPrimary">
-            {sensors.length}
+            {sensorContractAddresses.length}
           </Typography>
           <Typography className={classes.overline} variant="overline" color="textSecondary">
             Sensors

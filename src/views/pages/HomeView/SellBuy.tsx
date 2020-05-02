@@ -1,14 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
-import {
-  Box,
-  Button,
-  Container,
-  Typography,
-  makeStyles,
-  Grid,
-} from '@material-ui/core';
+import { Box, Button, Container, Typography, makeStyles, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -39,38 +32,9 @@ function SellBuy(props: Props) {
           Chose whether you want to buy or sell data streams.
         </Typography>
         <Box mt={6} display="flex" justifyContent="center" alignItems="center">
-          <Grid container spacing={3}>
-            <Grid item xs={6} md={6}>
-              <Box
-                display="flex"
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <RouterLink to="/app">
-                  <Button size="large" color="secondary" variant="contained">
-                    buy
-                  </Button>
-                </RouterLink>
-              </Box>
-            </Grid>
-            <Grid item xs={6} md={6}>
-              <Box
-                display="flex"
-                style={{
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <RouterLink to="/app">
-                  <Button size="large" color="secondary" variant="contained">
-                    Sell
-                  </Button>
-                </RouterLink>
-              </Box>
-            </Grid>
-          </Grid>
+          <Button color="secondary" component={RouterLink} to="/app" variant="contained" size="large">
+            Join the Platform
+          </Button>
         </Box>
       </Container>
     </div>

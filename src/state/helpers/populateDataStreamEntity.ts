@@ -11,6 +11,6 @@ export const populateDataStreamEntity = (
     name: dataStreamEntityResult[2],
     url: dataStreamEntityResult[3],
     email: dataStreamEntityResult[4],
-    sensors: dataStreamEntityResult[5],
+    sensorContractAddresses: dataStreamEntityResult[5],
   };
 };

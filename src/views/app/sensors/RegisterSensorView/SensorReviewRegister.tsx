@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../../state/interfaces/storeState';
 import theme from '../../../../theme/Theme';
 import { registerSensor } from '../../../../state/actions/registerSensor';
+import {SensorType} from "../../../../state/interfaces";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -72,7 +73,7 @@ function SensorReviewRegister(props: Props) {
           className={classes.reviewField}
           id="sensorType"
           label="Sensor Type"
-          defaultValue={sensorType}
+          defaultValue={SensorType[sensorType]}
           InputProps={{
             readOnly: true,
           }}
