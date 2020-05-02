@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "mp-web-client.fullname" . }}
+  labels:
+    {{- include "mp-web-client.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: {{ .Values.service.portName }}
+      nodePort: {{ required "A valid .Values.service.nodePort entry required!" .Values.service.nodePort }}
+  selector:
+    {{- include "mp-web-client.selectorLabels" . | nindent 4 }}
