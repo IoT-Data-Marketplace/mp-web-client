@@ -55,12 +55,12 @@ const navBarConfig = [
     subheader: 'Management',
     items: [
       {
-        title: 'Register Sensor',
+        title: 'View Sensor',
         icon: UsersIcon,
-        href: ROUTES.REGISTER_SENSOR,
+        href: ROUTES.SENSORS,
       },
       {
-        title: 'View Sensor',
+        title: 'Register Sensor',
         icon: UsersIcon,
         href: ROUTES.REGISTER_SENSOR,
       },

@@ -22,7 +22,6 @@ interface Props {
 function SensorDetails(props: Props) {
   const classes = useStyles();
   const { sensor } = props;
-  console.log('displaying the sensor: ', sensor);
 
   return (
     <Paper>

@@ -22,6 +22,7 @@ class _InvoiceDetailsView extends React.Component<PropsType> {
   state = {
     errors: null,
     fetchedSensor: {
+      dataStreamEntityContractAddress: '',
       sensorContractAddress: '',
       sensorType: 0,
       geolocation: {
@@ -41,6 +42,7 @@ class _InvoiceDetailsView extends React.Component<PropsType> {
       this.setState({
         fetchedSensor: {
           sensorContractAddress,
+          dataStreamEntityContractAddress: result[0],
           sensorType: result[1],
           geolocation: {
             latitude: result[2],

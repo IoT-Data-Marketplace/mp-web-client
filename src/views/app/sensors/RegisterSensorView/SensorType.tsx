@@ -18,7 +18,7 @@ const typeOptions = [
     description: 'It measures the Humidity...',
   },
   {
-    value: SenType.AIR_POLUTION,
+    value: SenType.AIR_POLLUTION,
     title: 'Air Polution',
     description: 'It measures the Air Polution...',
   },

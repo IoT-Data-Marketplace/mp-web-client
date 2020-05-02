@@ -1,7 +1,7 @@
 export enum SensorType {
   TEMPERATURE,
   HUMIDITY,
-  AIR_POLUTION,
+  AIR_POLLUTION,
 }
 
 export interface Geolocation {
@@ -17,6 +17,11 @@ export interface RegisterSensor {
 
 export interface IoTSensor {
   sensorContractAddress: string;
+  dataStreamEntityContractAddress: string;
   sensorType: SensorType;
   geolocation: Geolocation;
+}
+
+export interface SensorState {
+  sensors: IoTSensor[];
 }

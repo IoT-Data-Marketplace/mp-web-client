@@ -6,7 +6,7 @@ export const ROUTES = {
   REGISTER: '/register',
   APP: '/app',
   APP_OVERVIEW: '/app/overview',
-  SENSOR: '/app/sensors',
+  SENSORS: '/app/sensors',
   VIEW_SENSOR_FOR_ADDRESS: '/app/sensors/:sensorContractAddress',
   REGISTER_SENSOR: '/app/sensors/register',
   NOT_FOUND: '/404',

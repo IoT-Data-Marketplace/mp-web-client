@@ -14,6 +14,7 @@ import {
   SetSensorGeolocationAction,
   SetSensorTypeAction,
 } from './registerSensor';
+import { AddFetchedSensorAction, GetSensorForDataStreamEntityContractAddressAction } from './sensor';
 
 export enum ActionTypes {
   toggleDrawer,
@@ -31,6 +32,8 @@ export enum ActionTypes {
   resetRegisterSensorState,
   setGeneratedSensorContractAddress,
   fetchDataStreamEntity,
+  getSensorsForDataStreamContractAddress,
+  addFetchedSensor,
 }
 
 export type Action =
@@ -48,4 +51,6 @@ export type Action =
   | RegisterSensorAction
   | ResetRegisterSensorStateAction
   | SetGeneratedSensorContractAddressAction
-  | FetchDataStreamEntityAction;
+  | FetchDataStreamEntityAction
+  | GetSensorForDataStreamEntityContractAddressAction
+  | AddFetchedSensorAction;

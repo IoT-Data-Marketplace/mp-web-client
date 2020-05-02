@@ -1,11 +1,4 @@
-import {
-  Auth,
-  Ui,
-  DataMarketplace,
-  DefaultValues,
-  IDataStreamEntity,
-  RegisterSensor
-} from './index';
+import { Auth, Ui, DataMarketplace, DefaultValues, IDataStreamEntity, RegisterSensor, SensorState } from './index';
 
 export interface StoreState {
   defaultValues: DefaultValues;
@@ -14,4 +7,5 @@ export interface StoreState {
   dataMarketplace: DataMarketplace;
   dataStreamEntity: IDataStreamEntity;
   registerSensor: RegisterSensor;
+  sensor: SensorState;
 }

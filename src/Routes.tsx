@@ -64,6 +64,11 @@ const routesConfig = [
       },
       {
         exact: true,
+        path: ROUTES.SENSORS,
+        component: lazy(() => import('./views/app/sensors/SensorListView')),
+      },
+      {
+        exact: true,
         path: ROUTES.REGISTER_SENSOR,
         component: lazy(() => import('./views/app/sensors/RegisterSensorView')),
       },

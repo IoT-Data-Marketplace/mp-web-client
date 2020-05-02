@@ -122,8 +122,10 @@ function ProjectCreateView() {
     setCompleted(true);
   };
 
+  console.log('register....')
+
   return (
-    <Page title="Project Create">
+    <Page title="Register Sensor">
       <Container maxWidth="lg">
         <Box mb={3}>
           <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
@@ -187,7 +189,7 @@ function ProjectCreateView() {
                     variant="contained"
                     color="secondary"
                     component={RouterLink}
-                    to={`${ROUTES.SENSOR}/${generatedContractAddress}`}
+                    to={`${ROUTES.SENSORS}/${generatedContractAddress}`}
                   >
                     See Sensor Details
                   </Button>
