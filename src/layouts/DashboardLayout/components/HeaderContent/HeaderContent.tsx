@@ -6,7 +6,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { toggleDrawer } from '../../../../state/actions';
+import { Button } from '@material-ui/core';
+import { toggleDrawer, toggleIsLoggedIn } from '../../../../state/actions';
 import { StoreState } from '../../../../state/interfaces/storeState';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,24 +34,15 @@ const HeaderContent = () => {
 
   return (
     <Toolbar>
-      <IconButton
-        onClick={onDrawerButtonClicked}
-        edge="start"
-        className={classes.menuButton}
-        color="inherit"
-        aria-label="menu"
-      >
+      <IconButton onClick={onDrawerButtonClicked} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
         <MenuIcon />
       </IconButton>
-      <Typography
-        component={Link}
-        to="/"
-        variant="h3"
-        color="textSecondary"
-        className={classes.title}
-      >
-        Buy Data Streams
+      <Typography component={Link} to="/" variant="h3" color="textSecondary" className={classes.title}>
+        IoT Data Trading Platform
       </Typography>
+      <Button color="primary" variant="contained" size="medium" onClick={() => dispatch(toggleIsLoggedIn(false))}>
+        Logout
+      </Button>
     </Toolbar>
   );
 };

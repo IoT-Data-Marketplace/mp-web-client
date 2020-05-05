@@ -34,14 +34,6 @@ function Features(props: Props) {
   return (
     <div className={clsx(classes.root, className)} {...rest}>
       <Container maxWidth="lg">
-        <Typography
-          component="p"
-          variant="overline"
-          color="secondary"
-          align="center"
-        >
-          Explore
-        </Typography>
         <Typography variant="h1" align="center" color="textPrimary">
           Explore the Marketplace
         </Typography>

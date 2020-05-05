@@ -11,6 +11,13 @@ image:
 nameOverride: ""
 fullnameOverride: ""
 
+recreationFlag: 1
+
+global:
+  recreationFlag: 1
+
+graphQlEndpoint: ""
+
 service:
   portName: mp-web-8050
   type: NodePort

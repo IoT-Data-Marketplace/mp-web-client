@@ -121,9 +121,6 @@ function ProjectCreateView() {
   const handleComplete = () => {
     setCompleted(true);
   };
-
-  console.log('register....')
-
   return (
     <Page title="Register Sensor">
       <Container maxWidth="lg">

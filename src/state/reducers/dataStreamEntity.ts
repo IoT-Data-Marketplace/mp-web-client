@@ -30,6 +30,8 @@ const dataStreamEntityReducer = (state: IDataStreamEntity = initialState, action
         ...state,
         dataStreamEntityContractBalance: action.dataStreamEntityContractBalance,
       };
+    case ActionTypes.toggleIsLoggedIn:
+      return initialState;
     default:
       return state;
   }

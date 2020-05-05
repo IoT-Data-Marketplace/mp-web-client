@@ -19,6 +19,8 @@ const uiReducer = (state: Ui = initialState, action: Action) => {
         ...state,
         isLoading: action.isLoading,
       };
+    case ActionTypes.toggleIsLoggedIn:
+      return initialState;
     default:
       return state;
   }

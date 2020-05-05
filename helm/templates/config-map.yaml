@@ -6,3 +6,4 @@ metadata:
     {{ include "mp-web-client.labels" . | nindent 4 }}
 data:
   REACT_APP_IOT_DATA_MARKETPLACE_CONTRACT_ADDRESS: {{ required "A valid .Values.reactAppIoTDataMarketplaceContractAddress entry required!" .Values.reactAppIoTDataMarketplaceContractAddress }}
+  REACT_APP_GRAPHQL_ENDPOINT: {{ required "A valid .Values.graphQlEndpoint entry required!" .Values.graphQlEndpoint }}

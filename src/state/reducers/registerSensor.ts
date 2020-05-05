@@ -32,6 +32,8 @@ const registerSensorReducer = (state: RegisterSensor = initialState, action: Act
       return {
         ...initialState,
       };
+    case ActionTypes.toggleIsLoggedIn:
+      return initialState;
     default:
       return state;
   }

@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         {{- include "mp-web-client.selectorLabels" . | nindent 8 }}
+      annotations:
+        forceRecreate: {{ add .Values.global.recreationFlag .Values.recreationFlag | quote}}
     spec:
       containers:
         - name: {{ .Chart.Name }}

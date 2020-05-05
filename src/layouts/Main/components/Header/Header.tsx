@@ -54,21 +54,10 @@ const Header = (props: Props) => {
       <HideOnScroll {...props}>
         <AppBar className={classes.appBar} color="default">
           <Toolbar>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="menu"
-            >
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
               <DeviceHubOutlinedIcon />
             </IconButton>
-            <Typography
-              component={Link}
-              to="/"
-              variant="h3"
-              color="textSecondary"
-              className={classes.title}
-            >
+            <Typography component={Link} to="/" variant="h3" color="textSecondary" className={classes.title}>
               IoT Data Marketplace
             </Typography>
           </Toolbar>

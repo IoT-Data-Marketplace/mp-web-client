@@ -36,7 +36,6 @@ function SensorGeolocation(props: Props) {
   const { className, rest, onNext, onBack } = props;
   const { geolocation } = useSelector((state: StoreState) => state.registerSensor);
   const dispatch = useDispatch();
-  console.log('geo: ', geolocation);
 
   return (
     <Formik

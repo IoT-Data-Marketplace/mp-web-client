@@ -15,6 +15,8 @@ const sensorReducer = (state: SensorState = initialState, action: Action): Senso
           ? state.sensors
           : [...state.sensors, action.sensor],
       };
+    case ActionTypes.toggleIsLoggedIn:
+      return initialState;
     default:
       return state;
   }
