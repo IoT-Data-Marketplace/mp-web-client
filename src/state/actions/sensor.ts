@@ -1,16 +1,16 @@
 import { Dispatch } from 'redux';
 import DataStreamEntity from '../../blockchain/dataStreamEntity';
-import Sensor from '../../blockchain/sensor';
+import SensorContract from '../../blockchain/sensor';
 import { ActionTypes } from './types';
 import { asyncForEach } from '../helpers/asyncForEach';
-import { IoTSensor } from '../interfaces';
+import { Sensor } from '../interfaces';
 
 export interface AddFetchedSensorAction {
   type: ActionTypes.addFetchedSensor;
-  sensor: IoTSensor;
+  sensor: Sensor;
 }
 
-export const addFetchedSensor = (sensor: IoTSensor): AddFetchedSensorAction => {
+export const addFetchedSensor = (sensor: Sensor): AddFetchedSensorAction => {
   return {
     type: ActionTypes.addFetchedSensor,
     sensor,
@@ -27,7 +27,7 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
     try {
       const dataStreamEntitySensors = await DataStreamEntity(dataStreamEntityContractAddress).methods.getSensors().call();
       await asyncForEach(dataStreamEntitySensors, async (sensorContractAddress) => {
-        const sensorResult = await Sensor(sensorContractAddress).methods.describeSensor().call();
+        const sensorResult = await SensorContract(sensorContractAddress).methods.describeSensor().call();
         dispatch<AddFetchedSensorAction>(
           addFetchedSensor({
             sensorContractAddress,
@@ -37,6 +37,7 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
               latitude: sensorResult[2],
               longitude: sensorResult[3],
             },
+            sensorStatus: sensorResult[4],
           })
         );
       });

@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocationIcon from '@material-ui/icons/LocationCity';
 import DeviceIcon from '@material-ui/icons/DeviceHub';
-import { Box, Button, Link, List, makeStyles, Typography } from '@material-ui/core';
+import { Box, Link, List, makeStyles, Typography } from '@material-ui/core';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Divider from '@material-ui/core/Divider';
 import { Users as UsersIcon } from 'react-feather';

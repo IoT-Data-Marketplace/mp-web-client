@@ -5,7 +5,7 @@ import { SensorType, Geolocation, RegisterSensor } from '../interfaces';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import web3 from '../../blockchain/web3';
 import DataStreamEntity from '../../blockchain/dataStreamEntity';
-import { getRegisterIoTSensorGQLQuery } from './graphQlQueris/gqlQueries';
+import { getRegisterSensorGQLQuery } from './graphQlQueris/gqlQueries';
 
 export interface SetSensorTypeAction {
   type: ActionTypes.setSensorType;
@@ -74,14 +74,13 @@ export const registerSensor = (sensor: RegisterSensor, dataStreamEntityContractA
       const newSensorContractAddress = await methodToCall.call({ from: accounts[0] });
       await methodToCall.send({ from: accounts[0] });
       dispatch<SetGeneratedSensorContractAddressAction>(setGeneratedSensorContractAddress(newSensorContractAddress));
-      const res = await graphQLClient.rawRequest(getRegisterIoTSensorGQLQuery(newSensorContractAddress));
 
-      if (res.data.registerIoTSensor.statusCode !== 201)
-        throw new Error(
-          `Error while registering the topic with name: ${newSensorContractAddress} \nResponse code: ${res.data.registerIoTSensor.statusCode}\nResponse Body: ${res.data.registerIoTSensor.responseBody}`
-        );
-
-      console.log('topic result: ', res);
+      // const res = await graphQLClient.rawRequest(getRegisterSensorGQLQuery(newSensorContractAddress));
+      // if (res.data.registerSensor.statusCode !== 201)
+      //   throw new Error(
+      //     `Error while registering the topic with name: ${newSensorContractAddress} \nResponse code: ${res.data.registerSensor.statusCode}\nResponse Body: ${res.data.registerSensor.responseBody}`
+      //   );
+      // console.log('topic result: ', res);
     } catch (e) {
       console.error('Error while registering the sensor, Error: ', e);
     } finally {

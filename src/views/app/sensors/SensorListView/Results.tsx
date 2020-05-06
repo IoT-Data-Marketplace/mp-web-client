@@ -1,8 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Card } from '@material-ui/core';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Table from '@material-ui/core/Table';
@@ -12,8 +10,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import uuid from 'react-uuid';
 import { StoreState } from '../../../../state/interfaces/storeState';
-import sensor from '../../../../blockchain/sensor';
-import { SensorType } from '../../../../state/interfaces';
+import {SensorStatus, SensorType} from '../../../../state/interfaces';
+import Label from '../../../../components/Label';
+
+enum SensorStatusColor {
+  warning,
+  success,
+  error,
+}
 
 const Results = () => {
   const { sensors } = useSelector((state: StoreState) => state.sensor);
@@ -27,16 +31,20 @@ const Results = () => {
                 <TableCell>ID</TableCell>
                 <TableCell>Type</TableCell>
                 <TableCell>Geolocation</TableCell>
+                <TableCell>Status</TableCell>
                 <TableCell>Stream Size</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {sensors.map((ioTSensor) => {
+              {sensors.map((sensor) => {
                 return (
                   <TableRow key={uuid()}>
-                    <TableCell>{ioTSensor.sensorContractAddress}</TableCell>
-                    <TableCell>{SensorType[ioTSensor.sensorType]}</TableCell>
-                    <TableCell>{`${ioTSensor.geolocation.latitude}° N, ${ioTSensor.geolocation.longitude}° E`}</TableCell>
+                    <TableCell>{sensor.sensorContractAddress}</TableCell>
+                    <TableCell>{SensorType[sensor.sensorType]}</TableCell>
+                    <TableCell>{`${sensor.geolocation.latitude}° N, ${sensor.geolocation.longitude}° E`}</TableCell>
+                    <TableCell>
+                      <Label color={SensorStatusColor[sensor.sensorStatus]}>{SensorStatus[sensor.sensorStatus]}</Label>
+                    </TableCell>
                     <TableCell>TODO</TableCell>
                   </TableRow>
                 );

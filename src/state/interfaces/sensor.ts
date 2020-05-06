@@ -4,6 +4,12 @@ export enum SensorType {
   AIR_POLLUTION,
 }
 
+export enum SensorStatus {
+  INACTIVE,
+  ACTIVE,
+  BLOCKED,
+}
+
 export interface Geolocation {
   latitude: string;
   longitude: string;
@@ -15,13 +21,14 @@ export interface RegisterSensor {
   geolocation: Geolocation;
 }
 
-export interface IoTSensor {
+export interface Sensor {
   sensorContractAddress: string;
   dataStreamEntityContractAddress: string;
   sensorType: SensorType;
   geolocation: Geolocation;
+  sensorStatus: SensorStatus;
 }
 
 export interface SensorState {
-  sensors: IoTSensor[];
+  sensors: Sensor[];
 }

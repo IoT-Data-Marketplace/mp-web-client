@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { Box, Button, FormHelperText, Paper, Typography, makeStyles } from '@material-ui/core';
+import { Box, Button, FormHelperText, makeStyles, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../../state/interfaces/storeState';
 import theme from '../../../../theme/Theme';
 import { registerSensor } from '../../../../state/actions/registerSensor';
-import {SensorType} from "../../../../state/interfaces";
+import { SensorType } from '../../../../state/interfaces';
 
 const useStyles = makeStyles(() => ({
   root: {},

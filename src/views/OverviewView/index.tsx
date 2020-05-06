@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, makeStyles } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import Page from '../../components/Page';
 import Header from './Header';
 import Statistics from './Statistics';

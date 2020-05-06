@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Page from '../../../../components/Page';
 import Header from './Header';
 import { StoreState } from '../../../../state/interfaces/storeState';
-import { toggleDrawer } from '../../../../state/actions';
 import { getSensorsForDataStreamEntityContractAddress } from '../../../../state/actions/sensor';
 import Results from './Results';
 

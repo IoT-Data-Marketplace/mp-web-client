@@ -7,9 +7,9 @@ export const getProducerByContractAddressGQLQuery = (producerAccountContractAddr
       }`;
 };
 
-export const getRegisterIoTSensorGQLQuery = (newSensorContractAddress: string): string => {
+export const getRegisterSensorGQLQuery = (newSensorContractAddress: string): string => {
   return `mutation{
-    registerIoTSensor(
+    registerSensor(
       sensorContractAddress:"${newSensorContractAddress}"
     ) {
         statusCode,

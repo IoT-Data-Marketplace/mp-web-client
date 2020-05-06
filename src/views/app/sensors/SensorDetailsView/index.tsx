@@ -29,6 +29,7 @@ class _InvoiceDetailsView extends React.Component<PropsType> {
         latitude: '',
         longitude: '',
       },
+      sensorStatus: 0,
     },
   };
 
@@ -48,6 +49,7 @@ class _InvoiceDetailsView extends React.Component<PropsType> {
             latitude: result[2],
             longitude: result[3],
           },
+          sensorStatus: result[4],
         },
       });
     } catch (e) {

@@ -3,7 +3,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Box, makeStyles, Paper, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { IoTSensor, SensorType } from '../../../../state/interfaces';
+import { Sensor, SensorStatus, SensorType } from '../../../../state/interfaces';
 import theme from '../../../../theme/Theme';
 
 const useStyles = makeStyles(() => ({
@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
-  sensor: IoTSensor;
+  sensor: Sensor;
 }
 
 function SensorDetails(props: Props) {
@@ -96,6 +96,17 @@ function SensorDetails(props: Props) {
               id="Longitude"
               label="Longitude"
               defaultValue={sensor.geolocation.longitude}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+
+            <TextField
+              className={classes.reviewField}
+              id="sensorStatus"
+              label="Sensor Status"
+              defaultValue={SensorStatus[sensor.sensorStatus]}
               InputProps={{
                 readOnly: true,
               }}

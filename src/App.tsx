@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { createBrowserHistory } from 'history';
 import { ThemeProvider } from '@material-ui/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -8,8 +7,6 @@ import createStyles from '@material-ui/styles/createStyles';
 import Routes from './Routes';
 import theme from './theme/Theme';
 import LoadingBackdrop from './components/LoadingBackdrop';
-import { StoreState } from './state/interfaces/storeState';
-import { fetchDataStreamEntity, toggleDrawer } from './state/actions';
 
 const browserHistory = createBrowserHistory();
 
@@ -41,7 +38,6 @@ const useStyles = makeStyles(() =>
 );
 
 function App() {
-
   useStyles();
   return (
     <ThemeProvider theme={theme}>

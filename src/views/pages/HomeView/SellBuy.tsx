@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
-import { Box, Button, Container, Typography, makeStyles, Grid } from '@material-ui/core';
+import { Box, Button, Container, makeStyles, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {

@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../../state/interfaces/storeState';
-import { setSensorGeolocation, setSensorType } from '../../../../state/actions/registerSensor';
+import { setSensorGeolocation } from '../../../../state/actions/registerSensor';
 
 const useStyles = makeStyles((theme) => ({
   root: {},

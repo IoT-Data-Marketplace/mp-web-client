@@ -9,23 +9,23 @@ import {
   Button,
   Card,
   CardContent,
+  colors,
   Container,
   Grid,
   Link,
+  makeStyles,
   Paper,
   Step,
   StepConnector,
   StepLabel,
   Stepper,
   Typography,
-  makeStyles,
   withStyles,
-  colors,
 } from '@material-ui/core';
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { User as UserIcon, Star as StarIcon, Briefcase as BriefcaseIcon, File as FileIcon } from 'react-feather';
+import { File as FileIcon, Star as StarIcon } from 'react-feather';
 import { useSelector } from 'react-redux';
 import Page from '../../../../components/Page';
 import { ROUTES } from '../../../../constants';
