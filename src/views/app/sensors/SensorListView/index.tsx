@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Page from '../../../../components/Page';
 import Header from './Header';
 import { StoreState } from '../../../../state/interfaces/storeState';
-import { getSensorsForDataStreamEntityContractAddress } from '../../../../state/actions/sensor';
+import { getSensorsForDataStreamEntityContractAddress } from '../../../../state/actions/sensor/sensor';
 import Results from './Results';
 
 function SensorListView() {

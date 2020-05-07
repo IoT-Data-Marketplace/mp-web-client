@@ -1,11 +1,9 @@
 import { Dispatch } from 'redux';
-import { graphQLClient } from '../graphQLClient';
-import { ActionTypes } from './types';
-import { SensorType, Geolocation, RegisterSensor } from '../interfaces';
-import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
-import web3 from '../../blockchain/web3';
-import DataStreamEntity from '../../blockchain/dataStreamEntity';
-import { getRegisterSensorGQLQuery } from './graphQlQueris/gqlQueries';
+import { ActionTypes } from '../types';
+import { Geolocation, RegisterSensor, SensorType } from '../../interfaces';
+import { toggleIsLoading, ToggleIsLoadingAction } from '../ui';
+import web3 from '../../../blockchain/web3';
+import DataStreamEntity from '../../../blockchain/dataStreamEntity';
 
 export interface SetSensorTypeAction {
   type: ActionTypes.setSensorType;

@@ -9,9 +9,13 @@ import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import uuid from 'react-uuid';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
+import { Link as RouterLink } from 'react-router-dom';
 import { StoreState } from '../../../../state/interfaces/storeState';
-import {SensorStatus, SensorType} from '../../../../state/interfaces';
+import { SensorStatus, SensorType } from '../../../../state/interfaces';
 import Label from '../../../../components/Label';
+import { ROUTES } from '../../../../constants';
 
 enum SensorStatusColor {
   warning,
@@ -33,6 +37,7 @@ const Results = () => {
                 <TableCell>Geolocation</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Stream Size</TableCell>
+                <TableCell>Edit</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -46,6 +51,17 @@ const Results = () => {
                       <Label color={SensorStatusColor[sensor.sensorStatus]}>{SensorStatus[sensor.sensorStatus]}</Label>
                     </TableCell>
                     <TableCell>TODO</TableCell>
+                    <TableCell>
+                      <Fab
+                        component={RouterLink}
+                        to={`${ROUTES.SENSORS}/${sensor.sensorContractAddress}`}
+                        color="secondary"
+                        aria-label="edit"
+                        size="small"
+                      >
+                        <EditIcon />
+                      </Fab>
+                    </TableCell>
                   </TableRow>
                 );
               })}

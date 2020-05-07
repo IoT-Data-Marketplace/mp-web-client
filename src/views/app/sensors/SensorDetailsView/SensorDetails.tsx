@@ -3,8 +3,10 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Box, makeStyles, Paper, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { useDispatch } from 'react-redux';
 import { Sensor, SensorStatus, SensorType } from '../../../../state/interfaces';
 import theme from '../../../../theme/Theme';
+import { activateSensor } from '../../../../state/actions/sensor/sensorStatus';
 
 const useStyles = makeStyles(() => ({
   reviewGrid: {
@@ -17,11 +19,24 @@ const useStyles = makeStyles(() => ({
 
 interface Props {
   sensor: Sensor;
+  // fetchCurrentSensor: any;
 }
 
 function SensorDetails(props: Props) {
   const classes = useStyles();
   const { sensor } = props;
+  const [currentStatus, setCurrentStatus] = React.useState(SensorStatus[sensor.sensorStatus]);
+  const dispatch = useDispatch();
+
+  const onUpdateSensorStatusClicked = async () => {
+    try {
+      await dispatch(activateSensor(sensor.sensorContractAddress));
+      setCurrentStatus(SensorStatus[SensorStatus.ACTIVE]);
+      console.log('after update ', currentStatus);
+    } catch (e) {
+      console.error('Error while activating the sensor...');
+    }
+  };
 
   return (
     <Paper>
@@ -102,16 +117,79 @@ function SensorDetails(props: Props) {
               variant="outlined"
             />
 
-            <TextField
-              className={classes.reviewField}
-              id="sensorStatus"
-              label="Sensor Status"
-              defaultValue={SensorStatus[sensor.sensorStatus]}
-              InputProps={{
-                readOnly: true,
+            {/* <TextField */}
+            {/*  className={classes.reviewField} */}
+            {/*  id="sensorStatus" */}
+            {/*  label="Sensor Status" */}
+            {/*  defaultValue={SensorStatus[sensor.sensorStatus]} */}
+            {/*  InputProps={{ */}
+            {/*    readOnly: true, */}
+            {/*  }} */}
+            {/*  variant="outlined" */}
+            {/* /> */}
+
+            <div
+              style={{
+                display: 'flex',
               }}
-              variant="outlined"
-            />
+            >
+              {/* <Select */}
+              {/*  style={{ */}
+              {/*    width: '75%', */}
+              {/*  }} */}
+              {/*  className={classes.reviewField} */}
+              {/*  variant="outlined" */}
+              {/*  id="sensorStatus" */}
+              {/*  label="Sensor Status" */}
+              {/*  native */}
+              {/*  value={currentStatus} */}
+              {/*  inputProps={{ */}
+              {/*    name: 'sensorStatus', */}
+              {/*    id: 'sensorStatus', */}
+              {/*    label: 'Sensor Status', */}
+              {/*  }} */}
+              {/*  onChange={handleChangeStatus} */}
+              {/* > */}
+              {/*  {Object.keys(SensorStatus) */}
+              {/*    // eslint-disable-next-line no-restricted-globals */}
+              {/*    .filter((key) => !isNaN(Number(SensorStatus[key]))) */}
+              {/*    .map((status) => { */}
+              {/*      return ( */}
+              {/*        <option key={uuid()} value={status}> */}
+              {/*          {status} */}
+              {/*        </option> */}
+              {/*      ); */}
+              {/*    })} */}
+              {/* </Select> */}
+
+              <TextField
+                style={{
+                  width: '75%',
+                }}
+                className={classes.reviewField}
+                id="sensorStatus"
+                label="Sensor Status"
+                defaultValue={currentStatus}
+                value={currentStatus}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+              />
+              <Button
+                style={{
+                  width: '20%',
+                  float: 'right',
+                }}
+                color="inherit"
+                variant="outlined"
+                size="small"
+                onClick={onUpdateSensorStatusClicked}
+                disabled={currentStatus === SensorStatus[SensorStatus.ACTIVE]}
+              >
+                Activate Sensor
+              </Button>
+            </div>
           </Box>
         </Box>
       </PerfectScrollbar>

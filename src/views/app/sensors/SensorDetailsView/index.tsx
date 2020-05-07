@@ -17,7 +17,7 @@ type PropsType = RouteComponentProps<PathParamsType> & {
 };
 
 // eslint-disable-next-line react/prefer-stateless-function,@typescript-eslint/class-name-casing
-class _InvoiceDetailsView extends React.Component<PropsType> {
+class _SensorDetailsView extends React.Component<PropsType> {
   // eslint-disable-next-line react/state-in-constructor
   state = {
     errors: null,
@@ -33,7 +33,7 @@ class _InvoiceDetailsView extends React.Component<PropsType> {
     },
   };
 
-  componentDidMount = async () => {
+  fetchCurrentSensor = async () => {
     // eslint-disable-next-line react/destructuring-assignment
     const { props } = this;
     const { sensorContractAddress } = props.match.params;
@@ -62,9 +62,16 @@ class _InvoiceDetailsView extends React.Component<PropsType> {
     }
   };
 
+  componentDidMount = async () => {
+    await this.fetchCurrentSensor();
+  };
+
   render() {
     const { fetchedSensor, errors } = this.state;
-    const sensorDetails = fetchedSensor.sensorContractAddress === '' ? null : <SensorDetails sensor={fetchedSensor} />;
+    const sensorDetails =
+      fetchedSensor.sensorContractAddress === '' ? null : (
+        <SensorDetails sensor={fetchedSensor} />
+      );
 
     return (
       <Page title="Sensor Details">
@@ -81,4 +88,4 @@ class _InvoiceDetailsView extends React.Component<PropsType> {
   }
 }
 
-export default connect(null, { toggleIsLoading })(withRouter(_InvoiceDetailsView));
+export default connect(null, { toggleIsLoading })(withRouter(_SensorDetailsView));

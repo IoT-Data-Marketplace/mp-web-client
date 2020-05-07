@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Box, Paper, FormHelperText, Typography, Radio, Button, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSensorType } from '../../../../state/actions/registerSensor';
+import { setSensorType } from '../../../../state/actions/sensor/registerSensor';
 import { SensorType as SenType } from '../../../../state/interfaces/sensor';
 import { StoreState } from '../../../../state/interfaces/storeState';
 

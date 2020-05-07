@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
-import DataStreamEntity from '../../blockchain/dataStreamEntity';
-import SensorContract from '../../blockchain/sensor';
-import { ActionTypes } from './types';
-import { asyncForEach } from '../helpers/asyncForEach';
-import { Sensor } from '../interfaces';
+import DataStreamEntity from '../../../blockchain/dataStreamEntity';
+import SensorContract from '../../../blockchain/sensor';
+import { ActionTypes } from '../types';
+import { asyncForEach } from '../../helpers/asyncForEach';
+import { Sensor } from '../../interfaces';
 
 export interface AddFetchedSensorAction {
   type: ActionTypes.addFetchedSensor;

@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../../state/interfaces/storeState';
 import theme from '../../../../theme/Theme';
-import { registerSensor } from '../../../../state/actions/registerSensor';
+import { registerSensor } from '../../../../state/actions/sensor/registerSensor';
 import { SensorType } from '../../../../state/interfaces';
 
 const useStyles = makeStyles(() => ({
