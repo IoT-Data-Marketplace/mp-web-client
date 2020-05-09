@@ -4,6 +4,7 @@ import SensorContract from '../../../blockchain/sensor';
 import { ActionTypes } from '../types';
 import { asyncForEach } from '../../helpers/asyncForEach';
 import { Sensor } from '../../interfaces';
+import {fetchSensorSummary} from "./fn";
 
 export interface AddFetchedSensorAction {
   type: ActionTypes.addFetchedSensor;
@@ -17,6 +18,8 @@ export const addFetchedSensor = (sensor: Sensor): AddFetchedSensorAction => {
   };
 };
 
+
+
 export interface GetSensorForDataStreamEntityContractAddressAction {
   type: ActionTypes.getSensorsForDataStreamContractAddress;
   dataStreamContractAddress: string;
@@ -28,6 +31,8 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
       const dataStreamEntitySensors = await DataStreamEntity(dataStreamEntityContractAddress).methods.getSensors().call();
       await asyncForEach(dataStreamEntitySensors, async (sensorContractAddress) => {
         const sensorResult = await SensorContract(sensorContractAddress).methods.describeSensor().call();
+        const sensorSummary = await fetchSensorSummary(sensorContractAddress);
+        console.log('size: ', sensorSummary.streamSize);
         dispatch<AddFetchedSensorAction>(
           addFetchedSensor({
             sensorContractAddress,
@@ -38,6 +43,7 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
               longitude: sensorResult[3],
             },
             sensorStatus: sensorResult[4],
+            streamSize: sensorSummary.streamSize,
           })
         );
       });
@@ -51,3 +57,4 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
     }
   };
 };
+

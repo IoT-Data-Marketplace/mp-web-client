@@ -27,6 +27,7 @@ export interface Sensor {
   sensorType: SensorType;
   geolocation: Geolocation;
   sensorStatus: SensorStatus;
+  streamSize: number;
 }
 
 export interface SensorState {

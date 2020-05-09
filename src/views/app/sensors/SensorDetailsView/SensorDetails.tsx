@@ -4,6 +4,7 @@ import { Box, makeStyles, Paper, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
+import { Alert } from '@material-ui/lab';
 import { Sensor, SensorStatus, SensorType } from '../../../../state/interfaces';
 import theme from '../../../../theme/Theme';
 import { activateSensor } from '../../../../state/actions/sensor/sensorStatus';
@@ -43,11 +44,11 @@ function SensorDetails(props: Props) {
       <PerfectScrollbar>
         <Box minWidth={800} p={6}>
           <Typography variant="h3" color="textPrimary">
-            Review you Sensor Details
+            Sensor Details
           </Typography>
           <Box mt={2}>
             <Typography variant="subtitle1" color="textSecondary">
-              Here you can review your Sensor Information before you register it.
+              Here you can find the information about the sensor and how to run it.
             </Typography>
           </Box>
           <Box mt={2} className={classes.reviewGrid}>
@@ -190,6 +191,35 @@ function SensorDetails(props: Props) {
                 Activate Sensor
               </Button>
             </div>
+
+            <TextField
+              className={classes.reviewField}
+              id="streamSize"
+              label="Stream Size"
+              defaultValue={sensor.streamSize}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+
+            <Box mt={2}>
+              <Box mt={2}>
+                <Typography variant="h4" color="textSecondary">
+                  Run the following command on your IoT Device to start pushing the data to the platform.
+                </Typography>
+              </Box>
+              <Box mt={2}>
+                <Alert severity="info">
+                  <Typography variant="h5" color="textSecondary">
+                    docker run \ <br />
+                    --privileged \ <br />
+                    --env MP_IOT_DEVICE_CLIENT_SENSOR_ID=&quot;{sensor.sensorContractAddress}&quot; \ <br />
+                    ddanijeld/mp-iot-device-client:latest
+                  </Typography>
+                </Alert>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </PerfectScrollbar>

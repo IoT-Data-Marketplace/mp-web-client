@@ -46,9 +46,7 @@ function RegisterForm(props: Props) {
           );
           onSubmitSuccess();
         } catch (error) {
-          // setStatus({ success: false });
-          // setErrors({ submit: error.message });
-          // setSubmitting(false);
+          console.error(error);
         }
       }}
     >

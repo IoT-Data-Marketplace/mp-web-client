@@ -7,6 +7,7 @@ import Page from '../../../../components/Page';
 import Sensor from '../../../../blockchain/sensor';
 import { toggleIsLoading } from '../../../../state/actions';
 import SensorDetails from './SensorDetails';
+import { fetchSensorSummary } from '../../../../state/actions/sensor/fn';
 
 type PathParamsType = {
   sensorContractAddress: string;
@@ -30,6 +31,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
         longitude: '',
       },
       sensorStatus: 0,
+      streamSize: 0,
     },
   };
 
@@ -40,6 +42,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
     try {
       props.toggleIsLoading(true);
       const result = await Sensor(sensorContractAddress).methods.describeSensor().call();
+      const sensorSummary = await fetchSensorSummary(sensorContractAddress);
       this.setState({
         fetchedSensor: {
           sensorContractAddress,
@@ -50,6 +53,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
             longitude: result[3],
           },
           sensorStatus: result[4],
+          streamSize: sensorSummary.streamSize,
         },
       });
     } catch (e) {
@@ -68,10 +72,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
 
   render() {
     const { fetchedSensor, errors } = this.state;
-    const sensorDetails =
-      fetchedSensor.sensorContractAddress === '' ? null : (
-        <SensorDetails sensor={fetchedSensor} />
-      );
+    const sensorDetails = fetchedSensor.sensorContractAddress === '' ? null : <SensorDetails sensor={fetchedSensor} />;
 
     return (
       <Page title="Sensor Details">

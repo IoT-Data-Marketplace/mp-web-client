@@ -17,3 +17,13 @@ export const getRegisterSensorGQLQuery = (newSensorContractAddress: string): str
     }
   }`;
 };
+
+export const getFetchSensorSummaryGQLQuery = (sensorContractAddress: string): string => {
+  return `query{
+    getSensorSummary(
+      sensorContractAddress:"${sensorContractAddress}"
+    ) {
+        streamSize
+    }
+  }`;
+};

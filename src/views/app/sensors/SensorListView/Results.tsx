@@ -25,6 +25,7 @@ enum SensorStatusColor {
 
 const Results = () => {
   const { sensors } = useSelector((state: StoreState) => state.sensor);
+  console.log('sensors: ', sensors);
   return (
     <Card>
       <PerfectScrollbar>
@@ -50,7 +51,7 @@ const Results = () => {
                     <TableCell>
                       <Label color={SensorStatusColor[sensor.sensorStatus]}>{SensorStatus[sensor.sensorStatus]}</Label>
                     </TableCell>
-                    <TableCell>TODO</TableCell>
+                    <TableCell>{sensor.streamSize}</TableCell>
                     <TableCell>
                       <Fab
                         component={RouterLink}
