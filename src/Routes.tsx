@@ -69,6 +69,11 @@ const routesConfig = [
       },
       {
         exact: true,
+        path: ROUTES.SEARCH_DATA_STREAMS_BY_LOCATION,
+        component: lazy(() => import('./views/app/sensors/SearchByLocationView')),
+      },
+      {
+        exact: true,
         path: ROUTES.REGISTER_SENSOR,
         component: lazy(() => import('./views/app/sensors/RegisterSensorView')),
       },

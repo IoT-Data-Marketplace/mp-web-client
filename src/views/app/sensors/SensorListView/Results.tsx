@@ -8,10 +8,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import uuid from 'react-uuid';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton';
+import { ArrowRightCircle as ArrowRightIcon } from 'react-feather';
 import { StoreState } from '../../../../state/interfaces/storeState';
 import { SensorStatus, SensorType } from '../../../../state/interfaces';
 import Label from '../../../../components/Label';
@@ -38,7 +39,7 @@ const Results = () => {
                 <TableCell>Geolocation</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Stream Size</TableCell>
-                <TableCell>Edit</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -52,16 +53,12 @@ const Results = () => {
                       <Label color={SensorStatusColor[sensor.sensorStatus]}>{SensorStatus[sensor.sensorStatus]}</Label>
                     </TableCell>
                     <TableCell>{sensor.streamSize}</TableCell>
-                    <TableCell>
-                      <Fab
-                        component={RouterLink}
-                        to={`${ROUTES.SENSORS}/${sensor.sensorContractAddress}`}
-                        color="secondary"
-                        aria-label="edit"
-                        size="small"
-                      >
-                        <EditIcon />
-                      </Fab>
+                    <TableCell align="center">
+                      <IconButton component={RouterLink} to={`${ROUTES.SENSORS}/${sensor.sensorContractAddress}`}>
+                        <SvgIcon fontSize="default">
+                          <ArrowRightIcon />
+                        </SvgIcon>
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 );

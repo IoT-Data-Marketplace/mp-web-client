@@ -8,6 +8,7 @@ import Sensor from '../../../../blockchain/sensor';
 import { toggleIsLoading } from '../../../../state/actions';
 import SensorDetails from './SensorDetails';
 import { fetchSensorSummary } from '../../../../state/actions/sensor/fn';
+import Header from './Header';
 
 type PathParamsType = {
   sensorContractAddress: string;
@@ -77,12 +78,9 @@ class _SensorDetailsView extends React.Component<PropsType> {
     return (
       <Page title="Sensor Details">
         <Container maxWidth="lg">
+          <Header sensorContractAddress={fetchedSensor.sensorContractAddress} />
           {errors}
-          {/* <Header invoice={invoice} /> */}
-          <Box my={2}>
-            <Divider />
-          </Box>
-          {sensorDetails}
+          <Box mt={3}>{sensorDetails}</Box>
         </Container>
       </Page>
     );

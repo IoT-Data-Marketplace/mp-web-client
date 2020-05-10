@@ -37,17 +37,12 @@ interface NavBarConfig {
 
 const navBarConfig = [
   {
-    subheader: 'Search For Data',
+    subheader: 'Search For Data Streams',
     items: [
       {
         title: 'By Location',
         icon: LocationIcon,
-        href: '/app/search/location',
-      },
-      {
-        title: 'By Sensor Type',
-        icon: DeviceIcon,
-        href: '/app/search/sensor-type',
+        href: ROUTES.SEARCH_DATA_STREAMS_BY_LOCATION,
       },
     ],
   },
@@ -55,7 +50,7 @@ const navBarConfig = [
     subheader: 'Management',
     items: [
       {
-        title: 'View Sensor',
+        title: 'List Sensors',
         icon: UsersIcon,
         href: ROUTES.SENSORS,
       },
