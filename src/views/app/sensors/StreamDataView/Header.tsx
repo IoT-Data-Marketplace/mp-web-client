@@ -20,10 +20,11 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   className?: string;
   rest?: any;
+  sensorContractAddress: string;
 }
 
 function Header(props: Props) {
-  const { className, rest } = props;
+  const { className, rest, sensorContractAddress } = props;
   const classes = useStyles();
 
   return (
@@ -37,7 +38,7 @@ function Header(props: Props) {
             Streams
           </Typography>
           <Typography variant="body1" color="textPrimary">
-            SensorID
+            {sensorContractAddress}
           </Typography>
         </Breadcrumbs>
         <Typography variant="h3" color="textPrimary">

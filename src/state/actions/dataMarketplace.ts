@@ -10,11 +10,7 @@ export interface DescribeDataMarketplaceAction {
 export const getDataMarketplaceByContractAddress = () => {
   return async (dispatch: Dispatch) => {
     try {
-      const dataMarketplaceResult = await IoTDataMarketplace()
-        .methods.describeIoTDataMarketplace()
-        .call();
-
-      console.log('marketplace result: ', dataMarketplaceResult);
+      const dataMarketplaceResult = await IoTDataMarketplace().methods.describeIoTDataMarketplace().call();
     } catch (e) {
       console.error('Error while describing the Data Marketplace, Error: ', e);
     }

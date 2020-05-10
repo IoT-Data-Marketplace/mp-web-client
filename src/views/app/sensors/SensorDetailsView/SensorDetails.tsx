@@ -33,7 +33,6 @@ function SensorDetails(props: Props) {
     try {
       await dispatch(activateSensor(sensor.sensorContractAddress));
       setCurrentStatus(SensorStatus[SensorStatus.ACTIVE]);
-      console.log('after update ', currentStatus);
     } catch (e) {
       console.error('Error while activating the sensor...');
     }

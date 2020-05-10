@@ -26,7 +26,6 @@ enum SensorStatusColor {
 
 const Results = () => {
   const { sensors } = useSelector((state: StoreState) => state.sensor);
-  console.log('sensors: ', sensors);
   return (
     <Card>
       <PerfectScrollbar>

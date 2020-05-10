@@ -4,6 +4,8 @@ import Grid from '@material-ui/core/Grid';
 import Page from '../../../../components/Page';
 import Header from './Header';
 import LineChart from './LineChart';
+import RadialChart from './RadialChart';
+import ConfigureStreamView from './ConfigureStreamView';
 
 interface RouterProps {
   match: any;
@@ -12,14 +14,21 @@ interface RouterProps {
 type Props = RouterProps;
 
 function SensorListView({ match }: Props) {
-  console.log('match: ', match.params.sensorContractAddress);
   return (
     <Page title="Data Streaming">
       <Container maxWidth="lg">
-        <Header />
+        <Header sensorContractAddress={match.params.sensorContractAddress} />
         <Box mt={3}>
-          <Grid item xs={12}>
-            <LineChart />
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <LineChart />
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <ConfigureStreamView />
+            </Grid>
+            <Grid item xs={12} md={4}>
+              <RadialChart />
+            </Grid>
           </Grid>
         </Box>
       </Container>

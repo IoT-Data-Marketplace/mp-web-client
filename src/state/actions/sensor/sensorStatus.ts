@@ -18,7 +18,6 @@ export const activateSensor = (sensorContractAddress: string) => {
         throw new Error(
           `Error while activating the sensor with name: ${sensorContractAddress} \nResponse code: ${res.data.registerSensor.statusCode}\nResponse Body: ${res.data.registerSensor.responseBody}`
         );
-      console.log('topic result: ', res);
     } catch (e) {
       console.error('Error while activating the sensor, Error: ', e);
     } finally {

@@ -24,7 +24,6 @@ const Results = () => {
     </Marker>
   ));
 
-  console.log('sensors: ', sensors);
   return (
     <Card>
       <Map

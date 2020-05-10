@@ -58,7 +58,6 @@ export interface RegisterSensorAction {
 
 export const registerSensor = (sensor: RegisterSensor, dataStreamEntityContractAddress: string) => {
   return async (dispatch: Dispatch) => {
-    console.log('registering: ', sensor, '\ncontract: ', dataStreamEntityContractAddress);
     try {
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
       const accounts = await web3.eth.getAccounts();

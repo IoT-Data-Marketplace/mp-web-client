@@ -30,7 +30,6 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
       await asyncForEach(dataStreamEntitySensors, async (sensorContractAddress) => {
         const sensorResult = await SensorContract(sensorContractAddress).methods.describeSensor().call();
         const sensorSummary = await fetchSensorSummary(sensorContractAddress);
-        console.log('size: ', sensorSummary.streamSize);
         dispatch<AddFetchedSensorAction>(
           addFetchedSensor({
             sensorContractAddress,
