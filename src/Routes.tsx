@@ -74,6 +74,11 @@ const routesConfig = [
       },
       {
         exact: true,
+        path: ROUTES.DATA_STREAM_FOR_SENSOR,
+        component: lazy(() => import('./views/app/sensors/StreamDataView')),
+      },
+      {
+        exact: true,
         path: ROUTES.REGISTER_SENSOR,
         component: lazy(() => import('./views/app/sensors/RegisterSensorView')),
       },

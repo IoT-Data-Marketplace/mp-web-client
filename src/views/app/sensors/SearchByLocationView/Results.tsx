@@ -16,7 +16,7 @@ const Results = () => {
   const { sensors } = useSelector((state: StoreState) => state.sensor);
   const { height } = useWindowDimensions();
 
-  const position = [sensors[0].geolocation.latitude, sensors[0].geolocation.longitude];
+  const position = sensors[0] ? [sensors[0].geolocation.latitude, sensors[0].geolocation.longitude] : ['47.3769', '8.5417'];
 
   const markers = sensors.map((sensor) => (
     <Marker key={sensor.sensorContractAddress} position={[sensor.geolocation.latitude, sensor.geolocation.longitude]}>

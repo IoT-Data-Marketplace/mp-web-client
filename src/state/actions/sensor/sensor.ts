@@ -4,7 +4,7 @@ import SensorContract from '../../../blockchain/sensor';
 import { ActionTypes } from '../types';
 import { asyncForEach } from '../../helpers/asyncForEach';
 import { Sensor } from '../../interfaces';
-import {fetchSensorSummary} from "./fn";
+import { fetchSensorSummary } from './fn';
 
 export interface AddFetchedSensorAction {
   type: ActionTypes.addFetchedSensor;
@@ -17,8 +17,6 @@ export const addFetchedSensor = (sensor: Sensor): AddFetchedSensorAction => {
     sensor,
   };
 };
-
-
 
 export interface GetSensorForDataStreamEntityContractAddressAction {
   type: ActionTypes.getSensorsForDataStreamContractAddress;
@@ -57,4 +55,3 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
     }
   };
 };
-

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Popup } from 'react-leaflet';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles, Card, Box, Typography } from '@material-ui/core';
+import { Box, Button, Card, makeStyles, Typography } from '@material-ui/core';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import Divider from '@material-ui/core/Divider';
+import { Link as RouterLink } from 'react-router-dom';
 import { Sensor, SensorType } from '../../../../state/interfaces';
 import theme from '../../../../theme/Theme';
+import { ROUTES } from '../../../../constants';
 
 const useStyles = makeStyles(() => ({
   reviewGrid: {
@@ -29,7 +30,7 @@ const SensorDetailsPopup = (props: Props) => {
         style={{
           margin: 0,
           width: '300px',
-          height: '500px',
+          height: '350px',
           overflow: 'auto',
         }}
       >
@@ -78,6 +79,25 @@ const SensorDetailsPopup = (props: Props) => {
           />
         </PerfectScrollbar>
       </Card>
+      <Box
+        mt={6}
+        style={{
+          marginTop: theme.spacing(1),
+        }}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button
+          color="inherit"
+          component={RouterLink}
+          to={`${ROUTES.DATA_STREAMS}/${sensor.sensorContractAddress}`}
+          variant="contained"
+          size="large"
+        >
+          Start Streaming
+        </Button>
+      </Box>
     </Popup>
   );
 };

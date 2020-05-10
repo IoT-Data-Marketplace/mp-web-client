@@ -17,9 +17,6 @@ export const saveState = (state: StoreState) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch (e) {
-    console.error(
-      'Error while saving the Redux state to the local storage \n',
-      e
-    );
+    console.error('Error while saving the Redux state to the local storage \n', e);
   }
 };
