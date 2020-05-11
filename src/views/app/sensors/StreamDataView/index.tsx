@@ -24,7 +24,7 @@ function SensorListView({ match }: Props) {
               <LineChart />
             </Grid>
             <Grid item xs={12} md={8}>
-              <ConfigureStreamView />
+              <ConfigureStreamView sensorContractAddress={match.params.sensorContractAddress} />
             </Grid>
             <Grid item xs={12} md={4}>
               <RadialChart />

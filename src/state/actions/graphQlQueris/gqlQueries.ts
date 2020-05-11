@@ -30,7 +30,7 @@ export const getFetchSensorSummaryGQLQuery = (sensorContractAddress: string): st
 
 export const getGetMessagesForSensorGQLQuery = (sensorContractAddress: string, offset: number, count: number): string => {
   return `query{
-    getSensorSummary(
+    getMessagesForSensor(
       sensorContractAddress:"${sensorContractAddress}",
       offset:${offset},
       count:${count}

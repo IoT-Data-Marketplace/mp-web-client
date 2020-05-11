@@ -1,9 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Chart from 'react-apexcharts';
 import { Card, CardContent, Typography, useTheme } from '@material-ui/core';
+import { StoreState } from '../../../../state/interfaces/storeState';
 
 function RadialChart() {
   const theme = useTheme();
+  const { streamSize } = useSelector((state: StoreState) => state.dataStream.sensor);
+  const { records } = useSelector((state: StoreState) => state.dataStream);
+
+  const displayingPercentage = ((records.length / streamSize) * 100).toFixed(5);
 
   const data = {
     options: {
@@ -40,7 +46,7 @@ function RadialChart() {
         mode: theme.palette.type,
       },
     },
-    series: [0],
+    series: [displayingPercentage],
   };
 
   return (
@@ -48,7 +54,7 @@ function RadialChart() {
       <CardContent>
         <Chart options={data.options} series={data.series} type="radialBar" height="300" />
         <Typography align="center" color="textSecondary" variant="caption" component="p">
-          You are displaying 0% of the data
+          You are displaying {displayingPercentage}% of the data
         </Typography>
       </CardContent>
     </Card>

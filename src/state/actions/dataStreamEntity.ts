@@ -46,7 +46,7 @@ export const fetchDataStreamEntityContractBalance = () => {
       const balanceInEther = web3.utils.fromWei(String(balance), 'ether');
       dispatch<SetDataStreamEntityContractBalanceAction>(setDataStreamEntityContractBalance(balanceInEther));
     } catch (e) {
-      console.error('Error while cheching the balance. \n', e);
+      console.error('Error while checking the balance. \n', e);
     } finally {
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
     }

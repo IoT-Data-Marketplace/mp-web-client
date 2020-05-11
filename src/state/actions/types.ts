@@ -16,6 +16,7 @@ import {
 } from './sensor/registerSensor';
 import { AddFetchedSensorAction, GetSensorForDataStreamEntityContractAddressAction } from './sensor/sensor';
 import { SetSensorStatusAction } from './sensor/sensorStatus';
+import { GetMessagesForSensorAction, SetDataStreamRecordsAction, SetDataStreamSizeAction } from './dataStream';
 
 export enum ActionTypes {
   toggleDrawer,
@@ -36,6 +37,9 @@ export enum ActionTypes {
   getSensorsForDataStreamContractAddress,
   addFetchedSensor,
   setSensorStatus,
+  getMessagesForSensor,
+  setDataStreamRecords,
+  setDataStreamSize,
 }
 
 export type Action =
@@ -56,4 +60,7 @@ export type Action =
   | FetchDataStreamEntityAction
   | GetSensorForDataStreamEntityContractAddressAction
   | AddFetchedSensorAction
-  | SetSensorStatusAction;
+  | SetSensorStatusAction
+  | GetMessagesForSensorAction
+  | SetDataStreamRecordsAction
+  | SetDataStreamSizeAction;
