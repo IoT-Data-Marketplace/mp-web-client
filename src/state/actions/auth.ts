@@ -67,19 +67,27 @@ export const signUp = (signUpFormData: SignUpFormData) => {
 
       await IoTDataMarketplace()
         .methods.registerDataStreamEntity(signUpFormData.accountName, signUpFormData.accountURL, signUpFormData.accountEmail)
-        .send({ from: accounts[0] });
+        .send({
+          from: accounts[0],
+          gas: '3000000',
+          value: await IoTDataMarketplace().methods.getDataStreamEntityRegistrationPrice().call(),
+        });
 
       const dataStreamEntityContractAddress = await IoTDataMarketplace()
         .methods.getDataStreamEntityContractAddressForOwnerAddress(accounts[0])
         .call();
+
+      console.log('dataStreamEntityContractAddress', dataStreamEntityContractAddress);
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
 
       const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
         .methods.describeDataStreamEntity()
         .call();
 
+      console.log('dataStreamEntityResult', dataStreamEntityResult);
       const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
 
+      console.log('populatedDataStreamEntity', populatedDataStreamEntity);
       dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
     } catch (e) {
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));

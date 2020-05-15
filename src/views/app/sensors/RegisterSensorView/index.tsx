@@ -25,7 +25,7 @@ import {
 import DeviceHubIcon from '@material-ui/icons/DeviceHub';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import { File as FileIcon, Star as StarIcon } from 'react-feather';
+import { File as FileIcon, Star as StarIcon, DollarSign } from 'react-feather';
 import { useSelector } from 'react-redux';
 import Page from '../../../../components/Page';
 import { ROUTES } from '../../../../constants';
@@ -42,6 +42,10 @@ const steps = [
   {
     label: 'Geolocation',
     icon: LocationOnIcon,
+  },
+  {
+    label: 'Price per Data Unit',
+    icon: DollarSign, // todo continue here
   },
   {
     label: 'Review & Register',
