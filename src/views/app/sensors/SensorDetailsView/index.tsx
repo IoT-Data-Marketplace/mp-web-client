@@ -33,6 +33,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
       },
       sensorStatus: 0,
       streamSize: 0,
+      pricePerDataUnit: 0,
       subscribed: false,
     },
   };

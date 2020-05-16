@@ -106,7 +106,7 @@ const SensorDetailsPopup = (props: Props) => {
             variant="contained"
             size="large"
           >
-            Buy Streaming
+            Buy This Data Stream
           </Button>
         )}
 

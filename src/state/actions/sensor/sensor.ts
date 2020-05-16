@@ -47,6 +47,7 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
               longitude: sensorResult[3],
             },
             sensorStatus: sensorResult[4],
+            pricePerDataUnit: sensorResult[5],
             streamSize: sensorSummary.streamSize,
             subscribed: subscriptionResult !== DEFAULT_ETH_ADDRESS,
           })

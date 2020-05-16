@@ -80,7 +80,7 @@ const routesConfig = [
       {
         exact: true,
         path: ROUTES.BUY_DATA_STREAM,
-        component: () => <div>buy data stream....</div>,
+        component: lazy(() => import('./views/app/sensors/SubscribeToAStreamView')),
       },
       {
         exact: true,

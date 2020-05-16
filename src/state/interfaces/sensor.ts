@@ -29,6 +29,7 @@ export interface Sensor {
   geolocation: Geolocation;
   sensorStatus: SensorStatus;
   streamSize: number;
+  pricePerDataUnit: number;
   subscribed: boolean;
 }
 
