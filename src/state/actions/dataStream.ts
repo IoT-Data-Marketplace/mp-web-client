@@ -5,6 +5,10 @@ import { graphQLClient } from '../graphQLClient';
 import { getGetMessagesForSensorGQLQuery } from './graphQlQueris/gqlQueries';
 import { DataStreamRecord } from '../interfaces';
 import { store } from '../../index';
+import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
+import web3 from '../../blockchain/web3';
+import { setDataStreamEntityContractBalance, SetDataStreamEntityContractBalanceAction } from './dataStreamEntity';
+import SensorContract from '../../blockchain/sensor';
 
 const last = (array: DataStreamRecord[]): DataStreamRecord => {
   return array[array.length - 1];
@@ -38,7 +42,35 @@ export const setDataStreamSize = (streamSize: number): SetDataStreamSizeAction =
 };
 
 /**/
+export interface BuyDataStreamAction {
+  type: ActionTypes.buyDataStream;
+  sensorContractAddress: string;
+  dataStreamEntityBuyerAddress: string;
+  value: number;
+}
 
+export const buyDataStream = (sensorContractAddress: string, dataStreamEntityBuyerAddress: string, value: number) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
+      const accounts = await web3.eth.getAccounts();
+      await SensorContract(sensorContractAddress)
+        .methods.buyDataStream(dataStreamEntityBuyerAddress, '2020-05-10T13:10:00Z', 1000000)
+        .send({
+          from: accounts[0],
+          gas: '3000000',
+          value,
+        });
+    } catch (e) {
+      console.error('Error while buying the data stream. \n', e);
+    } finally {
+      dispatch<ToggleIsLoadingAction>(toggleIsLoading(false));
+    }
+  };
+};
+/**/
+
+/**/
 export interface GetMessagesForSensorAction {
   type: ActionTypes.getMessagesForSensor;
   sensorContractAddress: string;

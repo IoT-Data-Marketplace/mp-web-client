@@ -10,13 +10,19 @@ import {
 import {
   RegisterSensorAction,
   ResetRegisterSensorStateAction,
-  SetGeneratedSensorContractAddressAction, SetPricePerDataUnitAction,
+  SetGeneratedSensorContractAddressAction,
+  SetPricePerDataUnitAction,
   SetSensorGeolocationAction,
   SetSensorTypeAction,
 } from './sensor/registerSensor';
 import { AddFetchedSensorAction, GetSensorForDataStreamEntityContractAddressAction } from './sensor/sensor';
 import { SetSensorStatusAction } from './sensor/sensorStatus';
-import { GetMessagesForSensorAction, SetDataStreamRecordsAction, SetDataStreamSizeAction } from './dataStream';
+import {
+  BuyDataStreamAction,
+  GetMessagesForSensorAction,
+  SetDataStreamRecordsAction,
+  SetDataStreamSizeAction,
+} from './dataStream';
 
 export enum ActionTypes {
   toggleDrawer,
@@ -41,6 +47,7 @@ export enum ActionTypes {
   setDataStreamRecords,
   setDataStreamSize,
   setPricePerDataUnit,
+  buyDataStream,
 }
 
 export type Action =
@@ -65,4 +72,5 @@ export type Action =
   | GetMessagesForSensorAction
   | SetDataStreamRecordsAction
   | SetDataStreamSizeAction
-  | SetPricePerDataUnitAction;
+  | SetPricePerDataUnitAction
+  | BuyDataStreamAction;

@@ -3,12 +3,12 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Box, makeStyles, Paper, Typography } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { useDispatch } from 'react-redux';
-import { Alert } from '@material-ui/lab';
+import { useDispatch, useSelector } from 'react-redux';
 import { Sensor, SensorStatus, SensorType } from '../../../../state/interfaces';
 import theme from '../../../../theme/Theme';
-import { activateSensor } from '../../../../state/actions/sensor/sensorStatus';
 import web3 from '../../../../blockchain/web3';
+import { buyDataStream } from '../../../../state/actions/dataStream';
+import { StoreState } from '../../../../state/interfaces/storeState';
 
 const useStyles = makeStyles(() => ({
   reviewGrid: {
@@ -21,20 +21,24 @@ const useStyles = makeStyles(() => ({
 
 interface Props {
   sensor: Sensor;
-  // fetchCurrentSensor: any;
 }
 
 function BuyDataStreamForm(props: Props) {
   const classes = useStyles();
   const { sensor } = props;
-  const [currentStatus, setCurrentStatus] = React.useState(SensorStatus[sensor.sensorStatus]);
   const [numberOfEntriesToBuy, setNumberOfEntriesToBuy] = React.useState(0);
+  const { dataStreamEntityContractAddress } = useSelector((state: StoreState) => state.dataStreamEntity);
   const dispatch = useDispatch();
 
-  const onUpdateSensorStatusClicked = async () => {
+  const onBuyDataStreamClickedClicked = async () => {
     try {
-      await dispatch(activateSensor(sensor.sensorContractAddress));
-      setCurrentStatus(SensorStatus[SensorStatus.ACTIVE]);
+      await dispatch(
+        buyDataStream(
+          sensor.sensorContractAddress,
+          dataStreamEntityContractAddress,
+          numberOfEntriesToBuy * sensor.pricePerDataUnit
+        )
+      );
     } catch (e) {
       console.error('Error while activating the sensor...');
     }
@@ -123,8 +127,8 @@ function BuyDataStreamForm(props: Props) {
               className={classes.reviewField}
               id="sensorStatus"
               label="Sensor Status"
-              defaultValue={currentStatus}
-              value={currentStatus}
+              defaultValue={sensor.sensorStatus}
+              value={sensor.sensorStatus}
               InputProps={{
                 readOnly: true,
               }}
@@ -182,12 +186,7 @@ function BuyDataStreamForm(props: Props) {
               }}
             />
 
-            <Button
-              color="primary"
-              variant="contained"
-              size="large"
-              onClick={() => console.log('buy data stream')}
-            >
+            <Button color="primary" variant="contained" size="large" onClick={onBuyDataStreamClickedClicked}>
               Buy
             </Button>
           </Box>

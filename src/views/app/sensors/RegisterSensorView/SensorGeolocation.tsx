@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { createRef, useState } from 'react';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { Box, Button, makeStyles, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Card, makeStyles, TextField, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { Map, Marker, TileLayer } from 'react-leaflet';
 import { StoreState } from '../../../../state/interfaces/storeState';
 import { setSensorGeolocation } from '../../../../state/actions/sensor/registerSensor';
+import useWindowDimensions from '../../../../hooks/useWindowDimensions';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -35,34 +37,46 @@ function SensorGeolocation(props: Props) {
   const classes = useStyles();
   const { className, rest, onNext, onBack } = props;
   const { geolocation } = useSelector((state: StoreState) => state.registerSensor);
+  const [markerPosition, setMarkerPosition] = useState([geolocation.latitude, geolocation.longitude]);
   const dispatch = useDispatch();
+  const { height } = useWindowDimensions();
+
+  // $FlowFixMe: ref
+  const refmarker = createRef<Marker>();
+
+  const updatePosition = () => {
+    // eslint-disable-next-line no-shadow
+    const marker = refmarker.current;
+    if (marker != null) {
+      console.log(marker.leafletElement.getLatLng());
+      setMarkerPosition([marker.leafletElement.getLatLng().lat, marker.leafletElement.getLatLng().lng]);
+    }
+  };
 
   return (
     <Formik
       initialValues={{
-        latitude: geolocation.latitude,
-        longitude: geolocation.longitude,
+        latitude: markerPosition[0],
+        longitude: markerPosition[1],
       }}
       validationSchema={Yup.object().shape({
-        latitude: Yup.string()
-          .required('Latitude field is required.')
-          .matches(/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/, {
-            excludeEmptyString: true,
-            message: 'Please enter a valid Latitude',
-          }),
-        longitude: Yup.string()
-          .required('Longitude field is required.')
-          .matches(/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/, {
-            excludeEmptyString: true,
-            message: 'Please enter a valid Longitude',
-          }),
+        latitude: Yup.string().required('Latitude field is required.'),
+        // .matches(/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/, {
+        //   excludeEmptyString: true,
+        //   message: 'Please enter a valid Latitude',
+        // }),
+        longitude: Yup.string().required('Longitude field is required.'),
+        // .matches(/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/, {
+        //   excludeEmptyString: true,
+        //   message: 'Please enter a valid Longitude',
+        // }),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
           dispatch(
             setSensorGeolocation({
-              latitude: values.latitude,
-              longitude: values.longitude,
+              latitude: markerPosition[0].toString(),
+              longitude: markerPosition[1].toString(),
             })
           );
           // Do API call to store step data in server session
@@ -87,11 +101,23 @@ function SensorGeolocation(props: Props) {
             Please enter the Coordinates of your Sensor
           </Typography>
           <Box mt={2}>
-            <Typography variant="subtitle1" color="textSecondary">
-              It has to be static for now
-            </Typography>
-          </Box>
-          <Box mt={2}>
+            <Card>
+              <Map
+                style={{
+                  height: height * 0.5,
+                  width: '100%',
+                  background: 'black',
+                }}
+                center={markerPosition}
+                zoom={9}
+              >
+                <TileLayer
+                  attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker draggable onDragend={updatePosition} position={markerPosition} ref={refmarker} />
+              </Map>
+            </Card>
             <TextField
               error={Boolean(touched.latitude && errors.latitude)}
               fullWidth
@@ -100,9 +126,9 @@ function SensorGeolocation(props: Props) {
               margin="normal"
               name="latitude"
               onBlur={handleBlur}
-              onChange={handleChange}
+              onChange={(event) => setMarkerPosition([event.target.value, markerPosition[1]])}
               type="string"
-              value={values.latitude}
+              value={markerPosition[0]}
               variant="outlined"
             />
             <TextField
@@ -115,7 +141,7 @@ function SensorGeolocation(props: Props) {
               onBlur={handleBlur}
               onChange={handleChange}
               type="longitude"
-              value={values.longitude}
+              value={markerPosition[1]}
               variant="outlined"
             />
           </Box>
