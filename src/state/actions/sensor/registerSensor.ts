@@ -86,6 +86,8 @@ export const registerSensor = (sensor: RegisterSensor, dataStreamEntityContractA
 
       const newSensorContractAddress = await methodToCall.call({
         from: accounts[0],
+        gas: '3000000',
+        value: store.getState().dataMarketplace.sensorRegistrationPrice,
       });
       await methodToCall.send({
         from: accounts[0],

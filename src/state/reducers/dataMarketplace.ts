@@ -5,8 +5,8 @@ const initialState = {
   address: process.env.REACT_APP_IOT_DATA_MARKETPLACE_CONTRACT_ADDRESS
     ? process.env.REACT_APP_IOT_DATA_MARKETPLACE_CONTRACT_ADDRESS
     : '',
-  dataStreamEntityRegistrationPrice: 500000,
-  sensorRegistrationPrice: 500000,
+  dataStreamEntityRegistrationPrice: 5000000,
+  sensorRegistrationPrice: 5000000,
   dataStreamingCommissionRate: 20,
 };
 

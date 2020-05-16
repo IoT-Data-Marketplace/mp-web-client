@@ -88,15 +88,30 @@ const SensorDetailsPopup = (props: Props) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Button
-          color="inherit"
-          component={RouterLink}
-          to={`${ROUTES.DATA_STREAMS}/${sensor.sensorContractAddress}`}
-          variant="contained"
-          size="large"
-        >
-          Start Streaming
-        </Button>
+        {sensor.subscribed ? (
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to={`${ROUTES.DATA_STREAMS}/${sensor.sensorContractAddress}`}
+            variant="contained"
+            size="large"
+          >
+            Start Streaming
+          </Button>
+        ) : (
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to={`/app/data-streams/buy/${sensor.sensorContractAddress}`}
+            variant="contained"
+            size="large"
+          >
+            Buy Streaming
+          </Button>
+        )}
+
+
+
       </Box>
     </Popup>
   );

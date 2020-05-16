@@ -12,6 +12,7 @@ const initialState = {
     },
     sensorStatus: SensorStatus.INACTIVE,
     streamSize: 0,
+    subscribed: false,
   },
   records: [],
 };

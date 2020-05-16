@@ -33,6 +33,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
       },
       sensorStatus: 0,
       streamSize: 0,
+      subscribed: false,
     },
   };
 
@@ -55,6 +56,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
           },
           sensorStatus: result[4],
           streamSize: sensorSummary.streamSize,
+          subscribed: false, // todo
         },
       });
     } catch (e) {
