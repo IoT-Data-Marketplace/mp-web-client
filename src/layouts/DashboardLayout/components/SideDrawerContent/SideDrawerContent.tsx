@@ -98,12 +98,12 @@ const SideDrawerContent = () => {
       <PerfectScrollbar options={{ suppressScrollX: true }}>
         <Box p={2}>
           <Box display="flex" justifyContent="center">
-            <RouterLink to="/app/account">
+            <RouterLink to="/app">
               <VerifiedUserIcon />
             </RouterLink>
           </Box>
           <Box mt={2} textAlign="center">
-            <Link component={RouterLink} to="/app/account" variant="h5" color="textPrimary" underline="none">
+            <Link component={RouterLink} to="/app" variant="h5" color="textPrimary" underline="none">
               {name}
             </Link>
           </Box>

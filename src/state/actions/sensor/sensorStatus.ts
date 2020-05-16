@@ -14,7 +14,7 @@ export const activateSensor = (sensorContractAddress: string) => {
     try {
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
       const res = await graphQLClient.rawRequest(getRegisterSensorGQLQuery(sensorContractAddress));
-      if (res.data.registerSensor.statusCode !== 201)
+      if (res.data.registerSensor.statusCode !== 200)
         throw new Error(
           `Error while activating the sensor with name: ${sensorContractAddress} \nResponse code: ${res.data.registerSensor.statusCode}\nResponse Body: ${res.data.registerSensor.responseBody}`
         );

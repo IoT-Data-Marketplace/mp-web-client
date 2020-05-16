@@ -19,6 +19,7 @@ export interface RegisterSensor {
   generatedContractAddress: string;
   sensorType: SensorType;
   geolocation: Geolocation;
+  pricePerDataUnit: number;
 }
 
 export interface Sensor {

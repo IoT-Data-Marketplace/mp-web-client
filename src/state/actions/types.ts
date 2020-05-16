@@ -10,7 +10,7 @@ import {
 import {
   RegisterSensorAction,
   ResetRegisterSensorStateAction,
-  SetGeneratedSensorContractAddressAction,
+  SetGeneratedSensorContractAddressAction, SetPricePerDataUnitAction,
   SetSensorGeolocationAction,
   SetSensorTypeAction,
 } from './sensor/registerSensor';
@@ -40,6 +40,7 @@ export enum ActionTypes {
   getMessagesForSensor,
   setDataStreamRecords,
   setDataStreamSize,
+  setPricePerDataUnit,
 }
 
 export type Action =
@@ -63,4 +64,5 @@ export type Action =
   | SetSensorStatusAction
   | GetMessagesForSensorAction
   | SetDataStreamRecordsAction
-  | SetDataStreamSizeAction;
+  | SetDataStreamSizeAction
+  | SetPricePerDataUnitAction;

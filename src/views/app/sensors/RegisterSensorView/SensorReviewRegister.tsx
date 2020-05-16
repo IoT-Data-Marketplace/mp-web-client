@@ -7,6 +7,7 @@ import { StoreState } from '../../../../state/interfaces/storeState';
 import theme from '../../../../theme/Theme';
 import { registerSensor } from '../../../../state/actions/sensor/registerSensor';
 import { SensorType } from '../../../../state/interfaces';
+import web3 from "../../../../blockchain/web3";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -33,7 +34,7 @@ interface Props {
 function SensorReviewRegister(props: Props) {
   const classes = useStyles();
   const sensorToRegister = useSelector((state: StoreState) => state.registerSensor);
-  const { geolocation, sensorType } = sensorToRegister;
+  const { geolocation, sensorType, pricePerDataUnit } = sensorToRegister;
   const { dataStreamEntityContractAddress } = useSelector((state: StoreState) => state.dataStreamEntity);
   const dispatch = useDispatch();
   const [isSubmitting, setSubmitting] = useState(false);
@@ -96,6 +97,17 @@ function SensorReviewRegister(props: Props) {
           id="Longitude"
           label="Longitude"
           defaultValue={geolocation.longitude}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />
+
+        <TextField
+          className={classes.reviewField}
+          id="pricePerDataUnit"
+          label="Price Per Data Unit in WEI"
+          defaultValue={pricePerDataUnit}
           InputProps={{
             readOnly: true,
           }}

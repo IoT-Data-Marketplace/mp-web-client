@@ -9,6 +9,7 @@ const initialState = {
     latitude: '47.36667',
     longitude: '8.55',
   },
+  pricePerDataUnit: 0,
 };
 
 const registerSensorReducer = (state: RegisterSensor = initialState, action: Action): RegisterSensor => {
@@ -22,6 +23,11 @@ const registerSensorReducer = (state: RegisterSensor = initialState, action: Act
       return {
         ...state,
         geolocation: action.geolocation,
+      };
+    case ActionTypes.setPricePerDataUnit:
+      return {
+        ...state,
+        pricePerDataUnit: action.pricePerDataUnit,
       };
     case ActionTypes.setGeneratedSensorContractAddress:
       return {

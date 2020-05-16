@@ -4,6 +4,7 @@ import { Geolocation, RegisterSensor, SensorType } from '../../interfaces';
 import { toggleIsLoading, ToggleIsLoadingAction } from '../ui';
 import web3 from '../../../blockchain/web3';
 import DataStreamEntity from '../../../blockchain/dataStreamEntity';
+import { store } from '../../../index';
 
 export interface SetSensorTypeAction {
   type: ActionTypes.setSensorType;
@@ -26,6 +27,18 @@ export const setSensorGeolocation = (geolocation: Geolocation): SetSensorGeoloca
   return {
     type: ActionTypes.setSensorGeolocation,
     geolocation,
+  };
+};
+
+export interface SetPricePerDataUnitAction {
+  type: ActionTypes.setPricePerDataUnit;
+  pricePerDataUnit: number;
+}
+
+export const setPricePerDataUnit = (pricePerDataUnit: number): SetPricePerDataUnitAction => {
+  return {
+    type: ActionTypes.setPricePerDataUnit,
+    pricePerDataUnit,
   };
 };
 
@@ -62,14 +75,23 @@ export const registerSensor = (sensor: RegisterSensor, dataStreamEntityContractA
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
       const accounts = await web3.eth.getAccounts();
 
+      console.log('registering: ', sensor);
+
       const methodToCall = DataStreamEntity(dataStreamEntityContractAddress).methods.registerNewSensor(
         sensor.sensorType,
         sensor.geolocation.latitude,
-        sensor.geolocation.longitude
+        sensor.geolocation.longitude,
+        sensor.pricePerDataUnit
       );
 
-      const newSensorContractAddress = await methodToCall.call({ from: accounts[0] });
-      await methodToCall.send({ from: accounts[0] });
+      const newSensorContractAddress = await methodToCall.call({
+        from: accounts[0],
+      });
+      await methodToCall.send({
+        from: accounts[0],
+        gas: '3000000',
+        value: store.getState().dataMarketplace.sensorRegistrationPrice,
+      });
       dispatch<SetGeneratedSensorContractAddressAction>(setGeneratedSensorContractAddress(newSensorContractAddress));
 
       // const res = await graphQLClient.rawRequest(getRegisterSensorGQLQuery(newSensorContractAddress));

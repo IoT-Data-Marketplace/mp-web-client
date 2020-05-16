@@ -31,6 +31,7 @@ import Page from '../../../../components/Page';
 import { ROUTES } from '../../../../constants';
 import SensorType from './SensorType';
 import SensorGeolocation from './SensorGeolocation';
+import PricePerDataUnit from './PricePerDataUnit';
 import SensorReviewRegister from './SensorReviewRegister';
 import { StoreState } from '../../../../state/interfaces/storeState';
 
@@ -45,7 +46,7 @@ const steps = [
   },
   {
     label: 'Price per Data Unit',
-    icon: DollarSign, // todo continue here
+    icon: DollarSign,
   },
   {
     label: 'Review & Register',
@@ -166,7 +167,8 @@ function ProjectCreateView() {
                 <Box p={3}>
                   {activeStep === 0 && <SensorType onNext={handleNext} />}
                   {activeStep === 1 && <SensorGeolocation onBack={handleBack} onNext={handleNext} />}
-                  {activeStep === 2 && <SensorReviewRegister onBack={handleBack} onComplete={handleComplete} />}
+                  {activeStep === 2 && <PricePerDataUnit onBack={handleBack} onNext={handleNext} />}
+                  {activeStep === 3 && <SensorReviewRegister onBack={handleBack} onComplete={handleComplete} />}
                 </Box>
               </Grid>
             </Grid>

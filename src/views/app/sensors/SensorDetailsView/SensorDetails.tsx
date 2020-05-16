@@ -205,7 +205,7 @@ function SensorDetails(props: Props) {
             <Box mt={2}>
               <Box mt={2}>
                 <Typography variant="h4" color="textSecondary">
-                  Run the following command on your IoT Device to start pushing the data to the platform.
+                  Once you activate your sensor, you can run the following command on your IoT Device to start pushing the data to the platform.
                 </Typography>
               </Box>
               <Box mt={2}>

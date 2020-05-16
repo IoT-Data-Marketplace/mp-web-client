@@ -5,6 +5,9 @@ const initialState = {
   address: process.env.REACT_APP_IOT_DATA_MARKETPLACE_CONTRACT_ADDRESS
     ? process.env.REACT_APP_IOT_DATA_MARKETPLACE_CONTRACT_ADDRESS
     : '',
+  dataStreamEntityRegistrationPrice: 500000,
+  sensorRegistrationPrice: 500000,
+  dataStreamingCommissionRate: 20,
 };
 
 const dataMarketplaceReducer = (state: DataMarketplace = initialState, action: Action): DataMarketplace => {
