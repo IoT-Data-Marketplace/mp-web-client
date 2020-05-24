@@ -27,12 +27,18 @@ function RegisterForm(props: Props) {
         accountName: 'Danijel',
         accountURL: 'http://www.danijel.com',
         accountEmail: 'danijel.fon@gmail.com',
+        rsaPublicKey: '',
         policy: false,
       }}
       validationSchema={Yup.object().shape({
         accountName: Yup.string().max(255).required('Name is required'),
         accountURL: Yup.string().url('Must be a valid URL').max(255),
         accountEmail: Yup.string().email('Must be a valid Email').max(255),
+        rsaPublicKey: Yup.string().required('Required'),
+        // .matches(/^-----BEGIN PUBLIC KEY-----((.)*)-----END PUBLIC KEY-----$/, {
+        //   excludeEmptyString: true,
+        //   message: 'Please enter a valid RSA Public Key',
+        // }),
         policy: Yup.boolean().oneOf([true], 'This field must be checked'),
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
@@ -42,6 +48,7 @@ function RegisterForm(props: Props) {
               accountName: values.accountName,
               accountURL: values.accountURL,
               accountEmail: values.accountEmail,
+              rsaPublicKey: values.rsaPublicKey,
             })
           );
           onSubmitSuccess();
@@ -89,6 +96,21 @@ function RegisterForm(props: Props) {
             onChange={handleChange}
             type="email"
             value={values.accountEmail}
+            variant="outlined"
+          />
+          <TextField
+            error={Boolean(touched.rsaPublicKey && errors.rsaPublicKey)}
+            fullWidth
+            helperText={touched.rsaPublicKey && errors.rsaPublicKey}
+            label="RSA Public Key"
+            margin="normal"
+            multiline
+            rows={4}
+            name="rsaPublicKey"
+            onBlur={handleBlur}
+            onChange={handleChange}
+            type="email"
+            value={values.rsaPublicKey}
             variant="outlined"
           />
 

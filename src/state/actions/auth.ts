@@ -66,7 +66,12 @@ export const signUp = (signUpFormData: SignUpFormData) => {
       const accounts = await web3.eth.getAccounts();
 
       await IoTDataMarketplace()
-        .methods.registerDataStreamEntity(signUpFormData.accountName, signUpFormData.accountURL, signUpFormData.accountEmail)
+        .methods.registerDataStreamEntity(
+          signUpFormData.accountName,
+          signUpFormData.accountURL,
+          signUpFormData.accountEmail,
+          signUpFormData.rsaPublicKey
+        )
         .send({
           from: accounts[0],
           gas: '3000000',

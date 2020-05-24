@@ -3,16 +3,14 @@ import { Box, Container } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import Page from '../../../../components/Page';
 import Header from './Header';
-import { StoreState } from '../../../../state/interfaces/storeState';
-import { getSensorsForDataStreamEntityContractAddress } from '../../../../state/actions/sensor/sensor';
+import { getAllDataMarketplaceSensors } from '../../../../state/actions/sensor/sensor';
 import Results from './Results';
 
 function SensorListView() {
-  const { dataStreamEntityContractAddress } = useSelector((state: StoreState) => state.dataStreamEntity);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getSensorsForDataStreamEntityContractAddress(dataStreamEntityContractAddress));
+    dispatch(getAllDataMarketplaceSensors());
   }, [dispatch]);
 
   return (

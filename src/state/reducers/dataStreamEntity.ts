@@ -9,6 +9,7 @@ const initialState = {
   name: '',
   url: '',
   email: '',
+  rsaPublicKey: '',
   sensorContractAddresses: [],
 };
 
@@ -23,6 +24,7 @@ const dataStreamEntityReducer = (state: IDataStreamEntity = initialState, action
         name: action.dataStreamEntity.name,
         url: action.dataStreamEntity.url,
         email: action.dataStreamEntity.email,
+        rsaPublicKey: action.dataStreamEntity.rsaPublicKey,
         sensorContractAddresses: action.dataStreamEntity.sensorContractAddresses,
       };
     case ActionTypes.setDataStreamEntityContractBalance:

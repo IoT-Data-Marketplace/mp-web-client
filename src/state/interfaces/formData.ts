@@ -5,4 +5,5 @@ export interface SignUpFormData {
   accountName: string;
   accountURL: string;
   accountEmail: string;
+  rsaPublicKey: string;
 }

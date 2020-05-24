@@ -24,7 +24,7 @@ function LoginForm(props: Props) {
   return (
     <Formik
       initialValues={{
-        dataStreamEntityContractAddress: '0x2c0ec0AdDf12AeA03337c2C32082866D4d62c924',
+        dataStreamEntityContractAddress: '0xF2Fa49CddEec218259Ce167BDa59FbDc41a2563d',
       }}
       validationSchema={Yup.object().shape({
         dataStreamEntityContractAddress: Yup.string().matches(/0x+[A-F,a-f,0-9]{40}/, { excludeEmptyString: true }),

@@ -15,7 +15,11 @@ import {
   SetSensorGeolocationAction,
   SetSensorTypeAction,
 } from './sensor/registerSensor';
-import { AddFetchedSensorAction, GetSensorForDataStreamEntityContractAddressAction } from './sensor/sensor';
+import {
+  AddFetchedSensorAction,
+  GetAllDataMarketplaceSensorsAction,
+  GetSensorForDataStreamEntityContractAddressAction
+} from './sensor/sensor';
 import { SetSensorStatusAction } from './sensor/sensorStatus';
 import {
   BuyDataStreamAction,
@@ -48,6 +52,7 @@ export enum ActionTypes {
   setDataStreamSize,
   setPricePerDataUnit,
   buyDataStream,
+  getAllDataMarketplaceSensors,
 }
 
 export type Action =
@@ -73,4 +78,5 @@ export type Action =
   | SetDataStreamRecordsAction
   | SetDataStreamSizeAction
   | SetPricePerDataUnitAction
-  | BuyDataStreamAction;
+  | BuyDataStreamAction
+  | GetAllDataMarketplaceSensorsAction;

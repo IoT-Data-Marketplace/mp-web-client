@@ -1,13 +1,12 @@
 import { Dispatch } from 'redux';
 import { ActionTypes } from './types';
-import { fetchSensorSummary } from './sensor/fn';
+import { decrypt, fetchSensorSummary } from './sensor/fn';
 import { graphQLClient } from '../graphQLClient';
 import { getGetMessagesForSensorGQLQuery } from './graphQlQueris/gqlQueries';
 import { DataStreamRecord } from '../interfaces';
 import { store } from '../../index';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import web3 from '../../blockchain/web3';
-import { setDataStreamEntityContractBalance, SetDataStreamEntityContractBalanceAction } from './dataStreamEntity';
 import SensorContract from '../../blockchain/sensor';
 
 const last = (array: DataStreamRecord[]): DataStreamRecord => {
@@ -116,13 +115,15 @@ export const getMessagesForSensor = (sensorContractAddress: string, desiredRecor
       const messagesResult = await graphQLClient.rawRequest(
         getGetMessagesForSensorGQLQuery(sensorContractAddress, desiredOffset, desiredRecordSize)
       );
-      // console.log('getGetMessagesForSensorGQLQuery Result: ', messagesResult);
+      console.log('getGetMessagesForSensorGQLQuery Result: ', messagesResult);
 
-      const records: DataStreamRecord[] = messagesResult.data.getMessagesForSensor.records.map((record) => ({
-        key: record.key,
-        value: record.value,
-        offset: record.offset,
-      }));
+      const records: DataStreamRecord[] = messagesResult.data.getMessagesForSensor.records.map((record) => {
+        return {
+          key: record.key,
+          value: decrypt(record.value),
+          offset: record.offset,
+        };
+      });
       shiftSize += records.length;
       // console.log('shift size: ', shiftSize);
       // console.log('records from action: ', records);

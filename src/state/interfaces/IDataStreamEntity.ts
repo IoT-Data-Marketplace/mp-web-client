@@ -6,5 +6,6 @@ export interface IDataStreamEntity {
   name: string;
   url: string;
   email: string;
+  rsaPublicKey: string;
   sensorContractAddresses: string[];
 }

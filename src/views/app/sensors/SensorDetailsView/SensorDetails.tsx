@@ -205,7 +205,23 @@ function SensorDetails(props: Props) {
             <Box mt={2}>
               <Box mt={2}>
                 <Typography variant="h4" color="textSecondary">
-                  Once you activate your sensor, you can run the following command on your IoT Device to start pushing the data to the platform.
+                  First generate your private key to encrypt the sensor data. Store this key securely. This key is never stored on
+                  the platform.
+                </Typography>
+              </Box>
+              <Box mt={2}>
+                <Alert severity="info">
+                  <Typography variant="h5" color="textSecondary">
+                    openssl enc -nosalt -aes-128-ecb -P
+                  </Typography>
+                </Alert>
+              </Box>
+
+              <Box mt={2}>
+                <Typography variant="h4" color="textSecondary">
+                  Take the output from the previous step and paste it to the MP_IOT_ENCRYPTION_AES_KEY placeholder. Once you
+                  activate your sensor, you can run the following command on your IoT Device to start pushing the data to the
+                  platform.
                 </Typography>
               </Box>
               <Box mt={2}>
@@ -213,7 +229,9 @@ function SensorDetails(props: Props) {
                   <Typography variant="h5" color="textSecondary">
                     docker run \ <br />
                     --privileged \ <br />
+                    --restart=always \ <br />
                     --env MP_IOT_DEVICE_CLIENT_SENSOR_ID=&quot;{sensor.sensorContractAddress}&quot; \ <br />
+                    --env MP_IOT_ENCRYPTION_AES_KEY=&quot;&lt;SENSOR_ENCRYPTION_AES_KEY&gt;&quot; \ <br />
                     ddanijeld/mp-iot-device-client:latest
                   </Typography>
                 </Alert>
