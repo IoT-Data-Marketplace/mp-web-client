@@ -7,6 +7,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Sensor, SensorType } from '../../../../state/interfaces';
 import theme from '../../../../theme/Theme';
 import { ROUTES } from '../../../../constants';
+import { useSelector } from 'react-redux';
+import {StoreState} from "../../../../state/interfaces/storeState";
 
 const useStyles = makeStyles(() => ({
   reviewGrid: {
@@ -22,6 +24,7 @@ interface Props {
 }
 
 const SensorDetailsPopup = (props: Props) => {
+  const { dataStreamEntityContractAddress } = useSelector((state: StoreState) => state.dataStreamEntity);
   const classes = useStyles();
   const { sensor } = props;
   return (
@@ -30,7 +33,7 @@ const SensorDetailsPopup = (props: Props) => {
         style={{
           margin: 0,
           width: '300px',
-          height: '350px',
+          height: '400px',
           overflow: 'auto',
         }}
       >
@@ -77,6 +80,17 @@ const SensorDetailsPopup = (props: Props) => {
             }}
             variant="outlined"
           />
+
+          <TextField
+            className={classes.reviewField}
+            id="pricePerDataUnit"
+            label="Price Per Data Unit in WEI"
+            defaultValue={sensor.pricePerDataUnit}
+            InputProps={{
+              readOnly: true,
+            }}
+            variant="outlined"
+          />
         </PerfectScrollbar>
       </Card>
       <Box
@@ -88,7 +102,7 @@ const SensorDetailsPopup = (props: Props) => {
         justifyContent="center"
         alignItems="center"
       >
-        {sensor.subscribed ? (
+        {sensor.subscribed || sensor.dataStreamEntityContractAddress === dataStreamEntityContractAddress ? (
           <Button
             color="inherit"
             component={RouterLink}
