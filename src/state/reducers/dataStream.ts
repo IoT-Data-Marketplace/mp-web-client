@@ -39,6 +39,11 @@ const dataStreamReducer = (state: DataStream = initialState, action: Action): Da
           streamSize: action.streamSize,
         },
       };
+    case ActionTypes.cleanUpDataStreamState:
+      return {
+        ...state,
+        records: [],
+      };
     default:
       return state;
   }

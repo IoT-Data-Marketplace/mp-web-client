@@ -132,3 +132,13 @@ export const getMessagesForSensor = (sensorContractAddress: string, desiredRecor
     // console.log('------------------------------------------');
   };
 };
+
+export interface CleanUpDataStreamStateAction {
+  type: ActionTypes.cleanUpDataStreamState;
+}
+
+export const cleanUpDataStreamState = (): CleanUpDataStreamStateAction => {
+  return {
+    type: ActionTypes.cleanUpDataStreamState,
+  };
+};

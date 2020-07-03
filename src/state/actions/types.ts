@@ -22,7 +22,7 @@ import {
 } from './sensor/sensor';
 import { SetSensorStatusAction } from './sensor/sensorStatus';
 import {
-  BuyDataStreamAction,
+  BuyDataStreamAction, CleanUpDataStreamStateAction,
   GetMessagesForSensorAction,
   SetDataStreamRecordsAction,
   SetDataStreamSizeAction,
@@ -53,6 +53,7 @@ export enum ActionTypes {
   setPricePerDataUnit,
   buyDataStream,
   getAllDataMarketplaceSensors,
+  cleanUpDataStreamState,
 }
 
 export type Action =
@@ -79,4 +80,5 @@ export type Action =
   | SetDataStreamSizeAction
   | SetPricePerDataUnitAction
   | BuyDataStreamAction
+  | CleanUpDataStreamStateAction
   | GetAllDataMarketplaceSensorsAction;

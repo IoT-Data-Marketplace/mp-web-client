@@ -6,13 +6,9 @@ import reducers from './reducers';
 import { loadState, saveState } from './localStorage';
 
 const configureStore = () => {
-  // const persistedState = loadState();
+  const persistedState = loadState();
 
-  const store = createStore(
-    reducers,
-    // persistedState,
-    composeWithDevTools(applyMiddleware(thunk))
-  );
+  const store = createStore(reducers, persistedState, composeWithDevTools(applyMiddleware(thunk)));
 
   store.subscribe(
     throttle(() => {

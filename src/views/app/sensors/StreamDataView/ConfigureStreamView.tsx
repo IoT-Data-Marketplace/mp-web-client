@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { getMessagesForSensor } from '../../../../state/actions/dataStream';
+import {cleanUpDataStreamState, getMessagesForSensor} from '../../../../state/actions/dataStream';
 import { asyncForEach } from '../../../../state/helpers/asyncForEach';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -189,6 +189,20 @@ const ConfigureStreamView = (props: Props) => {
                 color="primary"
               >
                 Start
+              </Button>
+              <Button
+                style={{
+                  margin: theme.spacing(1),
+                }}
+                disabled={isStreaming}
+                onClick={() => {
+                  dispatch(cleanUpDataStreamState());
+                  setIsStreaming(false);
+                }}
+                variant="contained"
+                color="primary"
+              >
+                Reset
               </Button>
             </Paper>
           </Grid>
