@@ -47,7 +47,7 @@ function Statistics(props: Props) {
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <Grid alignItems="center" container justify="space-between">
-        <Grid className={classes.item} item md={3} sm={6} xs={12}>
+        <Grid className={classes.item} item md={6} sm={6} xs={12}>
           <Typography variant="h2" color="textPrimary">
             {`${dataStreamEntityContractBalance} `}ETH
           </Typography>
@@ -55,30 +55,12 @@ function Statistics(props: Props) {
             Earned from selling data streams
           </Typography>
         </Grid>
-        <Grid className={classes.item} item md={3} sm={6} xs={12}>
+        <Grid className={classes.item} item md={6} sm={6} xs={12}>
           <Typography variant="h2" color="textPrimary">
             {sensorContractAddresses.length}
           </Typography>
           <Typography className={classes.overline} variant="overline" color="textSecondary">
             Sensors
-          </Typography>
-        </Grid>
-        <Grid className={classes.item} item md={3} sm={6} xs={12}>
-          <Typography variant="h2" color="textPrimary">
-            visitors
-          </Typography>
-          <Typography className={classes.overline} variant="overline" color="textSecondary">
-            Today&apos;s Visitors
-          </Typography>
-        </Grid>
-        <Grid className={classes.item} item md={3} sm={6} xs={12}>
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <Typography component="span" variant="h2" color="textPrimary">
-              watching
-            </Typography>
-          </Box>
-          <Typography className={classes.overline} variant="overline" color="textSecondary">
-            Watching now
           </Typography>
         </Grid>
       </Grid>

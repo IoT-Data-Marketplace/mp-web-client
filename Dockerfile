@@ -9,5 +9,5 @@ RUN yarn build
 FROM nginx:1.18.0-alpine
 COPY --from=imageBuilder /app/build /var/www
 COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 8050
+EXPOSE 8040
 ENTRYPOINT ["nginx","-g","daemon off;"]

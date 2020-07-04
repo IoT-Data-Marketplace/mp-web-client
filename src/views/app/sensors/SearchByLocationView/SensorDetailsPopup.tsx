@@ -4,11 +4,11 @@ import TextField from '@material-ui/core/TextField';
 import { Box, Button, Card, makeStyles, Typography } from '@material-ui/core';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Link as RouterLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Sensor, SensorType } from '../../../../state/interfaces';
 import theme from '../../../../theme/Theme';
 import { ROUTES } from '../../../../constants';
-import { useSelector } from 'react-redux';
-import {StoreState} from "../../../../state/interfaces/storeState";
+import { StoreState } from '../../../../state/interfaces/storeState';
 
 const useStyles = makeStyles(() => ({
   reviewGrid: {
@@ -123,9 +123,6 @@ const SensorDetailsPopup = (props: Props) => {
             Buy This Data Stream
           </Button>
         )}
-
-
-
       </Box>
     </Popup>
   );

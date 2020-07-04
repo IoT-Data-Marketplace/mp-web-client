@@ -37,6 +37,8 @@ export const getSensorsForDataStreamEntityContractAddress = (dataStreamEntityCon
           .methods.getDataStreamSubscriptionContractAddressForDSE(dataStreamEntityContractAddress)
           .call();
 
+        console.log('subscriptionResult: ', subscriptionResult);
+
         const sensorSummary = await fetchSensorSummary(sensorContractAddress);
         dispatch<AddFetchedSensorAction>(
           addFetchedSensor({
@@ -88,21 +90,23 @@ export const getAllDataMarketplaceSensors = () => {
             .call();
 
           const sensorSummary = await fetchSensorSummary(sensorContractAddress);
-          dispatch<AddFetchedSensorAction>(
-            addFetchedSensor({
-              sensorContractAddress,
-              dataStreamEntityContractAddress: sensorResult[0],
-              sensorType: sensorResult[1],
-              geolocation: {
-                latitude: sensorResult[2],
-                longitude: sensorResult[3],
-              },
-              sensorStatus: sensorResult[4],
-              pricePerDataUnit: sensorResult[5],
-              streamSize: sensorSummary.streamSize,
-              subscribed: subscriptionResult !== DEFAULT_ETH_ADDRESS,
-            })
-          );
+          if (sensorResult[4] === 1) {
+            dispatch<AddFetchedSensorAction>(
+              addFetchedSensor({
+                sensorContractAddress,
+                dataStreamEntityContractAddress: sensorResult[0],
+                sensorType: sensorResult[1],
+                geolocation: {
+                  latitude: sensorResult[2],
+                  longitude: sensorResult[3],
+                },
+                sensorStatus: sensorResult[4],
+                pricePerDataUnit: sensorResult[5],
+                streamSize: sensorSummary.streamSize,
+                subscribed: subscriptionResult !== DEFAULT_ETH_ADDRESS,
+              })
+            );
+          }
         });
       });
     } catch (e) {

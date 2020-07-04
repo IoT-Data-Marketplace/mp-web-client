@@ -19,11 +19,10 @@ global:
 graphQlEndpoint: ""
 
 service:
-  portName: mp-web-8050
-  type: NodePort
-  port: 8050
-  targetPort: 8050
-  nodePort: 30100
+  portName: http-8040
+  type: ClusterIP
+  port: 8040
+  targetPort: 8040
 
 reactAppIoTDataMarketplaceContractAddress: ""
 

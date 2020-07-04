@@ -11,6 +11,5 @@ spec:
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
       name: {{ .Values.service.portName }}
-      nodePort: {{ required "A valid .Values.service.nodePort entry required!" .Values.service.nodePort }}
   selector:
     {{- include "mp-web-client.selectorLabels" . | nindent 4 }}
