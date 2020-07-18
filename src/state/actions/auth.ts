@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { constants } from 'http2';
 import IoTDataMarketplace from '../../blockchain/ioTDataMarketplace';
 import DataStreamEntity from '../../blockchain/dataStreamEntity';
 import { ActionTypes } from './types';
@@ -20,15 +21,6 @@ const Eth = require('ethjs');
 // @ts-ignore
 const ETH = window.Eth;
 
-const handleSignMessage = ({ publicAddress, nonce }) => {
-  return new Promise((resolve, reject) =>
-    web3.eth.sign(web3.utils.fromUtf8(`I am signing my one-time nonce: ${nonce}`), publicAddress, (err, signature) => {
-      if (err) return reject(err);
-      return resolve({ publicAddress, signature });
-    })
-  );
-};
-
 export interface ToggleIsLoggedInAction {
   type: ActionTypes.toggleIsLoggedIn;
   isLoggedIn: boolean;
@@ -38,6 +30,18 @@ export const toggleIsLoggedIn = (isLoggedIn: boolean): ToggleIsLoggedInAction =>
   return {
     type: ActionTypes.toggleIsLoggedIn,
     isLoggedIn,
+  };
+};
+
+export interface SetJWTTokenAction {
+  type: ActionTypes.setJWTToken;
+  jwt: string;
+}
+
+export const setJWTToken = (jwt: string): SetJWTTokenAction => {
+  return {
+    type: ActionTypes.setJWTToken,
+    jwt,
   };
 };
 
@@ -74,6 +78,25 @@ export const signIn = (signInFormData: SignInFormData) => {
 
       console.log('res: ', signed);
 
+      const jwtResult = await API.post(`/auth/challenge`, {
+        signature: signed,
+        nonce: result.data,
+        dspAccountAddress: accounts[0],
+        dspContractAddress: dataStreamEntityContractAddress,
+      });
+
+      // if (jwtResult.status === 200) {
+      //   const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
+      //     .methods.describeDataStreamEntity()
+      //     .call();
+      //
+      //   dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
+      //   dispatch<SetJWTTokenAction>(setJWTToken(jwtResult.data));
+      //
+      //   const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
+      //
+      //   dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
+      // }
       // handleSignMessage({
       //   nonce: result.data,
       //   publicAddress: accounts[0],

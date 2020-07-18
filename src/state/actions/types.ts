@@ -1,6 +1,6 @@
 import { ToggleDrawerAction, ToggleIsLoadingAction } from './ui';
 import { DescribeDataMarketplaceAction } from './dataMarketplace';
-import { SignInAction, SignUpAction, ToggleIsLoggedInAction } from './auth';
+import { SignInAction, SignUpAction, ToggleIsLoggedInAction, SetJWTTokenAction } from './auth';
 import {
   FetchDataStreamEntityAction,
   FetchDataStreamEntityContractBalanceAction,
@@ -18,11 +18,12 @@ import {
 import {
   AddFetchedSensorAction,
   GetAllDataMarketplaceSensorsAction,
-  GetSensorForDataStreamEntityContractAddressAction
+  GetSensorForDataStreamEntityContractAddressAction,
 } from './sensor/sensor';
 import { SetSensorStatusAction } from './sensor/sensorStatus';
 import {
-  BuyDataStreamAction, CleanUpDataStreamStateAction,
+  BuyDataStreamAction,
+  CleanUpDataStreamStateAction,
   GetMessagesForSensorAction,
   SetDataStreamRecordsAction,
   SetDataStreamSizeAction,
@@ -35,6 +36,7 @@ export enum ActionTypes {
   signUp,
   toggleIsLoading,
   toggleIsLoggedIn,
+  setJWTToken,
   setDataStreamEntity,
   fetchDataStreamEntityContractBalance,
   setDataStreamEntityContractBalance,
@@ -64,6 +66,7 @@ export type Action =
   | ToggleIsLoadingAction
   | SetDataStreamEntityAction
   | ToggleIsLoggedInAction
+  | SetJWTTokenAction
   | FetchDataStreamEntityContractBalanceAction
   | SetDataStreamEntityContractBalanceAction
   | SetSensorTypeAction
