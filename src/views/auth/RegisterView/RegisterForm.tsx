@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Box, Button, Checkbox, FormHelperText, Link, makeStyles, TextField, Typography } from '@material-ui/core';
+import keypair from 'keypair';
 import { signUp } from '../../../state/actions/auth';
 
 const useStyles = makeStyles(() => ({
@@ -16,10 +17,21 @@ interface Props {
   onSubmitSuccess: any;
 }
 
+const downloadFile = (fileName: string, content: string) => {
+  const element = document.createElement('a');
+  // @ts-ignore
+  const file = new Blob([content], { type: 'text/plain' });
+  element.href = URL.createObjectURL(file);
+  element.download = `${fileName}.txt`;
+  document.body.appendChild(element); // Required for this to work in FireFox
+  element.click();
+};
+
 function RegisterForm(props: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { className, rest, onSubmitSuccess } = props;
+  const pair = keypair();
 
   return (
     <Formik
@@ -27,7 +39,7 @@ function RegisterForm(props: Props) {
         accountName: 'Danijel',
         accountURL: 'http://www.danijel.com',
         accountEmail: 'danijel.fon@gmail.com',
-        rsaPublicKey: '',
+        rsaPublicKey: pair.public,
         policy: false,
       }}
       validationSchema={Yup.object().shape({
@@ -51,6 +63,8 @@ function RegisterForm(props: Props) {
               rsaPublicKey: values.rsaPublicKey,
             })
           );
+          downloadFile('publicKey', pair.public);
+          downloadFile('privateKey', pair.private);
           onSubmitSuccess();
         } catch (error) {
           console.error(error);
@@ -99,18 +113,20 @@ function RegisterForm(props: Props) {
             variant="outlined"
           />
           <TextField
+            id="rsaPublicKey"
             error={Boolean(touched.rsaPublicKey && errors.rsaPublicKey)}
             fullWidth
             helperText={touched.rsaPublicKey && errors.rsaPublicKey}
             label="RSA Public Key"
             margin="normal"
             multiline
+            contentEditable={false}
             rows={4}
             name="rsaPublicKey"
             onBlur={handleBlur}
             onChange={handleChange}
             type="email"
-            value={values.rsaPublicKey}
+            value={pair.public}
             variant="outlined"
           />
 

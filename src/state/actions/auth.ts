@@ -7,6 +7,27 @@ import web3 from '../../blockchain/web3';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import { populateDataStreamEntity } from '../helpers/populateDataStreamEntity';
 import { setDataStreamEntity, SetDataStreamEntityAction } from './dataStreamEntity';
+import { baseEndpoint } from '../../constants';
+import API from '../../apiAxios';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const ethUtil = require('ethereumjs-util');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const sigUtil = require('eth-sig-util');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Eth = require('ethjs');
+
+// @ts-ignore
+const ETH = window.Eth;
+
+const handleSignMessage = ({ publicAddress, nonce }) => {
+  return new Promise((resolve, reject) =>
+    web3.eth.sign(web3.utils.fromUtf8(`I am signing my one-time nonce: ${nonce}`), publicAddress, (err, signature) => {
+      if (err) return reject(err);
+      return resolve({ publicAddress, signature });
+    })
+  );
+};
 
 export interface ToggleIsLoggedInAction {
   type: ActionTypes.toggleIsLoggedIn;
@@ -31,20 +52,53 @@ export const signIn = (signInFormData: SignInFormData) => {
       const accounts = await web3.eth.getAccounts();
       const { dataStreamEntityContractAddress } = signInFormData;
 
-      const authenticated = await DataStreamEntity(dataStreamEntityContractAddress)
-        .methods.isAuthenticated()
-        .call({ from: accounts[0] });
-      dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(authenticated));
+      // const result = await fetch(
+      //   `${baseEndpoint}/auth/challenge?dspAccountAddress=${accounts[0]}&dspContractAddress=${dataStreamEntityContractAddress}`,
+      //   {
+      //     method: 'GET', // *GET, POST, PUT, DELETE, etc.
+      //     mode: 'no-cors', // no-cors, *cors, same-origin
+      //   }
+      // ).then((data) => data.json());
+      //
+      // console.error('Res: ', result);
 
-      if (authenticated) {
-        const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
-          .methods.describeDataStreamEntity()
-          .call();
+      const result = await API.get(
+        `/auth/challenge?dspAccountAddress=${accounts[0]}&dspContractAddress=${dataStreamEntityContractAddress}`
+      );
 
-        const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
+      const eth = new Eth(web3.currentProvider);
 
-        dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
-      }
+      const msg = ethUtil.bufferToHex(Buffer.from(result.data, 'utf8'));
+
+      const signed = await eth.personal_sign(msg, accounts[0]);
+
+      console.log('res: ', signed);
+
+      // handleSignMessage({
+      //   nonce: result.data,
+      //   publicAddress: accounts[0],
+      // })
+      //   .then((r) => console.log('rr: ', r))
+      //   .catch((error) => console.error('er: ', error));
+
+      // await web3.personal.sign(result.data, accounts[0], function (error, signature) {
+      //   console.log(signature, error);
+      // });
+
+      // const authenticated = await DataStreamEntity(dataStreamEntityContractAddress)
+      //   .methods.isAuthenticated()
+      //   .call({ from: accounts[0] });
+      // dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(authenticated));
+      //
+      // if (authenticated) {
+      //   const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
+      //     .methods.describeDataStreamEntity()
+      //     .call();
+      //
+      //   const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
+      //
+      //   dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
+      // }
     } catch (e) {
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));
       throw e;
