@@ -7,6 +7,6 @@ const endpoint = process.env.NODE_ENV === 'production' ? 'https://iot-data-mp.co
 // @ts-ignore
 export const graphQLClient = new GraphQLClient(endpoint, {
   headers: {
-    Authorization: 'Bearer MY_TOKEN',
+    Authorization: `Bearer ${store.getState().auth.jwt}`,
   },
 });

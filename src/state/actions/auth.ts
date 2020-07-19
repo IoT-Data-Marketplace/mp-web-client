@@ -85,18 +85,18 @@ export const signIn = (signInFormData: SignInFormData) => {
         dspContractAddress: dataStreamEntityContractAddress,
       });
 
-      // if (jwtResult.status === 200) {
-      //   const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
-      //     .methods.describeDataStreamEntity()
-      //     .call();
-      //
-      //   dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
-      //   dispatch<SetJWTTokenAction>(setJWTToken(jwtResult.data));
-      //
-      //   const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
-      //
-      //   dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
-      // }
+      if (jwtResult.status === 200) {
+        const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
+          .methods.describeDataStreamEntity()
+          .call();
+
+        dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
+        dispatch<SetJWTTokenAction>(setJWTToken(jwtResult.data));
+
+        const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
+
+        dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
+      }
       // handleSignMessage({
       //   nonce: result.data,
       //   publicAddress: accounts[0],
