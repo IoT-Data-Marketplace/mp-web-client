@@ -54,6 +54,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "telepresence": "PORT=8040 react-scripts start .env.cluster",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

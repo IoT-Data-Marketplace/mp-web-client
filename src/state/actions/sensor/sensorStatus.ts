@@ -14,10 +14,13 @@ export const activateSensor = (sensorContractAddress: string) => {
     try {
       dispatch<ToggleIsLoadingAction>(toggleIsLoading(true));
       const res = await graphQLClient.rawRequest(getRegisterSensorGQLQuery(sensorContractAddress));
-      if (res.data.registerSensor.statusCode !== 200)
+      if (res.data.registerSensor.statusCode === 200) {
+        console.log(res.data.responseBody);
+      } else {
         throw new Error(
           `Error while activating the sensor with name: ${sensorContractAddress} \nResponse code: ${res.data.registerSensor.statusCode}\nResponse Body: ${res.data.registerSensor.responseBody}`
         );
+      }
     } catch (e) {
       console.error('Error while activating the sensor, Error: ', e);
     } finally {

@@ -18,4 +18,5 @@ export const ROUTES = {
 
 export const DEFAULT_ETH_ADDRESS = '0x0000000000000000000000000000000000000000';
 
-export const baseEndpoint = process.env.NODE_ENV === 'production' ? 'https://iot-data-mp.com' : 'http://localhost:8050';
+export const baseEndpoint = 'https://iot-data-mp.com';
+// export const baseEndpoint = 'http://localhost:8050';

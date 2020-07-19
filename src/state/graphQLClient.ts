@@ -1,7 +1,8 @@
 import { GraphQLClient } from 'graphql-request';
 import { store } from '../index';
+import { baseEndpoint } from '../constants';
 
-const endpoint = process.env.NODE_ENV === 'production' ? 'https://iot-data-mp.com/graphql' : 'http://localhost:8050/graphql';
+const endpoint = `${baseEndpoint}/graphql`;
 
 // eslint-disable-next-line import/prefer-default-export
 // @ts-ignore

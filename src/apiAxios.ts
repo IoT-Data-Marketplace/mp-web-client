@@ -1,5 +1,6 @@
 import axios from 'axios';
+import { baseEndpoint } from './constants';
 
 export default axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? 'https://iot-data-mp.com' : 'http://localhost:8050',
+  baseURL: baseEndpoint,
 });
