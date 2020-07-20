@@ -4,6 +4,7 @@ import { getFetchSensorSummaryGQLQuery } from '../graphQlQueris/gqlQueries';
 
 interface SensorSummary {
   streamSize: number;
+  jwt?: string;
 }
 
 /*

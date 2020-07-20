@@ -31,6 +31,7 @@ export interface Sensor {
   streamSize: number;
   pricePerDataUnit: number;
   subscribed: boolean;
+  jwt?: string;
 }
 
 export interface SensorState {

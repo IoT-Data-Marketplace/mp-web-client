@@ -11,9 +11,10 @@ const sensorReducer = (state: SensorState = initialState, action: Action): Senso
     case ActionTypes.addFetchedSensor:
       return {
         ...state,
-        sensors: state.sensors.some((value) => value.sensorContractAddress === action.sensor.sensorContractAddress)
-          ? state.sensors
-          : [...state.sensors, action.sensor],
+        sensors: state.sensors.map((sen) => {
+          if (sen.sensorContractAddress === action.sensor.sensorContractAddress) return action.sensor;
+          return sen;
+        }),
       };
     case ActionTypes.toggleIsLoggedIn:
       return initialState;

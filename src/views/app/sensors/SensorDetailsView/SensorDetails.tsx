@@ -231,6 +231,7 @@ function SensorDetails(props: Props) {
                     --privileged \ <br />
                     --restart=always \ <br />
                     --env MP_IOT_DEVICE_CLIENT_SENSOR_ID=&quot;{sensor.sensorContractAddress}&quot; \ <br />
+                    --env MP_IOT_DEVICE_CLIENT_JWT=&quot;{sensor.jwt}&quot; \ <br />
                     --env MP_IOT_ENCRYPTION_AES_KEY=&quot;&lt;SENSOR_ENCRYPTION_AES_KEY&gt;&quot; \ <br />
                     ddanijeld/mp-iot-device-client:latest
                   </Typography>

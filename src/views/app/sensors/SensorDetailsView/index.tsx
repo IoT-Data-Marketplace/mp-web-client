@@ -35,6 +35,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
       streamSize: 0,
       pricePerDataUnit: 0,
       subscribed: false,
+      jwt: '',
     },
   };
 
@@ -58,6 +59,7 @@ class _SensorDetailsView extends React.Component<PropsType> {
           sensorStatus: result[4],
           streamSize: sensorSummary.streamSize,
           subscribed: false, // todo
+          jwt: sensorSummary.jwt,
         },
       });
     } catch (e) {

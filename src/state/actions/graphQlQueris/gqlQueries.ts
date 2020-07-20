@@ -23,7 +23,8 @@ export const getFetchSensorSummaryGQLQuery = (sensorContractAddress: string): st
     getSensorSummary(
       sensorContractAddress:"${sensorContractAddress}"
     ) {
-        streamSize
+        streamSize,
+        jwt
     }
   }`;
 };
