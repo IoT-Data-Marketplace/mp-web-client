@@ -44,3 +44,34 @@ export const getGetMessagesForSensorGQLQuery = (sensorContractAddress: string, o
       }
   }`;
 };
+
+export const getGetAuthNonceGQLQuery = (dspAccountAddress: string, dspContractAddress: string): string => {
+  return `mutation{
+    getAuthNonce(
+      dspAccountAddress:"${dspAccountAddress}",
+      dspContractAddress:"${dspContractAddress}"
+    ) {
+        statusCode,
+        responseBody
+    }
+  }`;
+};
+
+export const getVerifyAuthChallengeGQLQuery = (
+  signature: string,
+  nonce: string,
+  dspAccountAddress: string,
+  dspContractAddress: string
+): string => {
+  return `mutation{
+    verifyAuthChallenge(
+      signature:"${signature}",
+      nonce:"${nonce}",
+      dspAccountAddress:"${dspAccountAddress}",
+      dspContractAddress:"${dspContractAddress}"
+    ) {
+        statusCode,
+        responseBody
+    }
+  }`;
+};

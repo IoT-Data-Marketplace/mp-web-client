@@ -9,7 +9,8 @@ import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import { populateDataStreamEntity } from '../helpers/populateDataStreamEntity';
 import { setDataStreamEntity, SetDataStreamEntityAction } from './dataStreamEntity';
 import { baseEndpoint } from '../../constants';
-import API from '../../apiAxios';
+import { getGraphQLClient } from '../graphQLClient';
+import { getGetAuthNonceGQLQuery, getVerifyAuthChallengeGQLQuery } from './graphQlQueris/gqlQueries';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const ethUtil = require('ethereumjs-util');
@@ -66,62 +67,51 @@ export const signIn = (signInFormData: SignInFormData) => {
       //
       // console.error('Res: ', result);
 
-      const result = await API.get(
-        `/auth/challenge?dspAccountAddress=${accounts[0]}&dspContractAddress=${dataStreamEntityContractAddress}`
+      // const result = await API.get(
+      //   `/auth/challenge?dspAccountAddress=${accounts[0]}&dspContractAddress=${dataStreamEntityContractAddress}`
+      // );
+
+      const result = await getGraphQLClient(false).rawRequest(
+        getGetAuthNonceGQLQuery(accounts[0], dataStreamEntityContractAddress)
       );
+
+      if (result.data.getAuthNonce.statusCode !== 200) {
+        throw new Error('Error while fetching the nonce for');
+      }
 
       const eth = new Eth(web3.currentProvider);
 
-      const msg = ethUtil.bufferToHex(Buffer.from(result.data, 'utf8'));
+      const nonce = result.data.getAuthNonce.responseBody;
+
+      const msg = ethUtil.bufferToHex(Buffer.from(nonce, 'utf8'));
 
       const signed = await eth.personal_sign(msg, accounts[0]);
 
       console.log('res: ', signed);
 
-      const jwtResult = await API.post(`/auth/challenge`, {
-        signature: signed,
-        nonce: result.data,
-        dspAccountAddress: accounts[0],
-        dspContractAddress: dataStreamEntityContractAddress,
-      });
+      // const jwtResult = await API.post(`/auth/challenge`, {
+      //   signature: signed,
+      //   nonce: result.data,
+      //   dspAccountAddress: accounts[0],
+      //   dspContractAddress: dataStreamEntityContractAddress,
+      // });
 
-      if (jwtResult.status === 200) {
+      const jwtResult = await getGraphQLClient(false).rawRequest(
+        getVerifyAuthChallengeGQLQuery(signed, nonce, accounts[0], dataStreamEntityContractAddress)
+      );
+
+      if (jwtResult.data.verifyAuthChallenge.statusCode === 200) {
         const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
           .methods.describeDataStreamEntity()
           .call();
 
         dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(true));
-        dispatch<SetJWTTokenAction>(setJWTToken(jwtResult.data));
+        dispatch<SetJWTTokenAction>(setJWTToken(jwtResult.data.verifyAuthChallenge.responseBody));
 
         const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
 
         dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
       }
-      // handleSignMessage({
-      //   nonce: result.data,
-      //   publicAddress: accounts[0],
-      // })
-      //   .then((r) => console.log('rr: ', r))
-      //   .catch((error) => console.error('er: ', error));
-
-      // await web3.personal.sign(result.data, accounts[0], function (error, signature) {
-      //   console.log(signature, error);
-      // });
-
-      // const authenticated = await DataStreamEntity(dataStreamEntityContractAddress)
-      //   .methods.isAuthenticated()
-      //   .call({ from: accounts[0] });
-      // dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(authenticated));
-      //
-      // if (authenticated) {
-      //   const dataStreamEntityResult = await DataStreamEntity(dataStreamEntityContractAddress)
-      //     .methods.describeDataStreamEntity()
-      //     .call();
-      //
-      //   const populatedDataStreamEntity = populateDataStreamEntity(dataStreamEntityResult, dataStreamEntityContractAddress);
-      //
-      //   dispatch<SetDataStreamEntityAction>(setDataStreamEntity(populatedDataStreamEntity));
-      // }
     } catch (e) {
       dispatch<ToggleIsLoggedInAction>(toggleIsLoggedIn(false));
       throw e;
