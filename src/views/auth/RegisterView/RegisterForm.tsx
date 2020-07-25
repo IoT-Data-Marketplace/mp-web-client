@@ -1,11 +1,12 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Box, Button, Checkbox, FormHelperText, Link, makeStyles, TextField, Typography } from '@material-ui/core';
 import keypair from 'keypair';
 import { signUp } from '../../../state/actions/auth';
+import {StoreState} from "../../../state/interfaces/storeState";
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -30,6 +31,7 @@ const downloadFile = (fileName: string, content: string) => {
 function RegisterForm(props: Props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { dataStreamEntity } = useSelector((state: StoreState) => state);
   const { className, rest, onSubmitSuccess } = props;
   const pair = keypair();
 
@@ -63,7 +65,7 @@ function RegisterForm(props: Props) {
               rsaPublicKey: values.rsaPublicKey,
             })
           );
-          downloadFile('publicKey', pair.public);
+          downloadFile('account-info', `${JSON.stringify(dataStreamEntity)}\n\n${pair.public}\n\n${pair.private}`);
           downloadFile('privateKey', pair.private);
           onSubmitSuccess();
         } catch (error) {

@@ -90,7 +90,7 @@ export const getAllDataMarketplaceSensors = () => {
             .call();
 
           const sensorSummary = await fetchSensorSummary(sensorContractAddress);
-          if (sensorResult[4] === 1) {
+          if (sensorResult[4] === '1') {
             dispatch<AddFetchedSensorAction>(
               addFetchedSensor({
                 sensorContractAddress,

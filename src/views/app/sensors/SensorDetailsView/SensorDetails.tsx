@@ -229,10 +229,12 @@ function SensorDetails(props: Props) {
                   <Typography variant="h5" color="textSecondary">
                     docker run \ <br />
                     --privileged \ <br />
+                    -d \ <br />
                     --restart=always \ <br />
                     --env MP_IOT_DEVICE_CLIENT_SENSOR_ID=&quot;{sensor.sensorContractAddress}&quot; \ <br />
                     --env MP_IOT_DEVICE_CLIENT_JWT=&quot;{sensor.jwt}&quot; \ <br />
-                    --env MP_IOT_ENCRYPTION_AES_KEY=&quot;&lt;SENSOR_ENCRYPTION_AES_KEY&gt;&quot; \ <br />
+                    {/* --env MP_IOT_ENCRYPTION_AES_KEY=&quot;&lt;SENSOR_ENCRYPTION_AES_KEY&gt;&quot; \ <br /> */}
+                    --env MP_IOT_ENCRYPTION_AES_KEY=&quot;9F86D081884C7D659A2FEAA0C55AD015&quot; \ <br />
                     ddanijeld/mp-iot-device-client:latest
                   </Typography>
                 </Alert>

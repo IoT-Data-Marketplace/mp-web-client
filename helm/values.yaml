@@ -21,7 +21,7 @@ graphQlEndpoint: ""
 service:
   portName: http-8040
   nodePort: 30445
-  type: NodePort
+  type: ClusterIP
   port: 8040
   targetPort: 8040
 

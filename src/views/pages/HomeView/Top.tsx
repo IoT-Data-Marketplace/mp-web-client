@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { Box, Container, Grid, Typography } from '@material-ui/core';
-import {  makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
@@ -41,12 +41,7 @@ function Top(props: Props) {
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid item xs={12} md={5}>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              height="100%"
-            >
+            <Box display="flex" flexDirection="column" justifyContent="center" height="100%">
               <Typography variant="overline" color="secondary">
                 Introducing
               </Typography>
@@ -55,8 +50,7 @@ function Top(props: Props) {
               </Typography>
               <Box mt={3}>
                 <Typography variant="body1" color="textSecondary">
-                  Data Sovereignty Provision in Cloud-and-Blockchain-Integrated
-                  IoT Data Platform
+                  Data Sovereignty Provision in Cloud-and-Blockchain-Integrated IoT Data Platform
                 </Typography>
               </Box>
               <Box mt={3}>
