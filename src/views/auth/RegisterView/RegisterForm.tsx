@@ -1,12 +1,13 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Box, Button, Checkbox, FormHelperText, Link, makeStyles, TextField, Typography } from '@material-ui/core';
 import keypair from 'keypair';
 import { signUp } from '../../../state/actions/auth';
-import {StoreState} from "../../../state/interfaces/storeState";
+import { StoreState } from '../../../state/interfaces/storeState';
+import { downloadFile } from '../../../state/helpers/downloadFile';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -17,16 +18,6 @@ interface Props {
   rest?: any;
   onSubmitSuccess: any;
 }
-
-const downloadFile = (fileName: string, content: string) => {
-  const element = document.createElement('a');
-  // @ts-ignore
-  const file = new Blob([content], { type: 'text/plain' });
-  element.href = URL.createObjectURL(file);
-  element.download = `${fileName}.txt`;
-  document.body.appendChild(element); // Required for this to work in FireFox
-  element.click();
-};
 
 function RegisterForm(props: Props) {
   const classes = useStyles();
@@ -65,8 +56,8 @@ function RegisterForm(props: Props) {
               rsaPublicKey: values.rsaPublicKey,
             })
           );
-          downloadFile('account-info', `${JSON.stringify(dataStreamEntity)}\n\n${pair.public}\n\n${pair.private}`);
-          downloadFile('privateKey', pair.private);
+          downloadFile('account-info', `${JSON.stringify(dataStreamEntity)}\n\n${pair.public}\n\n${pair.private}.txt`);
+          // downloadFile('privateKey.pem', pair.private);
           onSubmitSuccess();
         } catch (error) {
           console.error(error);

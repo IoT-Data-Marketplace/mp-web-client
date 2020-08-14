@@ -8,6 +8,7 @@ import LineChart from './LineChart';
 import RadialChart from './RadialChart';
 import ConfigureStreamView from './ConfigureStreamView';
 import { cleanUpDataStreamState } from '../../../../state/actions/dataStream';
+import DownloadStreamFileView from './DownloadStreamFileView';
 
 interface RouterProps {
   match: any;
@@ -34,6 +35,8 @@ function SensorListView({ match }: Props) {
             </Grid>
             <Grid item xs={12} md={8}>
               <ConfigureStreamView sensorContractAddress={match.params.sensorContractAddress} />
+              <br />
+              <DownloadStreamFileView sensorContractAddress={match.params.sensorContractAddress} />
             </Grid>
             <Grid item xs={12} md={4}>
               <RadialChart />

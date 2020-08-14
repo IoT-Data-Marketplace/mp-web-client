@@ -4,10 +4,12 @@ import { decrypt, fetchSensorSummary } from './sensor/fn';
 import { graphQLClient } from '../graphQLClient';
 import { getGetMessagesForSensorGQLQuery } from './graphQlQueris/gqlQueries';
 import { DataStreamRecord } from '../interfaces';
-import { store } from '../../index';
+import configureStore from '../configureStore';
 import { toggleIsLoading, ToggleIsLoadingAction } from './ui';
 import web3 from '../../blockchain/web3';
 import SensorContract from '../../blockchain/sensor';
+
+export const store = configureStore();
 
 const last = (array: DataStreamRecord[]): DataStreamRecord => {
   return array[array.length - 1];
@@ -113,7 +115,12 @@ export const getMessagesForSensor = (sensorContractAddress: string, desiredRecor
       // );
 
       const messagesResult = await graphQLClient.rawRequest(
-        getGetMessagesForSensorGQLQuery(sensorContractAddress, desiredOffset, desiredRecordSize)
+        getGetMessagesForSensorGQLQuery(
+          store.getState().dataStreamEntity.dataStreamEntityContractAddress,
+          sensorContractAddress,
+          desiredOffset,
+          desiredRecordSize
+        )
       );
       console.log('getGetMessagesForSensorGQLQuery Result: ', messagesResult);
 
